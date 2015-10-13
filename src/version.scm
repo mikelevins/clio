@@ -13,7 +13,7 @@
 ;;; the version format is:
 ;;; major.minor.patch.build-number
 
-(define +clio-version+ (vector 0 0 1 1))
+(define +clio-version+ (vector 0 0 1 2))
 
 (define (clio-version) +clio-version+)
 (define (clio-major-version) (vector-ref +clio-version+ 0))

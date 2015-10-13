@@ -25,6 +25,15 @@
 (define $sources
   (paths $root 
          "/src/version.scm"
+         "/src/globals.scm"
+         "/src/env.scm"
+         "/src/methods.scm"
+         "/src/returns.scm"
+         "/src/vm.scm"
+         "/src/vmops.scm"
+         "/src/opcodes.scm"
+         "/src/instructions.scm"
+         "/src/vmdisplay.scm"
          ))
 
 ;;; load sources
