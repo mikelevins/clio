@@ -18,6 +18,7 @@
                 #:&rest
                 #:and
                 #:apply
+                #:character
                 #:cond
                 #:cons
                 #:defgeneric
@@ -32,7 +33,9 @@
                 #:not
                 #:null
                 #:or
+                #:pathname
                 #:quote
+                #:stream
                 #:string
                 #:t
                 #:unless
