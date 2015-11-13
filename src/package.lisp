@@ -45,6 +45,19 @@
                 #:when
                 )
   (:import-from :fset
+                #:map
                 #:seq)
+  (:import-from :local-time
+                #:now
+                #:timestamp)
+  (:import-from :puri
+                #:parse-uri
+                #:uri
+                #:uri-host
+                #:uri-path
+                #:uri-port
+                #:uri-query
+                #:uri-scheme
+                )
   (:export))
 

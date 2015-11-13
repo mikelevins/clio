@@ -21,7 +21,7 @@
     :description "Describe clio here"
     :author "Your Name <your.name@example.com>"
     :license "Specify license here"
-    :depends-on (:fset :series)
+    :depends-on (:fset :series :local-time :puri)
     :components ((:module "src"
                           :serial t
                           :components ((:file "package")
@@ -29,7 +29,12 @@
                                        (:file "make")
                                        (:file "as")
                                        (:file "pair")
-                                       (:file "list-syntax")))))
+                                       (:file "sequence")
+                                       (:file "map")
+                                       (:file "list-syntax")
+                                       (:file "map-syntax")
+                                       (:file "tap")
+                                       ))))
 
 ;;; (asdf:load-system :clio)
 

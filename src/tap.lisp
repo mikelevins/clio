@@ -25,21 +25,21 @@
 (defmethod tap ((type (cl:eql :words))(source stream)
                 &key (word-break-characters +whitespace-characters+)
                   &allow-other-keys)
-  (let* ((chars (series:scan-stream source #'cl:read-char))
-         (break-flags (series:map-fn t (lambda (ch)
-                                         (cl:member ch word-break-characters))
-                                     chars))
-         (break-positions (series:positions break-flags))
-         (break-positions0 (series:catenate (series:scan '(-1))
-                                            break-positions))
-         (break-positions1 (series:catenate break-positions
-                                            (series:scan '(nil))))
-         (chunks (series:map-fn t (lambda (x y)
-                                    (if y
-                                        (series:subseries chars (cl:1+ x) y)
-                                        (series:subseries chars (cl:1+ x))))
-                                break-positions0
-                                break-positions1)))
+  (cl:let* ((chars (series:scan-stream source #'cl:read-char))
+            (break-flags (series:map-fn t (lambda (ch)
+                                            (cl:member ch word-break-characters))
+                                        chars))
+            (break-positions (series:positions break-flags))
+            (break-positions0 (series:catenate (series:scan '(-1))
+                                               break-positions))
+            (break-positions1 (series:catenate break-positions
+                                               (series:scan '(nil))))
+            (chunks (series:map-fn t (lambda (x y)
+                                       (if y
+                                           (series:subseries chars (cl:1+ x) y)
+                                           (series:subseries chars (cl:1+ x))))
+                                   break-positions0
+                                   break-positions1)))
     (series:map-fn t (lambda (s)(series:collect 'string s))
                    chunks)))
 
@@ -60,18 +60,18 @@
 (defmethod tap ((type (cl:eql :words))(source string)
                 &key (word-break-characters +whitespace-characters+)
                   &allow-other-keys)
-  (with-input-from-string (in source)
+  (cl:with-input-from-string (in source)
     (tap :words in)))
 
 (defmethod tap ((type (cl:eql :lines))(source string)
                 &key (line-break-characters +line-break-characters+)
                   &allow-other-keys)
-  (with-input-from-string (in source)
+  (cl:with-input-from-string (in source)
     (tap :lines in)))
 
 (defmethod tap ((type (cl:eql :objects))(source string)
                 &key &allow-other-keys)
-  (with-input-from-string (in source)
+  (cl:with-input-from-string (in source)
     (tap :objects in)))
 
 

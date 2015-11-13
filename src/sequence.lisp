@@ -265,7 +265,7 @@
 (defmethod by ((n integer)(sequence cl:null)) nil)
 
 (defmethod by ((n integer)(sequence cl:cons)) 
-  (if (cl:nthcdr (1- n) sequence)
+  (if (cl:nthcdr (cl:1- n) sequence)
       (cl:cons (take n sequence)
                (by n (drop n sequence)))
       (list sequence)))
@@ -273,15 +273,15 @@
 (defmethod by ((n integer)(sequence cl:vector)) 
   (if (< n (cl:length sequence))
       (cl:concatenate 'cl:vector
-                   (vector (take n sequence))
-                   (by n (drop n sequence)))
+                      (vector (take n sequence))
+                      (by n (drop n sequence)))
       (vector sequence)))
 
 (defmethod by ((n integer)(sequence cl:string)) 
   (if (< n (cl:length sequence))
       (cl:concatenate 'cl:vector
-                   (vector (take n sequence))
-                   (by n (drop n sequence)))
+                      (vector (take n sequence))
+                      (by n (drop n sequence)))
       (vector sequence)))
 
 (defmethod by ((n integer)(sequence seq)) 
@@ -326,7 +326,7 @@
 (defmethod element ((sequence cl:null)(n integer)) (error "index out of range: ~S" n))
 
 (defmethod element ((sequence cl:sequence)(n integer))
-  (elt sequence n))
+  (cl:elt sequence n))
 
 (defmethod element ((sequence seq)(n integer)) 
   (cl:multiple-value-bind (val found?)(fset:@ sequence n)
@@ -469,22 +469,22 @@
 
 (defmethod interpose (item (sequence cl:vector)) 
   (let ((len (cl:length sequence)))
-    (case len
+    (cl:case len
       ((0 1) sequence)
-      (t (let ((result (make-array (1- (* 2 len)) :initial-element item)))
+      (t (let ((result (cl:make-array (cl:1- (* 2 len)) :initial-element item)))
            (cl:loop for i from 0 below len 
-                    do (setf (elt result (* i 2))
-                             (elt sequence i)))
+                    do (cl:setf (cl:elt result (* i 2))
+                                (cl:elt sequence i)))
            result)))))
 
 (defmethod interpose (item (sequence seq)) 
   (let ((len (fset:size sequence)))
-    (case len
+    (cl:case len
       ((0 1) sequence)
-      (t (let ((result-len (1- (* 2 len))))
+      (t (let ((result-len (cl:1- (* 2 len))))
            (fset:convert 'fset:seq
                          (cl:loop for i from 0 below result-len 
-                                  collect (if (zerop (mod i 2))
+                                  collect (if (cl:zerop (cl:mod i 2))
                                               (fset:@ sequence (/ i 2))
                                               item))))))))
 
@@ -511,11 +511,11 @@
 (defmethod last ((sequence cl:vector)) 
   (let ((len (cl:length sequence)))
     (if (> len 0)
-        (elt sequence (1- len))
+        (cl:elt sequence (cl:1- len))
         (error "~S has no elements" sequence))))
 
 (defmethod last ((sequence seq)) 
-  (cl:multiple-value-bind (val found?)(fset:@ sequence (1- (fset:size sequence)))
+  (cl:multiple-value-bind (val found?)(fset:@ sequence (cl:1- (fset:size sequence)))
     (if found? val (error "~S has no elements" sequence))))
 
 ;;; function leave  
@@ -555,6 +555,28 @@
 
 (defmethod length ((sequence seq)) 
   (fset:size sequence))
+
+;;; function map-over
+;;;
+;;; (map-over function sequence) => sequence
+;;; ---------------------------------------------------------------------
+
+(defmethod map-over (function (sequence cl:null))
+  (cl:declare (cl:ignore function sequence))
+  nil)
+
+(defmethod map-over (function (sequence cl:cons))
+  (cl:mapcar function sequence))
+
+(defmethod map-over (function (sequence cl:vector))
+  (cl:map 'cl:vector function sequence))
+
+(defmethod map-over (function (sequence cl:string))
+  (cl:map 'cl:vector function sequence))
+
+(defmethod map-over (function (sequence seq))
+  (fset:image function sequence))
+
 
 ;;; function mismatch  
 ;;;
@@ -637,10 +659,10 @@
            (cl:block searching
              (cl:progn
                (cl:loop for i from 0 below (length prefix)
-                        do (unless (funcall test
-                                            (funcall key (element prefix i))
-                                            (funcall key (element sequence i)))
-                             (return-from searching nil)))
+                        do (unless (cl:funcall test
+                                               (cl:funcall key (element prefix i))
+                                               (cl:funcall key (element sequence i)))
+                             (cl:return-from searching nil)))
                t)))))
 
 (defmethod prefix-match? (prefix sequence &key test key) 
@@ -829,20 +851,24 @@
 ;;; ---------------------------------------------------------------------
 
 (defmethod shuffle ((sequence cl:null))(cl:declare (cl:ignore sequence)) nil)
-(defmethod shuffle ((sequence cl:cons)) (cl:sort (copy-tree sequence) (lambda (x y)(cl:declare (cl:ignore x y))(cl:elt '(nil t)(random 2)))))
+(defmethod shuffle ((sequence cl:cons))
+  (cl:sort (cl:copy-tree sequence)
+           (lambda (x y)
+             (cl:declare (cl:ignore x y))
+             (cl:elt '(nil t)(cl:random 2)))))
 
 (defmethod shuffle ((sequence cl:vector)) 
-  (let ((sequence* (cl:map (type-of sequence) 'cl:identity sequence)))
+  (let ((sequence* (cl:map (cl:type-of sequence) 'cl:identity sequence)))
     (cl:sort sequence*
              (lambda (x y)
                (cl:declare (cl:ignore x y))
-               (cl:elt '(nil t)(random 2))))))
+               (cl:elt '(nil t)(cl:random 2))))))
 
 (defmethod shuffle ((sequence seq))
   (fset:sort sequence
              (lambda (x y)
                (cl:declare (cl:ignore x y))
-               (cl:elt '(nil t)(random 2)))))
+               (cl:elt '(nil t)(cl:random 2)))))
 
 ;;; function some?  
 ;;;
@@ -850,14 +876,14 @@
 ;;; ---------------------------------------------------------------------
 
 (cl:defun some? (predicate sequence &rest sequences) 
-  (let* ((sequences (cl:cons sequence sequences))
-         (lens (cl:mapcar 'length sequences))
-         (len (apply 'cl:min lens)))
+  (cl:let* ((sequences (cl:cons sequence sequences))
+            (lens (cl:mapcar 'length sequences))
+            (len (apply 'cl:min lens)))
     (cl:block searching
       (cl:loop for i from 0 below len
-               do (let* ((args (cl:mapcar (lambda (s)(element s i)) sequences))
-                         (result (apply predicate args)))
-                    (when result (return-from searching result))
+               do (cl:let* ((args (cl:mapcar (lambda (s)(element s i)) sequences))
+                            (result (apply predicate args)))
+                    (when result (cl:return-from searching result))
                     nil)))))
 
 ;;; function split  
@@ -929,9 +955,9 @@
           (let ((pos (search sentinel sequence :key key :test test)))
             (if pos
                 (cl:concatenate 'cl:vector
-                             (cl:vector (cl:subseq sequence 0 pos))
-                             (split (cl:subseq sequence (+ pos (length sentinel)))
-                                    sentinel :key key :test test))
+                                (cl:vector (cl:subseq sequence 0 pos))
+                                (split (cl:subseq sequence (+ pos (length sentinel)))
+                                       sentinel :key key :test test))
                 (if (empty? sequence)
                     (cl:vector)
                     (cl:vector sequence)))))))
@@ -1010,17 +1036,17 @@
 
 (cl:defun %general-suffix-match (sequence suffix &key (test 'cl:equal) (key 'cl:identity))
   (or (empty? suffix)
-      (let* ((sufflen (length suffix))
-             (seqlen (length sequence))
-             (suffstart (- seqlen sufflen)))
+      (cl:let* ((sufflen (length suffix))
+                (seqlen (length sequence))
+                (suffstart (- seqlen sufflen)))
         (and (<= sufflen seqlen)
              (cl:block searching
                (cl:progn
                  (cl:loop for i from 0 below (length suffix)
-                          do (unless (funcall test
-                                              (funcall key (element suffix i))
-                                              (funcall key (element sequence (+ suffstart i))))
-                               (return-from searching nil)))
+                          do (unless (cl:funcall test
+                                                 (cl:funcall key (element suffix i))
+                                                 (cl:funcall key (element sequence (+ suffstart i))))
+                               (cl:return-from searching nil)))
                  t))))))
 
 (defmethod suffix-match? (sequence suffix &key test key) 

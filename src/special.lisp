@@ -46,7 +46,6 @@
 (defmacro define (varname val)
   `(cl:defparameter ,varname ,val))
 
-
 (defmacro let (bindings &body body)
   `(cl:let* ,bindings ,@body))
 
