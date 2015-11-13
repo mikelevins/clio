@@ -1,6 +1,6 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          map.lisp
+;;;; Name:          syntax-map.lisp
 ;;;; Project:       the clio language
 ;;;; Purpose:       finite maps 
 ;;;; Author:        mikel evins

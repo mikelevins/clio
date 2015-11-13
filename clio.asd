@@ -26,14 +26,6 @@
                           :serial t
                           :components ((:file "package")
                                        (:file "special")
-                                       (:file "make")
-                                       (:file "as")
-                                       (:file "pair")
-                                       (:file "sequence")
-                                       (:file "map")
-                                       (:file "list-syntax")
-                                       (:file "map-syntax")
-                                       (:file "tap")
                                        ))))
 
 ;;; (asdf:load-system :clio)
