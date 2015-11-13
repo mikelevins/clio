@@ -21,12 +21,15 @@
     :description "Describe clio here"
     :author "Your Name <your.name@example.com>"
     :license "Specify license here"
+    :depends-on (:fset :series)
     :components ((:module "src"
                           :serial t
                           :components ((:file "package")
-                                       ))))
+                                       (:file "special")
+                                       (:file "make")
+                                       (:file "as")
+                                       (:file "pair")
+                                       (:file "list-syntax")))))
 
-(defun load-clio ()
-  (asdf:load-system :clio))
+;;; (asdf:load-system :clio)
 
-;;; (load-clio)

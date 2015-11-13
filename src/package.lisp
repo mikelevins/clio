@@ -1,0 +1,46 @@
+
+(defpackage #:clio
+  (:use)
+  (:import-from :cl
+                #:+
+                #:-
+                #:*
+                #:/
+                #:=
+                #:<
+                #:<=
+                #:>
+                #:>=
+                #:&allow-other-keys
+                #:&body
+                #:&key
+                #:&optional
+                #:&rest
+                #:and
+                #:apply
+                #:cond
+                #:cons
+                #:defgeneric
+                #:defmacro
+                #:defmethod
+                #:error
+                #:if
+                #:integer
+                #:lambda
+                #:list
+                #:nil
+                #:not
+                #:null
+                #:or
+                #:quote
+                #:string
+                #:t
+                #:unless
+                #:values
+                #:vector
+                #:when
+                )
+  (:import-from :fset
+                #:seq)
+  (:export))
+

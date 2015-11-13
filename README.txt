@@ -1,11 +1,18 @@
-Clio is a hobby project meant to explore the following questions:
+Clio is a hobby project--an experiment in evolving Common Lisp in a
+specific direction. The goal is to arrive at a simpler, more uniform,
+more generic surface language without giving up any of Common Lisp's
+expressive power, and to incorporate certain features that have been
+developed over the years by the Common Lisp community.
 
-What if there were a personal computer system built entirely from
-software and common protocols, rather than from hardware?
+Common Lisp is complex and subtle enough, and well-thought-out enough,
+that Clio's goal will inevitably be hard to reach, and Clio itself
+will inevitably be a poor approximation at first. I can nly hope that
+I'll improve the approximation over time.
 
-What if it were a Lisp Machine?
+At present, Clio is just a few libraries that can be loaded into a
+Common Lisp implementation and a package that expose them in a
+pleasant way.
 
-What if the Lisp it was built on was basically just CLOS?
 
 
 
