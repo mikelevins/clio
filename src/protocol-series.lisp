@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-conversion.lisp
+;;;; Name:          protocol-series.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       type-conversion operations 
+;;;; Purpose:       constructing and operating on series
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,4 +10,13 @@
 
 (in-package :clio-internal)
 
-(defgeneric as (type object &key &allow-other-keys))
+#|
+
+#:collect
+#:generate
+#:iota
+#:scan
+
+
+|#
+

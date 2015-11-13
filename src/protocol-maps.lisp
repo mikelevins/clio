@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-conversion.lisp
+;;;; Name:          protocol-maps.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       type-conversion operations 
+;;;; Purpose:       operations on maps
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,4 +10,17 @@
 
 (in-package :clio-internal)
 
-(defgeneric as (type object &key &allow-other-keys))
+#|
+
+#:get
+#:keys
+#:merge
+#:pairs
+#:put
+#:select
+#:unzip
+#:vals
+#:zip
+
+|#
+

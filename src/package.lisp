@@ -19,6 +19,7 @@
    #:last
    #:length
    #:map
+   #:nerge
    #:mismatch
    #:ninth
    #:position-if
@@ -54,6 +55,7 @@
                 )
   (:export
    ;; constants
+   #:+clio-version+
    #:nil
    #:t
 
@@ -211,12 +213,21 @@
    #:write
 
    ;; maps
+   #:get
+   #:keys
+   #:merge
+   #:pairs
+   #:put
    #:select
    #:unzip
+   #:vals
    #:zip
 
    ;; types
    #:class
+   #:class?
+   #:type
+   #:type?
    
    ;; time
    #:now
@@ -248,6 +259,7 @@
   (:export
 
    ;; constants
+   #:+clio-version+
    #:nil
    #:t
 
@@ -405,12 +417,21 @@
    #:write
 
    ;; maps
+   #:get
+   #:keys
+   #:merge
+   #:pairs
+   #:put
    #:select
    #:unzip
+   #:vals
    #:zip
 
    ;; types
    #:class
+   #:class?
+   #:type
+   #:type?
    
    ;; time
    #:now

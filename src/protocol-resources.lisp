@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-conversion.lisp
+;;;; Name:          protocol-resources.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       type-conversion operations 
+;;;; Purpose:       operations files and other sources of data 
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,4 +10,16 @@
 
 (in-package :clio-internal)
 
-(defgeneric as (type object &key &allow-other-keys))
+#|
+
+#:parse-uri
+#:probe
+#:uri-host
+#:uri-path
+#:uri-port
+#:uri-query
+#:uri-scheme
+
+
+|#
+

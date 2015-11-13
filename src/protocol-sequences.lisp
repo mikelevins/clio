@@ -2,7 +2,7 @@
 ;;;;
 ;;;; Name:          protocol-sequences.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       the sequences protocol 
+;;;; Purpose:       operations on sequences 
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;

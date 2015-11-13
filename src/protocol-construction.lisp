@@ -2,7 +2,7 @@
 ;;;;
 ;;;; Name:          protocol-construction.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       the instance-construction protocol 
+;;;; Purpose:       instance-construction operations 
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;

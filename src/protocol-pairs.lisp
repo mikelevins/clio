@@ -2,7 +2,7 @@
 ;;;;
 ;;;; Name:          protocol-pairs.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       the pairs protocol 
+;;;; Purpose:       operations on pairs 
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
