@@ -21,6 +21,7 @@
                 #:character
                 #:cond
                 #:cons
+                #:defclass
                 #:defgeneric
                 #:defmacro
                 #:defmethod
