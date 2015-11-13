@@ -26,7 +26,10 @@
                           :serial t
                           :components ((:file "package")
                                        (:file "special")
-                                       ))))
+                                       (:file "protocol-types")
+                                       (:file "protocol-conversion")
+                                       (:file "protocol-construction")
+                                       (:file "protocol-pairs")
+                                       (:file "protocol-sequences")))))
 
 ;;; (asdf:load-system :clio)
-
