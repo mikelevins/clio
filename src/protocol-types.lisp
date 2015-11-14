@@ -10,6 +10,9 @@
 
 (in-package :clio-internal)
 
+;;; for each class or type:
+;;; <type-or-class-name>?
+
 (defgeneric class (thing))
 (defgeneric class? (thing))
 (defgeneric instance? (object type))

@@ -19,8 +19,10 @@
 
 (defpackage :clio-internal
   (:use :cl)
+
   (:shadowing-import-from :fset
                           #:map)
+  
   (:shadow
    #:<
    #:<=
@@ -61,16 +63,21 @@
    #:third
    #:type
    #:write)
+
   (:export
+   #:$
+   #:^
    #:<
    #:<=
    #:=
    #:>
    #:>=
    #:append
+   #:begin
    #:class
    #:close
    #:count-if
+   #:define
    #:eighth
    #:fifth
    #:find-if
@@ -92,9 +99,11 @@
    #:remove-duplicates
    #:remove-if
    #:rest
+   #:return-from
    #:reverse
    #:search
    #:second
+   #:set!
    #:seventh
    #:sixth
    #:sort ; NOTE: non-destructive!

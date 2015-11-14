@@ -14,56 +14,51 @@
 
 ;; types and classes
 
-logical-pathname
-pathname
 symbol
 keyword
-
-;; variables
-
-*default-pathname-defaults*
-*gensym-counter*
-
-;; accessors
-
-get
-logical-pathname-translations
-symbol-function
-symbol-plist
-symbol-value
+uri
 
 ;; conditions
 
 unbound-variable
+uri-parse-error
 
 ;; functions
 
-boundp
+bound?
 copy-symbol
+copy-uri
+enough-uri
 gensym
-gentemp
 intern
-keywordp
-load-logical-pathname-translations
-logical-pathname
-make-pathname
+keyword?
 make-symbol
-makunbound
-merge-pathnames
-namestring, file-namestring, directory-namestring, host-namestring, enough-namestring
-parse-namestring
-pathname
-pathname-host, pathname-device, pathname-directory, pathname-name, pathname-type, pathname-version
-pathname-match-p
-pathnamep
-remprop
-set
+make-uri-space
+merge-uris
+parse-uri
+render-uri
+symbol-function
 symbol-name
 symbol-package
-symbolp
-translate-logical-pathname
-translate-pathname
+symbol-value
+symbol?
+unbind!
 unintern
-wild-pathname-p
+uri
+uri-authority
+uri-escaped
+uri-fragment
+uri-hashcode
+uri-host
+uri-parsed-path
+uri-path
+uri-plist
+uri-port
+uri-query
+uri-scheme
+uri-space
+uri-string
+uri?
+
 
 |#

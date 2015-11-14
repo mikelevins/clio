@@ -52,7 +52,6 @@ clock-now
 clock-today
 days-in-month
 decode-timestamp
-enable-read-macros
 encode-timestamp
 find-timezone-by-location-name
 format-rfc1123-timestring

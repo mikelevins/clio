@@ -12,11 +12,6 @@
 
 #|
 
-;; accessors
-
-fdefinition
-values
-
 ;; conditions
 
 control-error
@@ -47,8 +42,8 @@ not
 notany?
 notevery?
 some?
+values
 values-list
-
 
 ;; special forms and macros
 
@@ -66,11 +61,9 @@ if
 let
 or
 return-from
-return-from
 set!
 throw
 unless
-values-list
 when
 
 |#

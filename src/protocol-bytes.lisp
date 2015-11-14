@@ -12,32 +12,6 @@
 
 #|
 
-ash
-boole
-byte
-byte-position
-byte-size
-deposit-field
-dpb
-integer-length
-ldb
-ldb-test
-logand
-logandc1
-logandc2
-logbitp
-logcount
-logeqv
-logior
-lognand
-lognor
-lognot
-logorc1
-logorc2
-logtest
-logxor
-mask-field
-
 |#
 
 

@@ -12,47 +12,15 @@
 
 #|
 
-;; variables
-
-*break-on-signals*
-*debugger-hook*
-
-;; functions
-
 abort
-break
-cell-error-name
-cerror
-compute-restarts
-continue
-error
-find-restart
-invalid-method-error
-invoke-debugger
-invoke-restart
-invoke-restart-interactively
-make-condition
-method-combination-error
-muffle-warning
-restart-name
-signal
-simple-condition-format-arguments
-simple-condition-format-control
-store-value
-use-value
-warn
-
-;; macros
-
 assert
-check-type
-define-condition
-handler-bind
+break
+defcondition
+error
 handler-case
 ignore-errors
-restart-bind
-restart-case
-with-condition-restarts
-with-simple-restart
+make-condition
+signal
+warn
 
 |#

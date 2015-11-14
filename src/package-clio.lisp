@@ -19,14 +19,19 @@
 
 (defpackage :clio
   (:use :clio-internal)
+
   (:shadow)
+
   (:export
+   #:$
+   #:^
    #:<
    #:<=
    #:=
    #:>
    #:>=
    #:append
+   #:begin
    #:class
    #:close
    #:count-if
@@ -51,9 +56,11 @@
    #:remove-duplicates
    #:remove-if
    #:rest
+   #:return-from
    #:reverse
    #:search
    #:second
+   #:set!
    #:seventh
    #:sixth
    #:sort ; NOTE: non-destructive!

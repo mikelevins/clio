@@ -37,7 +37,6 @@
                                        (:file "protocol-math")
                                        (:file "protocol-names")
                                        (:file "protocol-pairs")
-                                       (:file "protocol-resources")
                                        (:file "protocol-sequences")
                                        (:file "protocol-serialization")
                                        (:file "protocol-series")
