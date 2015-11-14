@@ -10,13 +10,6 @@
 
 (in-package :clio-internal)
 
-#|
-
-#:collect
-#:generate
-#:iota
-#:scan
-
-
-|#
-
+(defgeneric collect (result-type element-type series &key &allow-other-keys))
+(defgeneric range-from (start &key &allow-other-keys))
+(defgeneric tap (element-type source &key &allow-other-keys))

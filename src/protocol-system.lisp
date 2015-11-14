@@ -10,10 +10,4 @@
 
 (in-package :clio-internal)
 
-#|
-
-#:gc
-#:room
-
-|#
 

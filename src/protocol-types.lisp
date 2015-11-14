@@ -10,11 +10,10 @@
 
 (in-package :clio-internal)
 
-#|
-
-#:class
-#:class?
-#:type
-#:type?
-
-|#
+(defgeneric class (thing))
+(defgeneric class? (thing))
+(defgeneric instance? (object type))
+(defgeneric subclass? (class1 class2))
+(defgeneric subtype? (type1 type2))
+(defgeneric type (thing))
+(defgeneric type? (thing))

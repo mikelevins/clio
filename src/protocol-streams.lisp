@@ -10,19 +10,14 @@
 
 (in-package :clio-internal)
 
-#|
-
-#:bytes
-#:characters
-#:close
-#:lines
-#:objects
-#:open
-#:read
-#:with-open
-#:words
-#:write
-
-
-|#
+(defgeneric bytes (source &key &allow-other-keys))
+(defgeneric characters (source &key &allow-other-keys))
+(defgeneric close (stream &key &allow-other-keys))
+(defgeneric lines (source &key &allow-other-keys))
+(defgeneric objects (source &key &allow-other-keys))
+(defgeneric open (resource &key &allow-other-keys))
+(defgeneric read (source &key &allow-other-keys))
+(defgeneric with-open (resource &key &allow-other-keys))
+(defgeneric words (source &key &allow-other-keys))
+(defgeneric write (stream &key &allow-other-keys))
 

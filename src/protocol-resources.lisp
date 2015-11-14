@@ -10,16 +10,5 @@
 
 (in-package :clio-internal)
 
-#|
-
-#:parse-uri
-#:probe
-#:uri-host
-#:uri-path
-#:uri-port
-#:uri-query
-#:uri-scheme
-
-
-|#
+(defgeneric probe (resource &key &allow-other-keys))
 

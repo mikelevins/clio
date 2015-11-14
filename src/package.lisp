@@ -8,6 +8,11 @@
 (defpackage :clio-internal
   (:use :cl)
   (:shadow
+   #:=
+   #:<
+   #:<=
+   #:>
+   #:>=
    #:append
    #:class
    #:count-if
@@ -16,13 +21,16 @@
    #:find-if
    #:first
    #:fourth
+   #:get
    #:last
    #:length
-   #:map
-   #:nerge
+   #:merge
    #:mismatch
    #:ninth
+   #:open
    #:position-if
+   #:put
+   #:read
    #:reduce
    #:remove-duplicates
    #:remove-if
@@ -36,9 +44,13 @@
    #:substitute-if
    #:tenth
    #:third
+   #:type
+   #:write
    )
   (:import-from :fset
                 #:seq)
+  (:shadowing-import-from :fset
+                          #:map)
   (:import-from :series
                 #:foundation-series)
   (:import-from :local-time
@@ -100,11 +112,106 @@
    #:when
 
    ;; math
+   #:*
+   #:*random-state*
    #:+
    #:-
-   #:*
    #:/
+   #:abs
+   #:acos
+   #:acosh
+   #:ash
+   #:asin
+   #:asinh
+   #:atan
+   #:atanh
+   #:boole
+   #:boole-1 
+   #:boole-2 
+   #:boole-and 
+   #:boole-andc1 
+   #:boole-andc2 
+   #:boole-c1 
+   #:boole-c2 
+   #:boole-clr 
+   #:boole-eqv 
+   #:boole-ior 
+   #:boole-nand 
+   #:boole-nor 
+   #:boole-orc1 
+   #:boole-orc2
+   #:boole-set 
+   #:boole-xor 
+   #:byte
+   #:byte-position
+   #:byte-size
+   #:ceiling
+   #:complex
+   #:cos
+   #:cosh
+   #:dec
+   #:decode-float
+   #:denominator
+   #:deposit-field
+   #:dpb
+   #:exp
+   #:expt
+   #:fceiling
+   #:ffloor
+   #:float
+   #:float-digits
+   #:float-precision
+   #:float-radix
+   #:float-sign
+   #:floor
+   #:fround
+   #:ftruncate
+   #:gcd
+   #:imaginary-part
+   #:inc
+   #:integer-decode-float
+   #:integer-length
+   #:isqrt
+   #:lcm
+   #:ldb
+   #:ldb-test
+   #:log
+   #:logandc1
+   #:logandc2
+   #:logbit?
+   #:logcount
+   #:logeqv
+   #:logior
+   #:lognand
+   #:lognor
+   #:lognot
+   #:logorc1
+   #:logorc2
+   #:logxor
+   #:make-random-state
+   #:mask-field
+   #:mod
+   #:numerator
+   #:phase
+   #:pi
+   #:quotient
    #:random
+   #:random-state
+   #:random-state?
+   #:rational
+   #:rationalize
+   #:real-part
+   #:rem
+   #:remainder
+   #:round
+   #:scale-float
+   #:sign
+   #:sin
+   #:sinh
+   #:sqrt
+   #:tan
+   #:tanh
+   #:truncate
 
    ;; comparison
    #:=
@@ -196,9 +303,8 @@
 
    ;; series
    #:collect
-   #:generate
-   #:iota
-   #:scan
+   #:range-from
+   #:tap
    
    ;; streams
    #:bytes
@@ -213,8 +319,10 @@
    #:write
 
    ;; maps
+   #:binary-merge
    #:get
    #:keys
+   #:map
    #:merge
    #:pairs
    #:put
@@ -226,6 +334,9 @@
    ;; types
    #:class
    #:class?
+   #:instance?
+   #:subclass?
+   #:subtype?
    #:type
    #:type?
    
@@ -304,11 +415,106 @@
    #:when
 
    ;; math
+   #:*
+   #:*random-state*
    #:+
    #:-
-   #:*
    #:/
+   #:abs
+   #:acos
+   #:acosh
+   #:ash
+   #:asin
+   #:asinh
+   #:atan
+   #:atanh
+   #:boole
+   #:boole-1 
+   #:boole-2 
+   #:boole-and 
+   #:boole-andc1 
+   #:boole-andc2 
+   #:boole-c1 
+   #:boole-c2 
+   #:boole-clr 
+   #:boole-eqv 
+   #:boole-ior 
+   #:boole-nand 
+   #:boole-nor 
+   #:boole-orc1 
+   #:boole-orc2
+   #:boole-set 
+   #:boole-xor 
+   #:byte
+   #:byte-position
+   #:byte-size
+   #:ceiling
+   #:complex
+   #:cos
+   #:cosh
+   #:dec
+   #:decode-float
+   #:denominator
+   #:deposit-field
+   #:dpb
+   #:exp
+   #:expt
+   #:fceiling
+   #:ffloor
+   #:float
+   #:float-digits
+   #:float-precision
+   #:float-radix
+   #:float-sign
+   #:floor
+   #:fround
+   #:ftruncate
+   #:gcd
+   #:imaginary-part
+   #:inc
+   #:integer-decode-float
+   #:integer-length
+   #:isqrt
+   #:lcm
+   #:ldb
+   #:ldb-test
+   #:log
+   #:logandc1
+   #:logandc2
+   #:logbit?
+   #:logcount
+   #:logeqv
+   #:logior
+   #:lognand
+   #:lognor
+   #:lognot
+   #:logorc1
+   #:logorc2
+   #:logxor
+   #:make-random-state
+   #:mask-field
+   #:mod
+   #:numerator
+   #:phase
+   #:pi
+   #:quotient
    #:random
+   #:random-state
+   #:random-state?
+   #:rational
+   #:rationalize
+   #:real-part
+   #:rem
+   #:remainder
+   #:round
+   #:scale-float
+   #:sign
+   #:sin
+   #:sinh
+   #:sqrt
+   #:tan
+   #:tanh
+   #:truncate
 
    ;; comparison
    #:=
@@ -400,9 +606,8 @@
 
    ;; series
    #:collect
-   #:generate
-   #:iota
-   #:scan
+   #:range-from
+   #:tap
    
    ;; streams
    #:bytes
@@ -417,8 +622,10 @@
    #:write
 
    ;; maps
+   #:binary-merge
    #:get
    #:keys
+   #:map
    #:merge
    #:pairs
    #:put
@@ -430,6 +637,9 @@
    ;; types
    #:class
    #:class?
+   #:instance?
+   #:subclass?
+   #:subtype?
    #:type
    #:type?
    

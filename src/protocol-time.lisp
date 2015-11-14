@@ -10,8 +10,3 @@
 
 (in-package :clio-internal)
 
-#|
-
-#:now
-
-|#
