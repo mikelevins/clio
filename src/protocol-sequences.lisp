@@ -10,19 +10,13 @@
 
 (in-package :clio-internal)
 
-;;; collect
-;;; gather
-;;; generate
-;;; scan
-;;; tap
-
-
 (defgeneric add-first (thing sequence))
 (defgeneric add-last (sequence thing))
 (defgeneric any (sequence))
 (defgeneric append (sequence &rest sequences))
 (defgeneric binary-append (sequence1 sequence2))
 (defgeneric by (count sequence))
+(defgeneric collect (type series &key &allow-other-keys))
 (defgeneric count-if (test sequence))
 (defgeneric drop (count sequence))
 (defgeneric drop-until (test sequence))
@@ -36,6 +30,7 @@
 (defgeneric find-if (test sequence))
 (defgeneric first (sequence))
 (defgeneric fourth (sequence))
+(defgeneric generate (fn &key &allow-other-keys))
 (defgeneric indexes (sequence))
 (defgeneric interleave (sequence1 sequence2))
 (defgeneric interpose (thing sequence))
@@ -43,8 +38,8 @@
 (defgeneric last (sequence))
 (defgeneric leave (count sequence))
 (defgeneric length (sequence))
-(defgeneric mismatch (sequence1 sequence2))
 (defgeneric map-over (function sequence))
+(defgeneric mismatch (sequence1 sequence2))
 (defgeneric ninth (sequence))
 (defgeneric partition (function1 function2 sequence))
 (defgeneric penult (sequence))
@@ -58,6 +53,7 @@
 (defgeneric reverse (sequence))
 (defgeneric search (sequence))
 (defgeneric second (sequence))
+(defgeneric sequence->values (sequence))
 (defgeneric seventh (sequence))
 (defgeneric shuffle (sequence))
 (defgeneric sixth (sequence))
@@ -73,6 +69,7 @@
 (defgeneric take-by (count offset sequence))
 (defgeneric take-until (test sequence))
 (defgeneric take-while (test sequence))
+(defgeneric tap (element-type source &key &allow-other-keys))
 (defgeneric tenth (sequence))
 (defgeneric third (sequence))
 

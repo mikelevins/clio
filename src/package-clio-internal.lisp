@@ -292,6 +292,7 @@
    #:scan
    #:search
    #:second
+   #:sequence->values
    #:set!
    #:seventh
    #:shadow

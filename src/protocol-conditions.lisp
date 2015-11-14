@@ -10,7 +10,7 @@
 
 (in-package :clio-internal)
 
-#| all re-exported from common-lisp
+#| exported from common-lisp
 
 abort
 assert

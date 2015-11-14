@@ -10,11 +10,11 @@
 
 (in-package :clio-internal)
 
-;;; bound?
-;;; keyword?
-;;; symbol?
-;;; unbind!
-;;; uri?
+(defgeneric bound? (symbol))
+(defgeneric keyword? (thing))
+(defgeneric symbol? (thing))
+(defgeneric unbind! (symbol))
+(defgeneric uri? (thing))
 
 #| exported from common-lisp and puri
 

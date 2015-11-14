@@ -10,7 +10,7 @@
 
 (in-package :clio-internal)
 
-;;; package?
+(defgeneric package? (thing))
 
 #| exported from common-lisp
 

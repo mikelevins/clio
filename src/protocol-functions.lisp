@@ -10,14 +10,9 @@
 
 (in-package :clio-internal)
 
-;;; every?
-;;; fbound?
-;;; funbind!
-;;; function?
-;;; list->values
-;;; notany?
-;;; notevery?
-;;; some?
+(defgeneric fbound? (symbol))
+(defgeneric funbind! (symbol))
+(defgeneric function? (thing))
 
 #| exported from common-lisp
 

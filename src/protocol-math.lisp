@@ -10,18 +10,18 @@
 
 (in-package :clio-internal)
 
-;;; complex?
-;;; even?
-;;; float?
-;;; integer?
-;;; minus?
-;;; number?
-;;; odd?
-;;; plus?
-;;; random-state?
-;;; rational?
-;;; real?
-;;; zero?
+(defgeneric complex? (thing))
+(defgeneric even? (thing))
+(defgeneric float? (thing))
+(defgeneric integer? (thing))
+(defgeneric minus? (thing))
+(defgeneric number? (thing))
+(defgeneric odd? (thing))
+(defgeneric plus? (thing))
+(defgeneric random-state? (thing))
+(defgeneric rational? (thing))
+(defgeneric real? (thing))
+(defgeneric zero? (thing))
 
 
 #| exported from common-lisp

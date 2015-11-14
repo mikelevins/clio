@@ -19,13 +19,21 @@
 (defmacro begin (block-name &rest expressions)
   `(block ,block-name ,@expressions))
 
-;;; bind
+(defmacro bind (bindings &body body)
+  (let* ((len (cl:length bindings))
+         (vars (subseq bindings 0 (1- len)))
+         (valform (cl:first (cl:last bindings))))
+    `(multiple-value-bind ,vars ,valform
+       ,@body)))
 
 (defmacro define (name val)
   `(defparameter ,name ,val))
 
-;;; ensure
-;;; let
+(defmacro ensure (&key first then)
+  `(unwind-protect ,first ,then))
+
+(defmacro let (bindings &body body)
+  `(cl:let* ,bindings ,@body))
 
 (defmacro set! (place val)
   `(setf ,place ,val))

@@ -10,8 +10,8 @@
 
 (in-package :clio-internal)
 
-;;; clio-host
-;;; clio-version
+(defun clio-host ())
+(defun clio-version ())
 
 
 #| exported from common-lisp
