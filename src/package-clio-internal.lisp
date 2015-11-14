@@ -20,6 +20,8 @@
 (defpackage :clio-internal
   (:use :cl :puri :local-time)
 
+  (:import-from :series #:foundation-series #:map-fn)
+  
   (:shadowing-import-from :fset
                           #:map)
   
@@ -173,6 +175,7 @@
    #:do-all-symbols
    #:do-external-symbols
    #:do-symbols
+   #:drop
    #:eighth
    #:encode-timestamp
    #:enough-uri
@@ -201,6 +204,7 @@
    #:format-rfc1123-timestring
    #:format-rfc3339-timestring
    #:format-timestring
+   #:foundation-series
    #:fourth
    #:fround
    #:ftruncate
@@ -242,6 +246,7 @@
    #:make-timestamp
    #:make-uri-space
    #:map
+   #:map-fn
    #:max
    #:merge
    #:merge-uris
@@ -312,6 +317,7 @@
    #:symbol-package
    #:symbol-value
    #:t
+   #:take
    #:tan
    #:tanh
    #:tap

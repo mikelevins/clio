@@ -1,0 +1,27 @@
+
+(in-package :clio)
+
+
+;;; *rolled-dice* is an infinite sequence of random integers in the
+;;; range 0..5
+
+(define *rolled-dice*
+  (tap :random-integers 6))
+
+;;; roll-the-dice takes 2 of the integers from *rolled-dice* binds
+;;; them to dice drops them from *rolled-dice* then returns the
+;;; collected results
+
+(defun roll-the-dice ()
+  (let ((dice (take 2 *rolled-dice*)))
+    (set! *rolled-dice*
+          (drop 2 *rolled-dice*))
+    dice))
+
+;;; because of the way random works, we have to add 1 to each number
+;;; in order to get correct dice values I could have done that in
+;;; roll-the-dice, but I preferred to keep it simple for clarity's
+;;; sake
+
+;;; (roll-the-dice)
+

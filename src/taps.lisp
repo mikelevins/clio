@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          version.lisp
+;;;; Name:          taps.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       Clio version
+;;;; Purpose:       creating taps
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,4 +10,8 @@
 
 (in-package :clio-internal)
 
-(defparameter +clio-version+ "0.1.0 (build 20)")
+(defmethod tap ((element-type (eql :random-integers)) (source integer) &key &allow-other-keys)
+  (let ((iota (series:scan-range :from 0 :by 1)))
+    (map-fn t (lambda (i)(random source *random-state*))
+            iota)))
+

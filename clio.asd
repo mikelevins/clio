@@ -60,6 +60,7 @@
                                        (:file "class-timestamp")
                                        (:file "class-uri")
                                        (:file "class-vector")
+                                       (:file "taps")
                                        (:file "syntax-list")
                                        (:file "syntax-map")
                                        (:file "syntax-special")
