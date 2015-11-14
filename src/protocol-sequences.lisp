@@ -10,6 +10,13 @@
 
 (in-package :clio-internal)
 
+;;; collect
+;;; gather
+;;; generate
+;;; scan
+;;; tap
+
+
 (defgeneric add-first (thing sequence))
 (defgeneric add-last (sequence thing))
 (defgeneric any (sequence))

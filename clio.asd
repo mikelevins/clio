@@ -39,7 +39,6 @@
                                        (:file "protocol-pairs")
                                        (:file "protocol-sequences")
                                        (:file "protocol-serialization")
-                                       (:file "protocol-series")
                                        (:file "protocol-streams")
                                        (:file "protocol-system")
                                        (:file "protocol-time")

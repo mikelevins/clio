@@ -10,14 +10,14 @@
 
 (in-package :clio-internal)
 
-every?
-fbound?
-funbind!
-function?
-list->values
-notany?
-notevery?
-some?
+;;; every?
+;;; fbound?
+;;; funbind!
+;;; function?
+;;; list->values
+;;; notany?
+;;; notevery?
+;;; some?
 
 #| exported from common-lisp
 
