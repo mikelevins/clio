@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-series.lisp
+;;;; Name:          protocol-characters.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       constructing and operating on series
+;;;; Purpose:       operations on text characters
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -12,11 +12,19 @@
 
 #|
 
-collect
-gather
-generate
-scan
-tap
+alphabetical?
+alphanumeric?
+char->code
+char->name
+char-downcase
+char-upcase
+character?
+code->char
+digit-char?
+lower-case?
+name->char
+upper-case?
+whitespace-char?
 
 |#
 

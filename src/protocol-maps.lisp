@@ -14,7 +14,6 @@
 (defgeneric get (map key &key default &allow-other-keys))
 (defgeneric keys (map))
 (defgeneric merge (map1 map2 &rest more-maps))
-(defgeneric merge (map1 map2 &rest more-maps))
 (defgeneric pairs (map))
 (defgeneric put (map key value))
 (defgeneric select (map keys))

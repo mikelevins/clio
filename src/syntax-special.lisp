@@ -1,6 +1,6 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          special.lisp
+;;;; Name:          syntax-special.lisp
 ;;;; Project:       the clio language
 ;;;; Purpose:       clio special forms
 ;;;; Author:        mikel evins

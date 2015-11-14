@@ -10,9 +10,10 @@
 
 (in-package :clio-internal)
 
-(defgeneric = (thing1 thing2 &rest more-things))
-(defgeneric < (thing1 thing2 &rest more-things))
-(defgeneric <= (thing1 thing2 &rest more-things))
-(defgeneric > (thing1 thing2 &rest more-things))
-(defgeneric >= (thing1 thing2 &rest more-things))
+(defgeneric < (thing1 thing2 &rest more-things &key &allow-other-keys))
+(defgeneric <= (thing1 thing2 &rest more-things &key &allow-other-keys))
+(defgeneric = (thing1 thing2 &rest more-things &key &allow-other-keys))
+(defgeneric > (thing1 thing2 &rest more-things &key &allow-other-keys))
+(defgeneric >= (thing1 thing2 &rest more-things &key &allow-other-keys))
+(defgeneric identical? (thing1 thing2 &rest more-things &key &allow-other-keys))
 

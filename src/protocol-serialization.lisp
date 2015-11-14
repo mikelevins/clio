@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-series.lisp
+;;;; Name:          protocol-serialization.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       constructing and operating on series
+;;;; Purpose:       serializing and deserializing Clio data
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,13 +10,6 @@
 
 (in-package :clio-internal)
 
-#|
-
-collect
-gather
-generate
-scan
-tap
-
-|#
+(defgeneric serialize (object place))
+(defgeneric deserialize (place))
 
