@@ -10,60 +10,27 @@
 
 (in-package :clio-internal)
 
-#|
+every?
+fbound?
+funbind!
+function?
+list->values
+notany?
+notevery?
+some?
 
-;; conditions
-
-control-error
-program-error
-undefined-function
-
-;; constants
-
-call-arguments-limit
-lambda-list-keywords
-lambda-parameters-limit
-multiple-values-limit
-nil
-t
+#| exported from common-lisp
 
 ;; functions
 
 apply
 complement
 constantly
-every?
-fbound?
-funbind!
 funcall
-function?
 identity
 not
-notany?
-notevery?
-some?
 values
-values-list
 
 ;; special forms and macros
-
-and
-begin
-bind
-case
-catch
-cond
-define
-defun
-ensure
-function
-if
-let
-or
-return-from
-set!
-throw
-unless
-when
 
 |#

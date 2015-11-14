@@ -18,7 +18,7 @@
 ;;; symbols that are part of clio
 
 (defpackage :clio-internal
-  (:use :cl)
+  (:use :cl :puri :local-time)
 
   (:shadowing-import-from :fset
                           #:map)
@@ -30,6 +30,8 @@
    #:>
    #:>=
    #:append
+   #:char-downcase
+   #:char-upcase
    #:class
    #:close
    #:count-if
@@ -41,6 +43,7 @@
    #:get
    #:last
    #:length
+   #:let
    #:merge
    #:mismatch
    #:open
@@ -66,49 +69,290 @@
 
   (:export
    #:$
-   #:^
+   #:*
+   #:**
+   #:***
+   #:*clock*
+   #:*default-timezone*
+   #:*default-timezone*
+   #:*features*
+   #:*random-state*
+   #:+
+   #:++
+   #:+++
+   #:+asctime-format+
+   #:+day-names+
+   #:+days-per-week+
+   #:+gmt-zone+
+   #:+hours-per-day+
+   #:+iso-8601-date-format+
+   #:+iso-8601-format+
+   #:+iso-8601-time-format+
+   #:+iso-week-date-format+
+   #:+minutes-per-day+
+   #:+minutes-per-hour+
+   #:+month-names+
+   #:+months-per-year+
+   #:+rfc-1123-format+
+   #:+rfc3339-format+
+   #:+rfc3339-format/date-only+
+   #:+seconds-per-day+
+   #:+seconds-per-hour+
+   #:+seconds-per-minute+
+   #:+short-day-names+
+   #:+short-month-names+
+   #:+utc-zone+
+   #:-
+   #:/
+   #://
+   #:///
+   #:/=
+   #:<
    #:<
    #:<=
+   #:<=
+   #:=
    #:=
    #:>
+   #:>
    #:>=
+   #:>=
+   #:^
+   #:abort
+   #:abs
+   #:acos
+   #:acosh
+   #:adjust-timestamp
+   #:adjust-timestamp!
+   #:and
    #:append
+   #:apply
+   #:apropos
+   #:asin
+   #:asinh
+   #:assert
+   #:astronomical-julian-date
+   #:atan
+   #:atanh
    #:begin
+   #:bind
+   #:case
+   #:catch
+   #:ceiling
    #:class
+   #:clock-now
+   #:clock-today
    #:close
+   #:collect
+   #:compile-file
+   #:complement
+   #:complex
+   #:cond
+   #:conjugate
+   #:constantly
+   #:copy-symbol
+   #:copy-uri
+   #:cos
+   #:cosh
    #:count-if
+   #:date
+   #:days-in-month
+   #:dec
+   #:decode-float
+   #:decode-timestamp
    #:define
+   #:define-condition
+   #:define-timezone
+   #:defun
+   #:denominator
+   #:describe
+   #:disassemble
    #:eighth
+   #:encode-timestamp
+   #:enough-uri
+   #:ensure
+   #:error
+   #:every?
+   #:exp
+   #:expt
+   #:fbound?
+   #:fceiling
+   #:ffloor
    #:fifth
    #:find-if
+   #:find-timezone-by-location-name
    #:first
+   #:float
+   #:float-digits
+   #:float-precision
+   #:float-radix
+   #:float-sign
+   #:floor
+   #:format-rfc1123-timestring
+   #:format-rfc3339-timestring
+   #:format-timestring
    #:fourth
+   #:fround
+   #:ftruncate
+   #:funbind!
+   #:funcall
+   #:function
+   #:function?
+   #:gather
+   #:gcd
+   #:generate
+   #:gensym
    #:get
+   #:handler-case
+   #:home-uri
+   #:identity
+   #:if
+   #:ignore-errors
+   #:imaginary-part
+   #:inc
+   #:inspect
+   #:integer-decode-float
+   #:integer-length
+   #:intern
+   #:internal-time-units-per-second
+   #:isqrt
    #:last
+   #:lcm
    #:length
+   #:let
+   #:list->values
+   #:load
    #:make
+   #:make-random-state
+   #:make-symbol
+   #:make-timestamp
+   #:make-uri-space
    #:map
+   #:max
    #:merge
+   #:merge-uris
+   #:min
    #:mismatch
-   #:open
+   #:mod
+   #:modified-julian-date
+   #:nil
    #:ninth
+   #:not
+   #:notany?
+   #:notevery?
+   #:now
+   #:numerator
+   #:open
+   #:or
+   #:parse-integer
+   #:parse-rfc3339-timestring
+   #:parse-timestring
+   #:parse-uri
+   #:phase
+   #:pi
    #:position-if
    #:put
+   #:random
+   #:rational
+   #:rationalize
    #:read
+   #:realpart
    #:reduce
+   #:rem
    #:remove-duplicates
    #:remove-if
+   #:render-uri
+   #:reread-timezone-repository
    #:rest
    #:return-from
    #:reverse
+   #:room
+   #:round
+   #:scale-float
+   #:scan
    #:search
    #:second
    #:set!
    #:seventh
+   #:sign
+   #:signal
+   #:sin
+   #:sinh
    #:sixth
+   #:sleep
+   #:some?
    #:sort ; NOTE: non-destructive!
-   #:substitute-if
+   #:sqrt
+   #:substitute-if  
+   #:symbol-function
+   #:symbol-name
+   #:symbol-package
+   #:symbol-value
+   #:t
+   #:tan
+   #:tanh
+   #:tap
    #:tenth
    #:third
+   #:throw
+   #:time
+   #:time-of-day
+   #:timestamp
+   #:timestamp+
+   #:timestamp-
+   #:timestamp-century
+   #:timestamp-day
+   #:timestamp-day-of-week
+   #:timestamp-decade
+   #:timestamp-difference
+   #:timestamp-hour
+   #:timestamp-maximize-part
+   #:timestamp-maximum
+   #:timestamp-microsecond
+   #:timestamp-millennium
+   #:timestamp-millisecond
+   #:timestamp-minimize-part
+   #:timestamp-minimum
+   #:timestamp-minute
+   #:timestamp-month
+   #:timestamp-second
+   #:timestamp-subtimezone
+   #:timestamp-to-universal
+   #:timestamp-to-unix
+   #:timestamp-whole-year-difference
+   #:timestamp-year
+   #:timestamp/=
+   #:timestamp<
+   #:timestamp<=
+   #:timestamp=
+   #:timestamp>
+   #:timestamp>=
+   #:to-rfc1123-timestring
+   #:to-rfc3339-timestring
+   #:today
+   #:truncate
    #:type
-   #:write))
+   #:unintern
+   #:universal-to-timestamp
+   #:unix-to-timestamp
+   #:unless
+   #:uri
+   #:uri-authority
+   #:uri-escaped
+   #:uri-fragment
+   #:uri-hashcode
+   #:uri-host
+   #:uri-parsed-path
+   #:uri-path
+   #:uri-plist
+   #:uri-port
+   #:uri-query
+   #:uri-scheme
+   #:uri-space
+   #:uri-string
+   #:values
+   #:warn
+   #:when
+   #:with-decoded-timestamp
+   #:write
+   ))

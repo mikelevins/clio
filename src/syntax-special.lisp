@@ -19,8 +19,13 @@
 (defmacro begin (block-name &rest expressions)
   `(block ,block-name ,@expressions))
 
+;;; bind
+
 (defmacro define (name val)
   `(defparameter ,name ,val))
+
+;;; ensure
+;;; let
 
 (defmacro set! (place val)
   `(setf ,place ,val))

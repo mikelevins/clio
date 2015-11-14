@@ -10,7 +10,7 @@
 
 (in-package :clio-internal)
 
-#|
+#| exported from local-time
 ;; variables
 
 *clock*
@@ -106,3 +106,5 @@ make-timestamp
 with-decoded-timestamp
 
 |#
+
+

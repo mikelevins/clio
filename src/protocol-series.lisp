@@ -10,13 +10,10 @@
 
 (in-package :clio-internal)
 
-#|
+;;; collect
+;;; gather
+;;; generate
+;;; scan
+;;; tap
 
-collect
-gather
-generate
-scan
-tap
-
-|#
 

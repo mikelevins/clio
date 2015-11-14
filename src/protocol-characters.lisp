@@ -10,21 +10,17 @@
 
 (in-package :clio-internal)
 
-#|
-
-alphabetical?
-alphanumeric?
-char->code
-char->name
-char-downcase
-char-upcase
-character?
-code->char
-digit-char?
-lower-case?
-name->char
-upper-case?
-whitespace-char?
-
-|#
+(defgeneric alphabetical? (char))
+(defgeneric alphanumeric? (char))
+(defgeneric char->code (char))
+(defgeneric char->name (char))
+(defgeneric char-downcase (char))
+(defgeneric char-upcase (char))
+(defgeneric character? (thing))
+(defgeneric code->char (code))
+(defgeneric digit-char? (char))
+(defgeneric lower-case? (char))
+(defgeneric name->char (name))
+(defgeneric upper-case? (char))
+(defgeneric whitespace-char? (char))
 

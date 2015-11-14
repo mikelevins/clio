@@ -10,28 +10,19 @@
 
 (in-package :clio-internal)
 
-#|
+;;; bound?
+;;; keyword?
+;;; symbol?
+;;; unbind!
+;;; uri?
 
-;; types and classes
+#| exported from common-lisp and puri
 
-symbol
-keyword
-uri
-
-;; conditions
-
-unbound-variable
-uri-parse-error
-
-;; functions
-
-bound?
 copy-symbol
 copy-uri
 enough-uri
 gensym
 intern
-keyword?
 make-symbol
 make-uri-space
 merge-uris
@@ -41,8 +32,6 @@ symbol-function
 symbol-name
 symbol-package
 symbol-value
-symbol?
-unbind!
 unintern
 uri
 uri-authority
@@ -58,7 +47,7 @@ uri-query
 uri-scheme
 uri-space
 uri-string
-uri?
 
 
 |#
+

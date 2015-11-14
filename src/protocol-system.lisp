@@ -10,14 +10,17 @@
 
 (in-package :clio-internal)
 
-#|
+;;; clio-host
+;;; clio-version
+
+
+#| exported from common-lisp
 
 ;; constants
 
 internal-time-units-per-second
 
 ;; variables
-
 
 *
 **
@@ -50,4 +53,6 @@ sleep
 time
 
 |#
+
+
 

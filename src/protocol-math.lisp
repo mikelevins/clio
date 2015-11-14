@@ -10,20 +10,25 @@
 
 (in-package :clio-internal)
 
-#|
+;;; complex?
+;;; even?
+;;; float?
+;;; integer?
+;;; minus?
+;;; number?
+;;; odd?
+;;; plus?
+;;; random-state?
+;;; rational?
+;;; real?
+;;; zero?
+
+
+#| exported from common-lisp
 
 ;; variables
 
-*RANDOM-STATE*
-
-;; conditions
-
-arithmetic-error
-division-by-zero
-floating-point-inexact
-floating-point-invalid-operation
-floating-point-overflow
-floating-point-underflow
+*random-state*
 
 ;; constants
 
@@ -50,14 +55,12 @@ atan
 atanh
 ceiling
 complex
-complex?
 conjugate
 cos
 cosh
 dec
 decode-float
 denominator
-even?
 exp
 expt
 fceiling
@@ -67,7 +70,6 @@ float-digits
 float-precision
 float-radix
 float-sign
-float?x
 floor
 fround
 ftruncate
@@ -76,26 +78,18 @@ imaginary-part
 inc
 integer-decode-float
 integer-length
-integer?
 isqrt
 lcm
 make-random-state
 max
 min
-minus?
 mod
-number?
 numerator
-odd?
 parse-integer
 phase
-plus?
 random
-random-state?
 rational
 rationalize
-rational?
-real?
 realpart
 rem
 round
@@ -107,6 +101,8 @@ sqrt
 tan
 tanh
 truncate
-zero?
 
 |#
+
+
+

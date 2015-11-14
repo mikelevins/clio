@@ -10,16 +10,14 @@
 
 (in-package :clio-internal)
 
-#|
+#| all re-exported from common-lisp
 
 abort
 assert
-break
-defcondition
+define-condition
 error
 handler-case
 ignore-errors
-make-condition
 signal
 warn
 
