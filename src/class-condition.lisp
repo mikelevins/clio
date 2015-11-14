@@ -10,29 +10,6 @@
 
 (in-package :clio-internal)
 
-#|
-
-Condition Type CELL-ERROR
-Condition Type CONDITION
-Condition Type ERROR
-Condition Type PARSE-ERROR
-Condition Type SERIOUS-CONDITION
-Condition Type SIMPLE-CONDITION
-Condition Type SIMPLE-ERROR
-Condition Type SIMPLE-WARNING
-Condition Type STORAGE-CONDITION
-Condition Type STYLE-WARNING
-Condition Type WARNING
-
-Restart ABORT
-Restart CONTINUE
-Restart MUFFLE-WARNING
-Restart STORE-VALUE
-Restart USE-VALUE
-System Class RESTART
-
-|#
-
 ;;; ---------------------------------------------------------------------
 ;;; protocol: bytes
 ;;; ---------------------------------------------------------------------
@@ -70,16 +47,10 @@ System Class RESTART
 ;;; protocol: pairs
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
-;;; protocol: resources
-;;; ---------------------------------------------------------------------
-;;; ---------------------------------------------------------------------
 ;;; protocol: sequences
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
 ;;; protocol: serialization
-;;; ---------------------------------------------------------------------
-;;; ---------------------------------------------------------------------
-;;; protocol: series
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
 ;;; protocol: streams
@@ -93,6 +64,3 @@ System Class RESTART
 ;;; ---------------------------------------------------------------------
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
-
-
-

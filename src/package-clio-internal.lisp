@@ -76,6 +76,7 @@
    #:*default-timezone*
    #:*default-timezone*
    #:*features*
+   #:*package*
    #:*random-state*
    #:+
    #:++
@@ -163,10 +164,15 @@
    #:define
    #:define-condition
    #:define-timezone
+   #:defpackage
    #:defun
+   #:delete-package
    #:denominator
    #:describe
    #:disassemble
+   #:do-all-symbols
+   #:do-external-symbols
+   #:do-symbols
    #:eighth
    #:encode-timestamp
    #:enough-uri
@@ -174,12 +180,16 @@
    #:error
    #:every?
    #:exp
+   #:export
    #:expt
    #:fbound?
    #:fceiling
    #:ffloor
    #:fifth
+   #:find-all-symbols
    #:find-if
+   #:find-package
+   #:find-symbol
    #:find-timezone-by-location-name
    #:first
    #:float
@@ -209,6 +219,8 @@
    #:if
    #:ignore-errors
    #:imaginary-part
+   #:import
+   #:in-package
    #:inc
    #:inspect
    #:integer-decode-float
@@ -221,8 +233,10 @@
    #:length
    #:let
    #:list->values
+   #:list-all-packages
    #:load
    #:make
+   #:make-package
    #:make-random-state
    #:make-symbol
    #:make-timestamp
@@ -244,6 +258,11 @@
    #:numerator
    #:open
    #:or
+   #:package-name
+   #:package-nicknames
+   #:package-shadowing-symbols
+   #:package-use-list
+   #:package-used-by-list
    #:parse-integer
    #:parse-rfc3339-timestring
    #:parse-timestring
@@ -261,6 +280,7 @@
    #:rem
    #:remove-duplicates
    #:remove-if
+   #:rename-package
    #:render-uri
    #:reread-timezone-repository
    #:rest
@@ -274,6 +294,8 @@
    #:second
    #:set!
    #:seventh
+   #:shadow
+   #:shadowing-import
    #:sign
    #:signal
    #:sin
@@ -332,10 +354,12 @@
    #:today
    #:truncate
    #:type
+   #:unexport
    #:unintern
    #:universal-to-timestamp
    #:unix-to-timestamp
    #:unless
+   #:unuse-package
    #:uri
    #:uri-authority
    #:uri-escaped
@@ -350,6 +374,7 @@
    #:uri-scheme
    #:uri-space
    #:uri-string
+   #:use-package
    #:values
    #:warn
    #:when
