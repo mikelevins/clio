@@ -17,9 +17,6 @@
 ;;; protocol: characters
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
-;;; protocol: comparison
-;;; ---------------------------------------------------------------------
-;;; ---------------------------------------------------------------------
 ;;; protocol: conditions
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
@@ -28,6 +25,16 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
+;;; ---------------------------------------------------------------------
+;;; protocol: equal
+;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 timestamp) (thing2 timestamp) &rest more-things)
+  (cl:apply #'timestamp= thing1 thing2 more-things))
+
+(defmethod identical? ((thing1 timestamp) (thing2 timestamp) &rest more-things)
+  (cl:apply #'cl:eq thing1 thing2 more-things))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
 ;;; ---------------------------------------------------------------------
@@ -40,6 +47,22 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: names
 ;;; ---------------------------------------------------------------------
+;;; ---------------------------------------------------------------------
+;;; protocol: ordered
+;;; ---------------------------------------------------------------------
+
+(defmethod < ((thing1 timestamp) (thing2 timestamp) &rest more-things)
+  (cl:apply #'timestamp< thing1 thing2 more-things))
+
+(defmethod <= ((thing1 timestamp) (thing2 timestamp) &rest more-things)
+  (cl:apply #'timestamp<= thing1 thing2 more-things))
+
+(defmethod > ((thing1 timestamp) (thing2 timestamp) &rest more-things)
+  (cl:apply #'timestamp> thing1 thing2 more-things))
+
+(defmethod >= ((thing1 timestamp) (thing2 timestamp) &rest more-things)
+  (cl:apply #'timestamp>= thing1 thing2 more-things))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: packages
 ;;; ---------------------------------------------------------------------

@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          taps.lisp
+;;;; Name:          protocol-equal.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       creating taps
+;;;; Purpose:       equivalence of values
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,8 +10,6 @@
 
 (in-package :clio-internal)
 
-(defmethod tap ((element-type (eql :random-integers)) (source integer) &key &allow-other-keys)
-  (cl:let ((iota (series:scan-range :from 0 :by 1)))
-    (map-fn t (lambda (i)(random source *random-state*))
-            iota)))
+(defgeneric = (thing1 thing2 &rest more-things))
+(defgeneric identical? (thing1 thing2 &rest more-things))
 
