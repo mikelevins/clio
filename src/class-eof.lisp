@@ -10,6 +10,11 @@
 
 (in-package :clio-internal)
 
+(defclass eof (cl-singleton-mixin:singleton-mixin)())
+
+(defmethod print-object ((thing eof)(out stream))
+  (print-unreadable-object (thing out :type t :identity nil)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: bytes
 ;;; ---------------------------------------------------------------------
@@ -22,6 +27,13 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
+
+(defmethod make ((type (eql 'eof)) &rest initargs
+                 &key &allow-other-keys)
+  (make-instance 'eof))
+
+(defun eof ()(make-instance 'eof))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------

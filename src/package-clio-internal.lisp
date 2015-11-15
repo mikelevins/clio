@@ -141,6 +141,7 @@
    #:case
    #:catch
    #:ceiling
+   #:character
    #:class
    #:clock-now
    #:clock-today
@@ -150,6 +151,7 @@
    #:complement
    #:complex
    #:cond
+   #:cons
    #:conjugate
    #:constantly
    #:copy-symbol
@@ -179,6 +181,7 @@
    #:encode-timestamp
    #:enough-uri
    #:ensure
+   #:eof
    #:error
    #:every?
    #:exp
