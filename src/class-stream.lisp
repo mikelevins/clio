@@ -28,6 +28,13 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 stream) (thing2 stream) &rest more-things)
+  (error "Can't test streams for equality"))
+
+(defmethod identical? ((thing1 stream) (thing2 stream) &rest more-things)
+  (cl:apply #'cl:eq thing1 thing2 more-things))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
 ;;; ---------------------------------------------------------------------

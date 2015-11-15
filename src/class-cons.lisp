@@ -28,6 +28,13 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 cons) (thing2 cons) &rest more-things)
+  (cl:apply #'cl:equal thing1 thing2 more-things))
+
+(defmethod identical? ((thing1 cons) (thing2 cons) &rest more-things)
+  (cl:apply #'cl:eq thing1 thing2 more-things))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
 ;;; ---------------------------------------------------------------------

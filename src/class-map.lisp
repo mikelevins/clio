@@ -22,6 +22,20 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
+
+(defmethod make ((type (eql 'map)) &rest initargs
+                 &key (contents nil) &allow-other-keys)
+  (fset:convert 'map
+                (loop for tail on contents by #'cddr
+                   collect (cons (cl:first tail)
+                                 (cl:second tail)))))
+
+(defun map (&rest contents)
+  (fset:convert 'map
+                (loop for tail on contents by #'cddr
+                   collect (cons (cl:first tail)
+                                 (cl:second tail)))))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
@@ -34,6 +48,21 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: maps
 ;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 map) (thing2 map) &rest more-things)
+  (if (fset:equal? thing1 thing2)
+      (if more-things
+          (cl:apply #'= thing2 more-things)
+          t)
+      nil))
+
+(defmethod identical? ((thing1 map) (thing2 map) &rest more-things)
+  (if (eq thing1 thing2)
+      (if more-things
+          (cl:apply #'identical? thing2 more-things)
+          t)
+      nil))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: math
 ;;; ---------------------------------------------------------------------

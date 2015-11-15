@@ -28,6 +28,21 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 vector) (thing2 vector) &rest more-things)
+  (if (cl:equalp thing1 thing2)
+      (if more-things
+          (cl:apply #'= thing2 more-things)
+          t)
+      nil))
+
+(defmethod identical? ((thing1 vector) (thing2 vector) &rest more-things)
+  (if (cl:eq thing1 thing2)
+      (if more-things
+          (cl:apply #'= thing2 more-things)
+          t)
+      nil))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
 ;;; ---------------------------------------------------------------------

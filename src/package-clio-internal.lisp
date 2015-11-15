@@ -22,8 +22,7 @@
 
   (:import-from :series #:foundation-series #:map-fn)
   
-  (:shadowing-import-from :fset
-                          #:map)
+  (:shadowing-import-from :fset #:map #:seq)
   
   (:shadow
    #:<
@@ -219,6 +218,7 @@
    #:get
    #:handler-case
    #:home-uri
+   #:identical?
    #:identity
    #:if
    #:ignore-errors
@@ -297,6 +297,7 @@
    #:scan
    #:search
    #:second
+   #:seq
    #:sequence->values
    #:set!
    #:seventh
@@ -383,6 +384,7 @@
    #:uri-string
    #:use-package
    #:values
+   #:vector
    #:warn
    #:when
    #:with-decoded-timestamp

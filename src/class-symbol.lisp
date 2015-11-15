@@ -28,6 +28,22 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 symbol) (thing2 symbol) &rest more-things)
+  (if (cl:string= (cl:symbol-name thing1)
+                  (cl:symbol-name thing2))
+      (if more-things
+          (cl:apply #'= thing2 more-things)
+          t)
+      nil))
+
+(defmethod identical? ((thing1 symbol) (thing2 symbol) &rest more-things)
+  (if (cl:eq thing1 thing2)
+      (if more-things
+          (cl:apply #'identical? thing2 more-things)
+          t)
+      nil))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
 ;;; ---------------------------------------------------------------------

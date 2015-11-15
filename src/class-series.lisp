@@ -28,6 +28,13 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
+
+(defmethod = ((thing1 foundation-series) (thing2 foundation-series) &rest more-things)
+  (error "Can't test possibly-infinite sequences for equality"))
+
+(defmethod identical? ((thing1 foundation-series) (thing2 foundation-series) &rest more-things)
+  (cl:apply #'cl:eq thing1 thing2 more-things))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
 ;;; ---------------------------------------------------------------------
