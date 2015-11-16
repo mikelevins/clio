@@ -64,7 +64,7 @@ The following table lists special forms unique to Clio:
 | `define` | Clio's basic variable-defining operator|  
 | `ensure`| Serves the same purpose as `unwind-protect` with what is intended to be a clearer syntax  |  
 | `let` | Replaces both `let` and `let*` from Common Lisp |  
-| `set`| Clio's basic assignment operator; replaces Common Lisp's `SETF`|  
+| `set!`| Clio's basic assignment operator; replaces Common Lisp's `SETF`|  
 
 Following are special forms, functions, and macros from Common Lisp that are unchanged in Clio:
 
