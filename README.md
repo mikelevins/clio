@@ -125,26 +125,26 @@ the protocol's generic functions.
 
 The following table lists the protocols defined by Clio:
 
-| Name |  
+| Name |  |
 |  ------	|  
-| Bytes| 
-| Characters|  
-| Conditions|   
+| Bytes| |
+| Characters|  |
+| Conditions|   |
 | Construction| data constructors |  
 | Conversion| operations that convert values to other types|
-| Equal| 
-| Functions|  
+| Equal| |
+| Functions|  |
 | Maps| operations on finite maps |
 | Math| mathematical operations on numbers
-| Names| 
+| Names| |
 | Ordered| sorting and ordering values 
-| Packages| 
-| Pairs|  
+| Packages| |
+| Pairs|  |
 | Sequences|  
 | Serialization| converting values to be stored or transmitted| 
-| Streams| 
+| Streams| |
 | System| operations on the host computer system |
-| Time|  
+| Time|  |
 | Types| type tests and other operations on types |
 
 ## Classes
