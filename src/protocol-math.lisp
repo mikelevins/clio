@@ -10,9 +10,12 @@
 
 (in-package :clio-internal)
 
+
 (defgeneric complex? (thing))
+(defgeneric dec! (place))
 (defgeneric even? (thing))
 (defgeneric float? (thing))
+(defgeneric inc! (place))
 (defgeneric integer? (thing))
 (defgeneric minus? (thing))
 (defgeneric number? (thing))
@@ -23,8 +26,7 @@
 (defgeneric real? (thing))
 (defgeneric zero? (thing))
 
-
-#| exported from common-lisp
+#| re-exported from common lisp
 
 ;; variables
 
@@ -32,7 +34,68 @@
 
 ;; constants
 
+double-float-epsilon
+double-float-negative-epsilon
+least-negative-double-float
+least-negative-long-float
+least-negative-normalized-double-float
+least-negative-normalized-long-float
+least-negative-normalized-short-float
+least-negative-normalized-single-float
+least-negative-short-float
+least-negative-single-float
+least-positive-double-float
+least-positive-long-float
+least-positive-normalized-double-float
+least-positive-normalized-long-float
+least-positive-normalized-short-float
+least-positive-normalized-single-float
+least-positive-short-float
+least-positive-single-float
+long-float-epsilon
+long-float-negative-epsilon
+most-negative-double-float
+most-negative-fixnum
+most-negative-long-float
+most-negative-short-float
+most-negative-single-float
+most-positive-double-float
+most-positive-fixnum
+most-positive-long-float
+most-positive-short-float
+most-positive-single-float
 pi
+short-float-epsilon
+short-float-negative-epsilon
+single-float-epsilon
+single-float-negative-epsilon
+
+;; types and classes
+
+bignum
+complex
+double-float
+fixnum
+float
+integer
+long-float
+number
+random-state
+ratio
+rational
+real
+short-float
+single-float
+specifier mod
+
+;; conditions
+
+arithmetic-error
+division-by-zero
+floating-point-inexact
+floating-point-invalid-operation
+floating-point-overflow
+floating-point-underflow
 
 ;; functions
 
@@ -41,6 +104,8 @@ pi
 -
 /
 /=
+1+
+1-
 <
 <=
 =
@@ -49,11 +114,14 @@ pi
 abs
 acos
 acosh
+arithmetic-error-operands
+arithmetic-error-operation
 asin
 asinh
 atan
 atanh
 ceiling
+cis
 complex
 conjugate
 cos
@@ -74,12 +142,12 @@ floor
 fround
 ftruncate
 gcd
-imaginary-part
+imagpart
 inc
 integer-decode-float
-integer-length
 isqrt
 lcm
+log
 make-random-state
 max
 min
@@ -94,15 +162,13 @@ realpart
 rem
 round
 scale-float
-sign
+signum
 sin
 sinh
 sqrt
 tan
 tanh
 truncate
+upgraded-complex-part-type
 
 |#
-
-
-

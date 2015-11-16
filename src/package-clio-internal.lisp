@@ -157,6 +157,7 @@
    #:compile-file
    #:complement
    #:complex
+   #:complex?
    #:cond
    #:condition
    #:condition?
@@ -172,6 +173,7 @@
    #:date
    #:days-in-month
    #:dec
+   #:dec!
    #:decode-float
    #:decode-timestamp
    #:define
@@ -194,6 +196,7 @@
    #:eof
    #:eof?
    #:error
+   #:even?
    #:every?
    #:exp
    #:export
@@ -209,6 +212,7 @@
    #:find-timezone-by-location-name
    #:first
    #:float
+   #:float?
    #:float-digits
    #:float-precision
    #:float-radix
@@ -242,7 +246,9 @@
    #:import
    #:in-package
    #:inc
+   #:inc!
    #:inspect
+   #:integer?
    #:integer-decode-float
    #:integer-length
    #:intern
@@ -268,6 +274,7 @@
    #:merge
    #:merge-uris
    #:min
+   #:minus
    #:mismatch
    #:mod
    #:modified-julian-date
@@ -280,6 +287,7 @@
    #:null?
    #:number?
    #:numerator
+   #:odd?
    #:open
    #:or
    #:package?
@@ -294,12 +302,16 @@
    #:parse-uri
    #:phase
    #:pi
+   #:plus?
    #:position-if
    #:put
    #:random
+   #:random-state?
    #:rational
+   #:rational?
    #:rationalize
    #:read
+   #:real?
    #:realpart
    #:reduce
    #:rem
@@ -420,4 +432,5 @@
    #:when
    #:with-decoded-timestamp
    #:write
+   #:zero?
    ))
