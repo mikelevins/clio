@@ -19,7 +19,6 @@
 (defgeneric binary-append (sequence1 sequence2))
 (defgeneric collect (type series &key &allow-other-keys))
 (defgeneric generate (fn &key &allow-other-keys))
-(defgeneric indexes (sequence))
 (defgeneric interleave (sequence1 sequence2))
 (defgeneric interpose (thing sequence))
 (defgeneric join (sequence1 cupola sequence2))
@@ -30,14 +29,21 @@
 (defgeneric substitute-if (test sequence new-value))
 (defgeneric tap (element-type source &key &allow-other-keys))
 
-;;; filtering,  mapping,and reducing
-
-(defgeneric count-if (test sequence))
-(defgeneric map-over (function sequence))
-(defgeneric reduce (function sequence))
+;;; filtering
+(defgeneric filter (test sequence))
 (defgeneric remove-duplicates (test sequence))
 (defgeneric remove-if (test sequence))
+
+;;; mapping
+
+(defgeneric count-if (test sequence))
+(defgeneric every? (test sequence))
+(defgeneric indexes (sequence))
+(defgeneric map-over (function sequence))
 (defgeneric some? (test sequence))
+
+;;; reducing
+(defgeneric reduce (function sequence))
 
 ;;; indexing
 
@@ -55,14 +61,13 @@
 (defgeneric tenth (sequence))
 (defgeneric third (sequence))
 
-;;; partitioning and destructuring
+;;; destructuring
 
 (defgeneric any (sequence))
 (defgeneric by (count sequence))
 (defgeneric drop (count sequence))
 (defgeneric drop-until (test sequence))
 (defgeneric drop-while (test sequence))
-(defgeneric filter (test sequence))
 (defgeneric leave (count sequence))
 (defgeneric partition (function1 function2 sequence))
 (defgeneric rest (sequence))
@@ -75,20 +80,25 @@
 (defgeneric take-until (test sequence))
 (defgeneric take-while (test sequence))
 
-;;; properties and predicates
+;;; properties
 
-(defgeneric empty? (sequence))
-(defgeneric every? (test sequence))
 (defgeneric length (sequence))
 (defgeneric mismatch (sequence1 sequence2))
+
+;;; predicates
+
+(defgeneric empty? (sequence))
 (defgeneric prefix-match? (sequence1 sequence2))
 (defgeneric suffix-match? (sequence1 sequence2))
 
-;;; searching and sorting
+;;; searching
 
 (defgeneric find-if (test sequence))
 (defgeneric position-if (test sequence))
 (defgeneric search (sequence))
+
+;;; sorting
+
 (defgeneric sort (test sequence)) ; non-destructive!
 
 
