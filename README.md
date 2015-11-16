@@ -127,25 +127,25 @@ The following table lists the protocols defined by Clio:
 
 | Name |  
 |  ------	|  
-| Bytes|  
+| Bytes| 
 | Characters|  
-| Conditions|  
-| Construction|  
-| Conversion|  
-| Equal|  
+| Conditions|   
+| Construction| data constructors |  
+| Conversion| operations that convert values to other types|
+| Equal| 
 | Functions|  
-| Maps|  
-| Math|  
-| Names|  
-| Ordered|  
-| Packages|  
+| Maps| operations on finite maps |
+| Math| mathematical operations on numbers
+| Names| 
+| Ordered| sorting and ordering values 
+| Packages| 
 | Pairs|  
 | Sequences|  
-| Serialization|  
-| Streams|  
-| System|  
+| Serialization| converting values to be stored or transmitted| 
+| Streams| 
+| System| operations on the host computer system |
 | Time|  
-| Types|
+| Types| type tests and other operations on types |
 
 ## Classes
 
