@@ -100,11 +100,28 @@ Following are special forms, functions, and macros from Common Lisp that are unc
 
 ## Protocols
 
-Clio organizes most of its functions and operators into a set of **protocols**. A **protocol** is a set of variables, functions, and special operators that, together with supported data structures, define a **type**.
+Clio organizes most of its functions and operators into a set of
+**protocols**. A **protocol** is a set of variables, functions, and
+special operators that, together with supported data structures,
+define a **type**.
 
-As an example, a **sequence** is a type in Clio. It is an object that represents an ordered arrangement of values that can be enumerated, indexed, searched, filtered, and sorted. A Clio type is not a class in the sense of a Common Lisp class or classes in other languages. A Clio type is an abstract idea. It's turned into a concrete datatype by specializing the generic functions of the **sequences protocol** to support specific datatypes. Built-in classes that are sequences in Clio include `vector`, `string`, `list`, and (from the FSet functional data structure library) `seq`.
+A Clio type is not a class in the sense of a Common Lisp class or
+classes in other languages. A Clio type is an abstract idea. It's
+turned into a concrete datatype by specializing the generic functions
+of a protocol. Specializing a protocol's functions to support a
+particular class turns that class into a member of the protocol's
+type.
 
-The functions defined by the sequences protocol work the same way on all these built-in classes, and they can work the same way on any other class you may wish to define, provided that you write the specializations of the protocol's generic functions.
+For example, the **sequences protocol** defines the **sequence**
+type. If the functions of the sequences protocol are specialized to
+support a class then instances of that class are sequences. Built-in
+classes that are defined to be sequences include `string`, `list`,
+`vector`, and `seq`.
+
+The functions defined by the sequences protocol work the same way on
+all these built-in classes, and they can work the same way on any
+class you may wish to define; all you have to do is write methods for
+the protocol's generic functions.
 
 The following table lists the protocols defined by Clio:
 
