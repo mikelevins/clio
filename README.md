@@ -123,29 +123,32 @@ all these built-in classes, and they can work the same way on any
 class you may wish to define; all you have to do is write methods for
 the protocol's generic functions.
 
-The following table lists the protocols defined by Clio:
+The following table lists the protocols defined by Clio. Each protocol
+defines a set of operations on an abstract data type.
 
-| Name | |
+| Name | Abstract data type |
 |  ------ | --- |  
-| Bytes| |
-| Characters|  |
-| Conditions|   |
-| Construction| data constructors |  
-| Conversion| operations that convert values to other types|
-| Equal| |
-| Functions|  |
-| Maps| operations on finite maps |
-| Math| mathematical operations on numbers
-| Names| |
-| Ordered| sorting and ordering values 
-| Packages| |
-| Pairs|  |
-| Sequences|  
-| Serialization| converting values to be stored or transmitted| 
-| Streams| |
-| System| operations on the host computer system |
-| Time|  |
-| Types| type tests and other operations on types |
+| Bytes| machine words |
+| Characters| text characters |
+| Conditions| errors, warnings, and other exceptional situations |
+| Construction| values to be constructed |  
+| Conversion| values to be converted to another type|
+| Copies| values to be copied |
+| Equal| values that can be tested for equality or equivalence |
+| Functions| functions as values |
+| Maps| finite maps |
+| Math| numbers |
+| Ordered| values that can be compared and ordered | 
+| Packages| values that map names to symbols |
+| Pairs| values that have a left and right part |
+| Sequences| ordered groups of values |
+| Serialization| values that can be converted to and from externally-stored form | 
+| Streams| sources and sinks of data |
+| Symbols| values used as names |
+| System| the host computer system |
+| Time| representations of time |
+| Types| types as values |
+| URIs| file and resource names |
 
 ## Classes
 
@@ -162,6 +165,7 @@ Following are the classes Clio offers:
 |cons|
 |eof|
 |hash-table|
+|list|
 |map|
 |null|
 |number|
@@ -174,3 +178,4 @@ Following are the classes Clio offers:
 |timestamp|
 |uri|
 |vector|
+
