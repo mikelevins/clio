@@ -18,9 +18,9 @@
 
 (asdf:defsystem #:clio
     :serial t
-    :description "Describe clio here"
-    :author "Your Name <your.name@example.com>"
-    :license "Specify license here"
+    :description "Common Lisp's simpler newphew"
+    :author "mikel evins <mevins@me.com>"
+    :license "Apache 2.0"
     :depends-on (:fset :series :local-time :puri :cl-singleton-mixin)
     :components ((:module "src"
                           :serial t
