@@ -38,6 +38,12 @@
       (cl:intern name package)
       (cl:make-symbol name)))
 
+(defmethod make ((type (eql (cl:find-class 'cl:symbol))) &rest initargs
+                 &key (name nil) (package nil) &allow-other-keys)
+  (if package
+      (cl:intern name package)
+      (cl:make-symbol name)))
+
 (defun symbol (name &optional package)
   (make 'symbol :name name :package package))
 

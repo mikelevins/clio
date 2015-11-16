@@ -38,6 +38,10 @@
                  &key &allow-other-keys)
   (error "make 'stream is not yet implemented"))
 
+(defmethod make ((type (eql (cl:find-class 'cl:stream))) &rest initargs
+                 &key &allow-other-keys)
+  (error "make 'stream is not yet implemented"))
+
 (defun stream (&rest initargs &key &allow-other-keys)
   (error "the stream function is not yet implemented"))
 

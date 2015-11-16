@@ -71,6 +71,20 @@
       (cl:make-array length :initial-element element :element-type element-type
                      :adjustable t :fill-pointer length)))
 
+(defmethod make ((type (eql (cl:find-class 'cl:vector))) &rest initargs
+                 &key
+                   (length nil)
+                   (contents nil contents?)
+                   (element #\. element?)
+                   (element-type t)
+                   &allow-other-keys)
+  (if contents?
+      (if element?
+          (error "Can't specify both contents and element")
+          (%make-vector-with-contents length contents :element-type element-type))
+      (cl:make-array length :initial-element element :element-type element-type
+                     :adjustable t :fill-pointer length)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------

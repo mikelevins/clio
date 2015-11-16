@@ -121,6 +121,19 @@
           (%make-string-with-contents length contents :element-type element-type))
       (cl:make-string length :initial-element element :element-type element-type)))
 
+(defmethod make ((type (eql (cl:find-class 'cl:string))) &rest initargs
+                 &key
+                   (length nil)
+                   (contents nil contents?)
+                   (element #\. element?)
+                   (element-type 'cl:character)
+                   &allow-other-keys)
+  (if contents?
+      (if element?
+          (error "Can't specify both contents and element")
+          (%make-string-with-contents length contents :element-type element-type))
+      (cl:make-string length :initial-element element :element-type element-type)))
+
 (defmethod string (thing)(error "Can't convert ~S to a string" thing))
 (defmethod string ((thing cl:string)) thing)
 (defmethod string ((thing cl:character)) (cl:string thing))

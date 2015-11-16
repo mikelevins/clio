@@ -32,6 +32,10 @@
                  &key &allow-other-keys)
   (make-instance 'eof))
 
+(defmethod make ((type (eql (cl:find-class 'eof))) &rest initargs
+                 &key &allow-other-keys)
+  (make-instance 'eof))
+
 (defun eof ()(make-instance 'eof))
 
 ;;; ---------------------------------------------------------------------

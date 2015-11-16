@@ -14,6 +14,10 @@
 ;;; <type-or-class-name>?
 
 (defgeneric class (thing))
+
+(defmethod class (thing)
+  (class-of thing))
+
 (defgeneric class? (thing))
 (defgeneric instance? (object type))
 (defgeneric subclass? (class1 class2))

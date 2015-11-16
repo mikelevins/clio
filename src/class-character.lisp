@@ -80,6 +80,12 @@
       (character name)
       (error "nil character name")))
 
+(defmethod make ((type (eql (cl:find-class 'cl:character))) &rest initargs
+                 &key (name nil) &allow-other-keys)
+  (if name
+      (character name)
+      (error "nil character name")))
+
 (defmethod character ((char cl:character)) char)
 (defmethod character ((char cl:string)) (cl:name-char char))
 (defmethod character ((char cl:integer)) (cl:code-char char))

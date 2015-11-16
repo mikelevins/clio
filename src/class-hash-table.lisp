@@ -43,6 +43,15 @@
                         (t (error "The test argument to make 'hash-table must be =, equivalent?, or identical?")))))
     (make-hash-table :test test-name)))
 
+(defmethod make ((type (eql (cl:find-class 'cl:hash-table))) &rest initargs
+                 &key (test '=) &allow-other-keys)
+  (cl:let ((test-name (case test
+                        (= 'cl:equal)
+                        (identical? 'cl:eq)
+                        (equivalent? 'cl:eql)
+                        (t (error "The test argument to make 'hash-table must be =, equivalent?, or identical?")))))
+    (make-hash-table :test test-name)))
+
 (defun hash-table (&key (test '=) &allow-other-keys)
   (make 'hash-table :test test))
 

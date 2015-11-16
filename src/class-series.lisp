@@ -63,6 +63,40 @@
              (%make-series-with-range from to by)))
     (t (error "You must specify either a contents or a from argument to make 'series"))))
 
+(defmethod make ((type (eql 'foundation-series)) &rest initargs
+                 &key
+                   (contents nil contents?)
+                   (from nil from?)
+                   (to nil)
+                   (by nil)
+                   &allow-other-keys)
+  (cond
+    (contents? (assert (not from?)() "Cannot specify both contents and range")
+               (%make-series-with-contents contents))
+    (from? (assert (not contents?)() "Cannot specify both contents and range")
+           (cl:let ((from (getf initargs :from nil))
+                    (to (getf initargs :to nil))
+                    (by (getf initargs :by nil)))
+             (%make-series-with-range from to by)))
+    (t (error "You must specify either a contents or a from argument to make 'series"))))
+
+(defmethod make ((type (eql (cl:find-class 'series::foundation-series))) &rest initargs
+                 &key
+                   (contents nil contents?)
+                   (from nil from?)
+                   (to nil)
+                   (by nil)
+                   &allow-other-keys)
+  (cond
+    (contents? (assert (not from?)() "Cannot specify both contents and range")
+               (%make-series-with-contents contents))
+    (from? (assert (not contents?)() "Cannot specify both contents and range")
+           (cl:let ((from (getf initargs :from nil))
+                    (to (getf initargs :to nil))
+                    (by (getf initargs :by nil)))
+             (%make-series-with-range from to by)))
+    (t (error "You must specify either a contents or a from argument to make 'series"))))
+
 (defun series (&rest contents)
   (make 'series :contents contents))
 
