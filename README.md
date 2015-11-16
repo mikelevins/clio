@@ -146,6 +146,7 @@ defines a set of operations on an abstract data type.
 | Streams| sources and sinks of data |
 | Symbols| values used as names |
 | System| the host computer system |
+| Taps| objects as streams of values |
 | Time| representations of time |
 | Types| types as values |
 | URIs| file and resource names |

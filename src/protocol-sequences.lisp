@@ -22,7 +22,6 @@
 (defgeneric interleave (sequence1 sequence2))
 (defgeneric interpose (thing sequence))
 (defgeneric join (sequence1 cupola sequence2))
-(defgeneric range (start-index below-index))
 (defgeneric reverse (sequence))
 (defgeneric sequence->values (sequence))
 (defgeneric shuffle (sequence))
@@ -100,5 +99,4 @@
 ;;; sorting
 
 (defgeneric sort (test sequence)) ; non-destructive!
-
 

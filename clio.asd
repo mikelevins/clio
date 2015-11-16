@@ -43,6 +43,7 @@
                                        (:file "protocol-serialization")
                                        (:file "protocol-uris")
                                        (:file "protocol-streams")
+                                       (:file "protocol-taps")
                                        (:file "protocol-system")
                                        (:file "protocol-time")
                                        (:file "protocol-types")
