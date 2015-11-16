@@ -1,6 +1,8 @@
 ;;; a Clio version of the venerable name generator
 
-(defun long-enough? ((s string))
+(in-package :clio)
+
+(defmethod long-enough? ((s string))
   (> (length s) 2))
 
 (defmethod triples ((str string))

@@ -180,6 +180,7 @@
    #:define
    #:define-condition
    #:define-timezone
+   #:defmethod
    #:defpackage
    #:defun
    #:delete-package
