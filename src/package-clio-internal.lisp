@@ -143,6 +143,7 @@
    #:atan
    #:atanh
    #:begin
+   #:binary-merge
    #:bind
    #:case
    #:catch
@@ -254,7 +255,9 @@
    #:intern
    #:internal-time-units-per-second
    #:isqrt
+   #:keys
    #:last
+   #:list
    #:lcm
    #:length
    #:let
@@ -296,6 +299,9 @@
    #:package-shadowing-symbols
    #:package-use-list
    #:package-used-by-list
+   #:pair
+   #:pair?
+   #:pairs
    #:parse-integer
    #:parse-rfc3339-timestring
    #:parse-timestring
@@ -329,6 +335,7 @@
    #:scan
    #:search
    #:second
+   #:select
    #:seq
    #:seq?
    #:sequence->values
@@ -410,6 +417,7 @@
    #:unix-to-timestamp
    #:unless
    #:unuse-package
+   #:unzip
    #:uri
    #:uri?
    #:uri-authority
@@ -426,6 +434,7 @@
    #:uri-space
    #:uri-string
    #:use-package
+   #:vals
    #:values
    #:vector
    #:warn
@@ -433,4 +442,5 @@
    #:with-decoded-timestamp
    #:write
    #:zero?
+   #:zip
    ))

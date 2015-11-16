@@ -112,6 +112,55 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: maps
 ;;; ---------------------------------------------------------------------
+;;; NOTE: the maps protocol treats Lisp vectors as maps from
+;;; index to value
+
+(defmethod binary-merge ((map1 vector) (map2 vector))
+  (let* ((len1 (cl:length map1))
+         (len2 (cl:length map2)))
+    (if (<= len1 len2)
+        map2
+        (cl:concatenate 'vector
+                        map2
+                        (cl:subseq map1 len2)))))
+
+(defmethod get ((map vector) key &key default &allow-other-keys)
+  (elt map key))
+
+(defmethod keys ((map vector))
+  (loop for i from 0 below (cl:length map)
+     collect i))
+
+(defmethod merge ((map1 vector) (map2 vector) &rest more-maps)
+  (cl:reduce #'binary-merge more-maps
+             :initial-value (binary-merge map1 map2)))
+
+(defmethod pairs ((map vector))
+  (loop
+     for i from 0 below (cl:length map)
+     for j across map
+     collect (cons i j)))
+
+(defmethod put ((map vector) (key integer) value)
+  (let* ((new-vec (cl:make-array (cl:length map))))
+    (loop for i from 0 below (cl:length map)
+       do (setf (elt new-vec i)
+                (elt map i)))
+    (setf (elt new-vec key) value)
+    new-vec))
+
+(defmethod select ((map vector) keys)
+  (cl:map 'cl:vector
+          (lambda (k)(elt map k))
+          keys))
+
+(defmethod unzip ((map vector))
+  (values (keys map)
+          (cl:coerce map 'cl:list)))
+
+(defmethod vals ((map vector))
+  (cl:coerce map 'cl:list))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: math
 ;;; ---------------------------------------------------------------------

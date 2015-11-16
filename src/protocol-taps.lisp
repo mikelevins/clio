@@ -10,15 +10,15 @@
 
 (in-package :clio-internal)
 
-(defgeneric bytes (source &key &allow-other-keys))
-(defgeneric keys (map &key &allow-other-keys))
-(defgeneric lines (source &key &allow-other-keys))
-(defgeneric objects (source &key &allow-other-keys))
-(defgeneric random-integers (random-state &key &allow-other-keys))
-(defgeneric range (start &key &allow-other-keys))
-(defgeneric tap (element-type source &key &allow-other-keys))
-(defgeneric vals (map &key &allow-other-keys))
-(defgeneric words (source &key &allow-other-keys))
+;;; tap types:
+;;; :bytes (of a byte input)
+;;; :keys (of a map)
+;;; :lines (of a text)
+;;; :objects (of a character input)
+;;; :random-integers
+;;; :range (of a numeric type)
+;;; :values (of a map)
+;;; :words (of a text)
 
 (defmethod tap ((element-type (eql :random-integers)) (source integer) &key &allow-other-keys)
   (cl:let ((iota (series:scan-range :from 0 :by 1)))

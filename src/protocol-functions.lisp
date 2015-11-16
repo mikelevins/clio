@@ -14,6 +14,11 @@
 (defgeneric funbind! (symbol))
 (defgeneric function? (thing))
 
+(defmethod function? (thing) nil)
+(defmethod function? ((thing cl:function)) t)
+
+
+
 #| exported from common-lisp
 
 ;; functions

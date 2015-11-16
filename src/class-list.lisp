@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          class-map.lisp
+;;;; Name:          class-list.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       protocol implementations for the map class
+;;;; Purpose:       protocol implementations for the list class
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -23,25 +23,15 @@
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
 
-(defmethod make ((type (eql 'map)) &rest initargs
-                 &key (contents nil) &allow-other-keys)
-  (fset:convert 'map
-                (loop for tail on contents by #'cddr
-                   collect (cons (cl:first tail)
-                                 (cl:second tail)))))
+(defmethod make ((type (eql 'list)) &rest initargs
+                 &key (length 0)(initial-element nil) &allow-other-keys)
+  (cl:make-list length :initial-element initial-element))
 
-(defmethod make ((type (eql (cl:find-class 'fset:map))) &rest initargs
-                 &key (contents nil) &allow-other-keys)
-  (fset:convert 'map
-                (loop for tail on contents by #'cddr
-                   collect (cons (cl:first tail)
-                                 (cl:second tail)))))
+(defmethod make ((type (eql (cl:find-class 'cl:list))) &rest initargs
+                 &key (length 0)(initial-element nil) &allow-other-keys)
+  (cl:make-list length :initial-element initial-element))
 
-(defun map (&rest contents)
-  (fset:convert 'map
-                (loop for tail on contents by #'cddr
-                   collect (cons (cl:first tail)
-                                 (cl:second tail)))))
+;;; function list imported from cl
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
@@ -50,19 +40,11 @@
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
 
-(defmethod = ((thing1 map) (thing2 map) &rest more-things)
-  (if (fset:equal? thing1 thing2)
-      (if more-things
-          (cl:apply #'= thing2 more-things)
-          t)
-      nil))
+(defmethod = ((thing1 list) (thing2 list) &rest more-things)
+  (cl:apply #'cl:equal thing1 thing2 more-things))
 
-(defmethod identical? ((thing1 map) (thing2 map) &rest more-things)
-  (if (eq thing1 thing2)
-      (if more-things
-          (cl:apply #'identical? thing2 more-things)
-          t)
-      nil))
+(defmethod identical? ((thing1 list) (thing2 list) &rest more-things)
+  (cl:apply #'cl:eq thing1 thing2 more-things))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: functions
@@ -70,43 +52,49 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: maps
 ;;; ---------------------------------------------------------------------
+;;; NOTE: the maps protocol treats Lisp lists as maps from
+;;; index to value
 
-(defmethod binary-merge ((map1 map) (map2 map))
-  (fset:map-union map1 map2))
+(defmethod binary-merge ((map1 list) (map2 list))
+  (let* ((len1 (cl:length map1))
+         (len2 (cl:length map2)))
+    (if (<= len1 len2)
+        map2
+        (cl:append map2
+                   (cl:subseq map1 len2)))))
 
-(defmethod get ((map map) key &key default &allow-other-keys)
-  (multiple-value-bind (found found?)(fset:@ map key)
-    (if found? found default)))
+(defmethod get ((map list) key &key default &allow-other-keys)
+  (elt map key))
 
-(defmethod keys ((map map))
-  (fset:convert 'list (fset:domain map)))
+(defmethod keys ((map list))
+  (loop for i from 0 below (cl:length map)
+     collect i))
 
-(defmethod merge ((map1 map) (map2 map) &rest more-maps)
+(defmethod merge ((map1 list) (map2 list) &rest more-maps)
   (cl:reduce #'binary-merge more-maps
-             :initial-value (binary-merge map1 map2)))
+             :initial-value nil))
 
-(defmethod pairs ((map map))
-  (fset:convert 'list map))
+(defmethod pairs ((map list))
+  (loop
+     for i from 0 below (cl:length map)
+     for j in map
+     collect (cons i j)))
 
-(defmethod put ((map map) key value)
-  (fset:with map key value))
+(defmethod put ((map list) (key integer) value)
+  (cl:append (cl:subseq map 0 key)
+             (list value)
+             (cl:subseq map (cl:1+ key))))
 
-(defmethod select ((map map) keys)
-  (fset:restrict map (fset:convert 'fset:set keys)))
+(defmethod select ((map list) keys)
+  (cl:mapcar (lambda (k)(elt map k))
+             keys))
 
-(defmethod unzip ((map map))
-  (cl:values (fset:convert 'list (fset:domain map))
-             (fset:convert 'list (fset:range map))))
+(defmethod unzip ((map list))
+  (values (keys map)
+          map))
 
-(defmethod vals ((map map))
-  (cl:mapcar (lambda (k)(get map k))
-             (keys map)))
-
-(defmethod zip ((key-list cl:sequence) (value-list cl:sequence) &key &allow-other-keys)
-  (fset:convert 'map
-                (cl:mapcar (lambda (k v)(cons k v))
-                           key-list
-                           value-list)))
+(defmethod vals ((map list))
+  map)
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: math
@@ -142,5 +130,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-(defmethod map? (thing) nil)
-(defmethod map? ((thing map)) t)
+(defmethod cons? (thing) nil)
+(defmethod cons? ((thing cons)) t)
