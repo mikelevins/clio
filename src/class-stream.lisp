@@ -10,6 +10,17 @@
 
 (in-package :clio-internal)
 
+
+;;; NOTE:
+;;; some Common Lisp implementations warn about defining
+;;; functions on symbols exported from the CL package.
+;;; we want a generic function named stream, so we
+;;; shadow that symbol from CL and cause it to refer to
+;;; the CL class of the same name.
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (cl:setf (cl:find-class 'clio-internal::stream)
+           (cl:find-class 'cl::stream)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: bytes
 ;;; ---------------------------------------------------------------------
@@ -22,6 +33,14 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
+
+(defmethod make ((type (eql 'stream)) &rest initargs
+                 &key &allow-other-keys)
+  (error "make 'stream is not yet implemented"))
+
+(defun stream (&rest initargs &key &allow-other-keys)
+  (error "the stream function is not yet implemented"))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------

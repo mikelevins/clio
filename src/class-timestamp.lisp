@@ -22,6 +22,21 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
+
+(defmethod make ((type (eql 'timestamp)) &rest initargs
+                 &key (nanosecond 0 nanosecond?) (second 0 second?) (minute 0 minute?)
+                   (hour 0 hour?) (day 1 day?) (month 1 month?) (year 1 year?) (timezone 0)
+                   (offset 0))
+  (if (not (cl:or nanosecond? second? minute? hour? day? month? year?))
+      (now)
+      (local-time:encode-timestamp nanosecond second minute hour day month year
+                                   :timezone timezone :offset offset)))
+
+(defun timestamp (nsec sec minute hour day month year &key timezone offset)
+  (local-time:encode-timestamp nsec sec minute hour day month year
+                               :timezone timezone :offset offset))
+
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------

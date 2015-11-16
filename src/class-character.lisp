@@ -10,6 +10,16 @@
 
 (in-package :clio-internal)
 
+;;; NOTE:
+;;; we want clio-internal::character to refer to the
+;;; class cl:character, but we don't want the function
+;;; cl:character; we want to replace that with a
+;;; generic function. So we cause clio-internal::character
+;;; to refer to the class cl:character
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (cl:setf (cl:find-class 'clio-internal::character)
+           (cl:find-class 'cl::character)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: bytes
 ;;; ---------------------------------------------------------------------
@@ -48,7 +58,7 @@
 (defmethod lower-case? ((char character))
   (cl:lower-case-p char))
 
-(defmethod name->char ((name string))
+(defmethod name->char ((name cl:string))
   (cl:name-char name))
 
 (defmethod upper-case? ((char character))
@@ -69,6 +79,10 @@
   (if name
       (character name)
       (error "nil character name")))
+
+(defmethod character ((char cl:character)) char)
+(defmethod character ((char cl:string)) (cl:name-char char))
+(defmethod character ((char cl:integer)) (cl:code-char char))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion

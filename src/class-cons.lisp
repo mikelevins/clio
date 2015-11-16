@@ -27,6 +27,8 @@
                  &key (car nil)(cdr nil) &allow-other-keys)
   (cons car cdr))
 
+;;; function cons imported from cl
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------

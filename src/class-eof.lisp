@@ -12,7 +12,7 @@
 
 (defclass eof (cl-singleton-mixin:singleton-mixin)())
 
-(defmethod print-object ((thing eof)(out stream))
+(defmethod print-object ((thing eof)(out cl:stream))
   (print-unreadable-object (thing out :type t :identity nil)))
 
 ;;; ---------------------------------------------------------------------

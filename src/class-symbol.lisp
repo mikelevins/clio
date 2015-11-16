@@ -10,6 +10,15 @@
 
 (in-package :clio-internal)
 
+
+;;; NOTE:
+;;; we want a generic function named string, so we
+;;; shadow that symbol from CL and cause it to refer to
+;;; the CL class of the same name.
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (cl:setf (cl:find-class 'clio-internal::symbol)
+           (cl:find-class 'cl::symbol)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: bytes
 ;;; ---------------------------------------------------------------------
@@ -22,6 +31,17 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
+
+(defmethod make ((type (eql 'symbol)) &rest initargs
+                 &key (name nil) (package nil) &allow-other-keys)
+  (if package
+      (cl:intern name package)
+      (cl:make-symbol name)))
+
+(defun symbol (name &optional package)
+  (make 'symbol :name name :package package))
+
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------

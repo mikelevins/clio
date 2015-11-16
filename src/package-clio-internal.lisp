@@ -33,6 +33,7 @@
    #:append
    #:char-downcase
    #:char-upcase
+   #:character
    #:class
    #:close
    #:count-if
@@ -42,6 +43,7 @@
    #:first
    #:fourth
    #:get
+   #:hash-table
    #:last
    #:length
    #:let
@@ -62,7 +64,10 @@
    #:seventh
    #:sixth
    #:sort ; NOTE: non-destructive!
+   #:stream
+   #:string
    #:substitute-if
+   #:symbol
    #:tenth
    #:third
    #:type
@@ -220,6 +225,7 @@
    #:gensym
    #:get
    #:handler-case
+   #:hash-table
    #:home-uri
    #:identical?
    #:identity
@@ -302,6 +308,7 @@
    #:second
    #:seq
    #:sequence->values
+   #:series
    #:set!
    #:seventh
    #:shadow
@@ -315,6 +322,9 @@
    #:some?
    #:sort ; NOTE: non-destructive!
    #:sqrt
+   #:stream
+   #:string
+   #:symbol
    #:substitute-if  
    #:symbol-function
    #:symbol-name

@@ -22,6 +22,55 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
+
+(defmethod %make-vector-with-contents ((length null)(contents cl:sequence)
+                                       &key element-type)
+  (cl:make-array (cl:length contents) :initial-contents contents :element-type element-type
+                 :adjustable t :fill-pointer (cl:length contents)))
+
+(defmethod %make-vector-with-contents ((length null)(contents seq)
+                                       &key element-type)
+  (%make-vector-with-contents length (fset:convert 'cl:list contents)
+                              :element-type element-type))
+
+(defmethod %make-vector-with-contents ((length null)(contents foundation-series)
+                                       &key element-type)
+  (%make-vector-with-contents length (series:collect 'cl:list contents)
+                              :element-type element-type))
+
+(defmethod %make-vector-with-contents ((length integer)(contents sequence)
+                                       &key element-type)
+  (cl:let ((size (cl:length contents)))
+    (if (cl:equal size length)
+        (cl:make-array size :initial-contents contents :element-type element-type
+                       :adjustable t :fill-pointer size)
+        (error "length ~S is not equal to the length of ~S"
+               size contents))))
+
+(defmethod %make-vector-with-contents ((length integer)(contents seq)
+                                       &key element-type)
+  (%make-vector-with-contents length (fset:convert 'cl:list contents)
+                              :element-type element-type))
+
+(defmethod %make-vector-with-contents ((length integer)(contents foundation-series)
+                                       &key element-type)
+  (%make-vector-with-contents length (series:collect 'cl:list contents)
+                              :element-type element-type))
+
+(defmethod make ((type (eql 'vector)) &rest initargs
+                 &key
+                   (length nil)
+                   (contents nil contents?)
+                   (element #\. element?)
+                   (element-type t)
+                   &allow-other-keys)
+  (if contents?
+      (if element?
+          (error "Can't specify both contents and element")
+          (%make-vector-with-contents length contents :element-type element-type))
+      (cl:make-array length :initial-element element :element-type element-type
+                     :adjustable t :fill-pointer length)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
