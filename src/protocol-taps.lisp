@@ -10,6 +10,10 @@
 
 (in-package :clio-internal)
 
+;; (defmacro repeat (expr) ) ; creates a series of values by repeatedly evaluating expr
+
+(defgeneric tap (element-type source &key &allow-other-keys))
+
 ;;; tap types:
 ;;; :bytes (of a byte input)
 ;;; :keys (of a map)

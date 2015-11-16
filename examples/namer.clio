@@ -1,0 +1,46 @@
+;;; a Clio version of the venerable name generator
+
+(defun long-enough? ((s string))
+  (> (length s) 2))
+
+(defmethod triples ((str string))
+  (take-by 3 1 str))
+
+(defmethod read-names ((filename uri))
+  (map-over 'triples
+            (filter 'long-enough?
+                    (tap :lines (uri-path filename)))))
+
+(defmethod mergeable? ((left string)(right string))
+  (= (leave 2 left)
+     (take 2 right)))
+
+(defmethod merge-parts ((left string)(right string))
+  (append left (drop 2 right)))
+
+(defmethod find-extension ((start string)(parts list))
+  (any (filter (^ (part)(mergeable? start part))
+               parts)))
+
+(defmethod extend-name ((start string)(parts list)(ends list))
+  (let ((next (find-extension start)))
+    (if next
+        (if (contains? ends next)
+            (merge-parts start next)
+            (extend-name (merge-parts start next)
+                         parts ends))
+        start)))
+
+(defmethod generate-name ((starts list)(parts list)(ends list))
+  (let ((start (any starts)))
+    (extend-name start parts ends)))
+
+(defmethod generate-names ((count integer)(samples-file uri))
+  (let ((samples (read-names samples-file))
+        (starts (map-over 'first name-lists))
+        (parts (map-over 'rest name-lists))
+        (ends (map-over 'last name-lists)))
+    (take count
+          (repeat (generate-name starts
+                                 parts
+                                 ends)))))
