@@ -126,7 +126,7 @@ the protocol's generic functions.
 The following table lists the protocols defined by Clio:
 
 | Name |  |
-|  ------	|  
+|  ------ |	|  
 | Bytes| |
 | Characters|  |
 | Conditions|   |
