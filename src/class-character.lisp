@@ -150,5 +150,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod character? (thing) nil)
+(defmethod character? ((thing character)) t)

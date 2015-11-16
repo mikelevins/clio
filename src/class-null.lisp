@@ -84,5 +84,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod null? (thing) nil)
+(defmethod null? ((thing cl:null)) t)

@@ -94,6 +94,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
-
+(defmethod stream? (thing) nil)
+(defmethod stream? ((thing cl:stream)) t)

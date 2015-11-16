@@ -107,5 +107,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod timestamp? (thing) nil)
+(defmethod timestamp? ((thing timestamp)) t)

@@ -104,5 +104,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod symbol? (thing) nil)
+(defmethod symbol? ((thing cl:symbol)) t)

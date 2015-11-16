@@ -104,5 +104,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod seq? (thing) nil)
+(defmethod seq? ((thing seq)) t)

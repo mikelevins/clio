@@ -191,5 +191,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod string? (thing) nil)
+(defmethod string? ((thing cl:string)) t)

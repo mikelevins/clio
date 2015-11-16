@@ -68,5 +68,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod package? (thing) nil)
+(defmethod package? ((thing cl:package)) t)

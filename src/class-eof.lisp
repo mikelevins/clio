@@ -80,5 +80,7 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
+(defmethod eof? (thing) nil)
+(defmethod eof? ((thing eof)) t)
 
 

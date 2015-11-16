@@ -105,5 +105,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod uri? (thing) nil)
+(defmethod uri? ((thing puri:uri)) t)

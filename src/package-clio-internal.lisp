@@ -36,6 +36,7 @@
    #:character
    #:class
    #:close
+   #:condition?
    #:count-if
    #:eighth
    #:fifth
@@ -147,6 +148,7 @@
    #:catch
    #:ceiling
    #:character
+   #:character?
    #:class
    #:clock-now
    #:clock-today
@@ -156,7 +158,10 @@
    #:complement
    #:complex
    #:cond
+   #:condition
+   #:condition?
    #:cons
+   #:cons?
    #:conjugate
    #:constantly
    #:copy-symbol
@@ -187,6 +192,7 @@
    #:enough-uri
    #:ensure
    #:eof
+   #:eof?
    #:error
    #:every?
    #:exp
@@ -226,6 +232,7 @@
    #:get
    #:handler-case
    #:hash-table
+   #:hash-table?
    #:home-uri
    #:identical?
    #:identity
@@ -255,6 +262,7 @@
    #:make-timestamp
    #:make-uri-space
    #:map
+   #:map?
    #:map-fn
    #:max
    #:merge
@@ -269,9 +277,12 @@
    #:notany?
    #:notevery?
    #:now
+   #:null?
+   #:number?
    #:numerator
    #:open
    #:or
+   #:package?
    #:package-name
    #:package-nicknames
    #:package-shadowing-symbols
@@ -307,8 +318,10 @@
    #:search
    #:second
    #:seq
+   #:seq?
    #:sequence->values
    #:series
+   #:series?
    #:set!
    #:seventh
    #:shadow
@@ -323,8 +336,11 @@
    #:sort ; NOTE: non-destructive!
    #:sqrt
    #:stream
+   #:stream?
    #:string
+   #:string?
    #:symbol
+   #:symbol?
    #:substitute-if  
    #:symbol-function
    #:symbol-name
@@ -341,6 +357,7 @@
    #:time
    #:time-of-day
    #:timestamp
+   #:timestamp?
    #:timestamp+
    #:timestamp-
    #:timestamp-century
@@ -382,6 +399,7 @@
    #:unless
    #:unuse-package
    #:uri
+   #:uri?
    #:uri-authority
    #:uri-escaped
    #:uri-fragment

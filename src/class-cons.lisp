@@ -82,5 +82,5 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
-
+(defmethod cons? (thing) nil)
+(defmethod cons? ((thing cons)) t)

@@ -189,5 +189,6 @@
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
 
-
+(defmethod series? (thing) nil)
+(defmethod series? ((thing foundation-series)) t)
 
