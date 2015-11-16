@@ -131,6 +131,104 @@ defines a set of operations on an abstract data type.
 | Types| types as values |
 | URIs| file and resource names |
 
+### The Bytes protocol
+
+Operations on machine words--that is, on octets and larger
+bit-strings.
+
+### The Characters protocol
+
+Operations on text characters and character sets.
+
+### The Conditions protocol
+
+Operations on **conditions**. As in Common Lisp, conditions represent
+errors, warnings, and other exceptional situations that can arise
+during computations.
+
+### The Construction protocol
+
+Operations for constructing values. The center of the Construction
+protocol is the function `make`, which can construct instance of
+almost all of the built-in Clio classes.
+
+### The Conversion protocol
+
+Operations that convert values from one type to another.
+
+### The Copies protocol
+
+Operations that create new copies of values.
+
+### The Equal protocol
+
+Operations that test the equality or equivalence of values.
+
+### The Functions protocol
+
+Operations that treat functions as values, constructing and combining them.
+
+### The Maps protocol
+
+Operations on objects that can be treated as finite maps.
+
+### The Math protocol
+
+Arithmetic and other mathematical operations on numbers.
+
+### The Ordered protocol
+
+Operations on values that can be ordered and sorted.
+
+### The Packages protocol
+
+Operations on Lisp packages, the data structures that represent namespaces.
+
+### The Pairs protocol
+
+Operations on **pair** objects--that is, objects with a **left** value and a **right** value.
+
+### The Sequences protocol
+
+Operations on objects that represent an ordered group of values.
+
+### The Serialization protocol
+
+Operations on objects that can be converted to an external
+representation for storage or transmission, and reconverted back to
+objects.
+
+### The Streams protocol
+
+Operations on objects that represent sources or sinks for data, such
+as files and network resources.
+
+### The Symbols protocol
+
+Operations on Lisp's symbols, the objects used to name functions,
+special-forms, variables, and other syntactic structures.
+
+### The System protocol
+
+Operations on the host platform.
+
+### The Taps protocol
+
+Operations for creating streams of values from objects.
+
+### The Time protocol
+
+Operations on representations of time.
+
+### The Types protocol
+
+Operations on Clio types and classes.
+
+### The URI protocol
+
+Operations on  Universal Resource Identifiers, Universal Resource Names, and Universal Resource Locators.
+
+
 ## Classes
 
 Clio, as much as possible, defines its basic datatypes as CLOS classes. Common Lisp has a concept of type that is distinct from the CLOS concept of classes. Although there are good historical reasons for the two different concepts of type and class in Common Lisp, Clio's goal is to simplify the language wherever it's practical. One way it does this is by emphasizing classes at the expense of types. If Clio were ever to evolve into a full-fledged standalone language, we might reasonably expect that it, like Dylan, would arrange for all datatypes to be directly represented as classes.
