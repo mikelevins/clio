@@ -133,6 +133,7 @@
    #:adjust-timestamp
    #:adjust-timestamp!
    #:and
+   #:any
    #:append
    #:apply
    #:apropos
@@ -261,6 +262,7 @@
    #:last
    #:list
    #:lcm
+   #:leave
    #:length
    #:let
    #:list->values

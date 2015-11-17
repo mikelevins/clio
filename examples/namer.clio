@@ -26,6 +26,8 @@
   (any (filter (^ (part)(mergeable? start part))
                parts)))
 
+;;; ---------------------------------------------------------------------
+
 (defmethod extend-name ((start string)(parts list)(ends list))
   (let ((next (find-extension start)))
     (if next

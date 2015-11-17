@@ -116,6 +116,28 @@
 ;;; ---------------------------------------------------------------------
 
 
+;;; destructuring
+
+(defmethod any ((sequence cl:list))
+  (cl:elt sequence
+       (cl:random (cl:length sequence))))
+
+;;; (defgeneric by (count sequence))
+;;; (defgeneric drop (count sequence))
+;;; (defgeneric drop-until (test sequence))
+;;; (defgeneric drop-while (test sequence))
+;;; (defgeneric leave (count sequence))
+;;; (defgeneric partition (function1 function2 sequence))
+;;; (defgeneric rest (sequence))
+;;; (defgeneric split (sequence pivot))
+;;; (defgeneric subsequence (sequence start &optional end))
+;;; (defgeneric tail (sequence))
+;;; (defgeneric tails (sequence))
+;;; (defgeneric take (count sequence))
+;;; (defgeneric take-by (count offset sequence))
+;;; (defgeneric take-until (test sequence))
+;;; (defgeneric take-while (test sequence))
+
 ;;; filtering
 
 (defmethod filter ((test cl:function) (sequence cl:list))
