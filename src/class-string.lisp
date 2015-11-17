@@ -194,7 +194,20 @@
 ;;; (defgeneric add-first (thing sequence))
 ;;; (defgeneric add-last (sequence thing))
 ;;; (defgeneric append (sequence &rest sequences))
-;;; (defgeneric binary-append (sequence1 sequence2))
+
+(defmethod append ((sequence cl:string) &rest sequences)
+  (if (cl:null sequences)
+      sequence
+      (let* ((sequence2 (cl:first sequences))
+             (more (cl:rest sequences)))
+        (if more
+            (cl:apply 'append (binary-append sequence sequence2)
+                      more)
+            (binary-append sequence sequence2)))))
+
+(defmethod binary-append ((sequence1 cl:string) (sequence2 cl:string))
+  (cl:concatenate 'cl:string sequence1 sequence2))
+
 ;;; (defgeneric collect (type series &key &allow-other-keys))
 ;;; (defgeneric generate (fn &key &allow-other-keys))
 ;;; (defgeneric interleave (sequence1 sequence2))
@@ -227,7 +240,10 @@
 ;;; (defgeneric eighth (sequence))
 ;;; (defgeneric element (sequence index))
 ;;; (defgeneric fifth (sequence))
-;;; (defgeneric first (sequence))
+
+(defmethod first ((sequence cl:string))
+  (elt sequence 0))
+
 ;;; (defgeneric fourth (sequence))
 ;;; (defgeneric last (sequence))
 ;;; (defgeneric ninth (sequence))
@@ -242,24 +258,39 @@
 
 ;;; (defgeneric any (sequence))
 ;;; (defgeneric by (count sequence))
-;;; (defgeneric drop (count sequence))
+
+(defmethod drop ((count cl:integer) (sequence cl:string))
+  (cl:subseq sequence count))
+
 ;;; (defgeneric drop-until (test sequence))
 ;;; (defgeneric drop-while (test sequence))
 ;;; (defgeneric leave (count sequence))
+
+(defmethod leave ((count cl:integer) (sequence cl:string))
+  (cl:subseq sequence (- (cl:length sequence) count)))
+
 ;;; (defgeneric partition (function1 function2 sequence))
 ;;; (defgeneric rest (sequence))
 ;;; (defgeneric split (sequence pivot))
 ;;; (defgeneric subsequence (sequence start &optional end))
 ;;; (defgeneric tail (sequence))
 ;;; (defgeneric tails (sequence))
-;;; (defgeneric take (count sequence))
-;;; (defgeneric take-by (count offset sequence))
+
+(defmethod take ((count cl:integer) (sequence cl:string))
+  (cl:subseq sequence 0 count))
+
+(defmethod take-by ((count integer) (offset integer) (sequence string))
+  (loop for i from 0 upto (- (cl:length sequence) count) by offset
+     collect (cl:subseq sequence i (+ i count))))
+
 ;;; (defgeneric take-until (test sequence))
 ;;; (defgeneric take-while (test sequence))
 
 ;;; properties
 
-;;; (defgeneric length (sequence))
+(defmethod length ((sequence string))
+  (cl:length sequence))
+
 ;;; (defgeneric mismatch (sequence1 sequence2))
 
 ;;; predicates
@@ -278,38 +309,6 @@
 ;;; sorting
 
 ;;; (defgeneric sort (test sequence)) ; non-destructive!
-
-(defmethod append ((sequence cl:string) &rest sequences)
-  (if (cl:null sequences)
-      sequence
-      (let* ((sequence2 (cl:first sequences))
-             (more (cl:rest sequences)))
-        (if more
-            (cl:apply 'append (binary-append sequence sequence2)
-                      more)
-            (binary-append sequence sequence2)))))
-
-(defmethod binary-append ((sequence1 cl:string) (sequence2 cl:string))
-  (cl:concatenate 'cl:string sequence1 sequence2))
-
-(defmethod drop ((count cl:integer) (sequence cl:string))
-  (cl:subseq sequence count))
-
-(defmethod leave ((count cl:integer) (sequence cl:string))
-  (cl:subseq sequence (- (cl:length sequence) count)))
-
-(defmethod take ((count cl:integer) (sequence cl:string))
-  (cl:subseq sequence 0 count))
-
-(defmethod take-by ((count integer) (offset integer) (sequence string))
-  (loop for i from 0 upto (- (cl:length sequence) count) by offset
-     collect (cl:subseq sequence i (+ i count))))
-
-(defmethod first ((sequence cl:string))
-  (elt sequence 0))
-
-(defmethod length ((sequence string))
-  (cl:length sequence))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: serialization

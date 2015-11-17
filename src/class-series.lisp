@@ -191,7 +191,10 @@
 
 ;;; (defgeneric any (sequence))
 ;;; (defgeneric by (count sequence))
-;;; (defgeneric drop (count sequence))
+
+(defmethod drop ((count integer)(sequence foundation-series))
+  (series:subseries sequence count))
+
 ;;; (defgeneric drop-until (test sequence))
 ;;; (defgeneric drop-while (test sequence))
 ;;; (defgeneric leave (count sequence))
@@ -201,7 +204,10 @@
 ;;; (defgeneric subsequence (sequence start &optional end))
 ;;; (defgeneric tail (sequence))
 ;;; (defgeneric tails (sequence))
-;;; (defgeneric take (count sequence))
+
+(defmethod take ((count integer) (sequence foundation-series))
+  (series:subseries sequence 0 count))
+
 ;;; (defgeneric take-by (count offset sequence))
 ;;; (defgeneric take-until (test sequence))
 ;;; (defgeneric take-while (test sequence))
@@ -227,12 +233,6 @@
 ;;; sorting
 
 ;;; (defgeneric sort (test sequence)) ; non-destructive!
-
-(defmethod drop ((count integer)(sequence foundation-series))
-  (series:subseries sequence count))
-
-(defmethod take ((count integer) (sequence foundation-series))
-  (series:subseries sequence 0 count))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: serialization

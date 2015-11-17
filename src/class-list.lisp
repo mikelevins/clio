@@ -119,91 +119,6 @@
 
 ;;; (defgeneric add-first (thing sequence))
 ;;; (defgeneric add-last (sequence thing))
-;;; (defgeneric append (sequence &rest sequences))
-;;; (defgeneric binary-append (sequence1 sequence2))
-;;; (defgeneric collect (type series &key &allow-other-keys))
-;;; (defgeneric generate (fn &key &allow-other-keys))
-;;; (defgeneric interleave (sequence1 sequence2))
-;;; (defgeneric interpose (thing sequence))
-;;; (defgeneric join (sequence1 cupola sequence2))
-;;; (defgeneric reverse (sequence))
-;;; (defgeneric sequence->values (sequence))
-;;; (defgeneric shuffle (sequence))
-;;; (defgeneric substitute-if (test sequence new-value))
-;;; (defgeneric tap (element-type source &key &allow-other-keys))
-
-;;; filtering
-;;; (defgeneric filter (test sequence))
-;;; (defgeneric remove-duplicates (test sequence))
-;;; (defgeneric remove-if (test sequence))
-
-;;; mapping
-
-;;; (defgeneric count-if (test sequence))
-;;; (defgeneric every? (test sequence))
-;;; (defgeneric indexes (sequence))
-;;; (defgeneric map-over (function sequence))
-;;; (defgeneric some? (test sequence))
-
-;;; reducing
-;;; (defgeneric reduce (function sequence &key &allow-other-keys))
-
-;;; indexing
-
-;;; (defgeneric eighth (sequence))
-;;; (defgeneric element (sequence index))
-;;; (defgeneric fifth (sequence))
-;;; (defgeneric first (sequence))
-;;; (defgeneric fourth (sequence))
-;;; (defgeneric last (sequence))
-;;; (defgeneric ninth (sequence))
-;;; (defgeneric penult (sequence))
-;;; (defgeneric second (sequence))
-;;; (defgeneric seventh (sequence))
-;;; (defgeneric sixth (sequence))
-;;; (defgeneric tenth (sequence))
-;;; (defgeneric third (sequence))
-
-;;; destructuring
-
-;;; (defgeneric any (sequence))
-;;; (defgeneric by (count sequence))
-;;; (defgeneric drop (count sequence))
-;;; (defgeneric drop-until (test sequence))
-;;; (defgeneric drop-while (test sequence))
-;;; (defgeneric leave (count sequence))
-;;; (defgeneric partition (function1 function2 sequence))
-;;; (defgeneric rest (sequence))
-;;; (defgeneric split (sequence pivot))
-;;; (defgeneric subsequence (sequence start &optional end))
-;;; (defgeneric tail (sequence))
-;;; (defgeneric tails (sequence))
-;;; (defgeneric take (count sequence))
-;;; (defgeneric take-by (count offset sequence))
-;;; (defgeneric take-until (test sequence))
-;;; (defgeneric take-while (test sequence))
-
-;;; properties
-
-;;; (defgeneric length (sequence))
-;;; (defgeneric mismatch (sequence1 sequence2))
-
-;;; predicates
-
-;;; (defgeneric contains? (sequence value &key &allow-other-keys))
-;;; (defgeneric empty? (sequence))
-;;; (defgeneric prefix-match? (sequence1 sequence2))
-;;; (defgeneric suffix-match? (sequence1 sequence2))
-
-;;; searching
-
-;;; (defgeneric find-if (test sequence))
-;;; (defgeneric position-if (test sequence))
-;;; (defgeneric search (sequence))
-
-;;; sorting
-
-;;; (defgeneric sort (test sequence)) ; non-destructive!
 
 (defmethod append ((sequence cl:list) &rest sequences)
   (if (cl:null sequences)
@@ -217,17 +132,18 @@
 (defmethod binary-append ((sequence1 cl:list) (sequence2 cl:list))
   (cl:append sequence1 sequence2))
 
-(defmethod any ((sequence cl:list))
-  (if sequence
-      (cl:elt sequence
-              (cl:random (cl:length sequence)))
-      nil))
+;;; (defgeneric collect (type series &key &allow-other-keys))
+;;; (defgeneric generate (fn &key &allow-other-keys))
+;;; (defgeneric interleave (sequence1 sequence2))
+;;; (defgeneric interpose (thing sequence))
+;;; (defgeneric join (sequence1 cupola sequence2))
+;;; (defgeneric reverse (sequence))
+;;; (defgeneric sequence->values (sequence))
+;;; (defgeneric shuffle (sequence))
+;;; (defgeneric substitute-if (test sequence new-value))
+;;; (defgeneric tap (element-type source &key &allow-other-keys))
 
-(defmethod leave ((count cl:integer) (sequence cl:list))
-  (cl:subseq sequence (- (cl:length sequence) count)))
-
-(defmethod rest ((sequence cl:list))
-  (cl:rest sequence))
+;;; filtering
 
 (defmethod filter ((test cl:function) (sequence cl:list))
   (cl:remove-if-not test sequence))
@@ -235,11 +151,15 @@
 (defmethod filter ((test cl:symbol) (sequence cl:list))
   (filter (cl:symbol-function test) sequence))
 
-(defmethod first ((sequence cl:list))
-  (cl:first sequence))
 
-(defmethod last ((sequence cl:list))
-  (cl:first (cl:last sequence)))
+;;; (defgeneric remove-duplicates (test sequence))
+;;; (defgeneric remove-if (test sequence))
+
+;;; mapping
+
+;;; (defgeneric count-if (test sequence))
+;;; (defgeneric every? (test sequence))
+;;; (defgeneric indexes (sequence))
 
 (defmethod map-over ((function cl:function) (sequence cl:list))
   (mapcar function sequence))
@@ -247,17 +167,95 @@
 (defmethod map-over ((function cl:symbol) (sequence cl:list))
   (map-over (cl:symbol-function function) sequence))
 
-(defmethod contains? ((sequence cl:list) value &key (test 'cl:equalp) &allow-other-keys)
-  (cl:find value sequence :test test))
+;;; (defgeneric some? (test sequence))
 
-(defmethod length ((sequence list))
-  (cl:length sequence))
+;;; reducing
 
 (defmethod reduce ((function cl:function) (sequence cl:list) &key &allow-other-keys)
   (cl:reduce function sequence :initial-value nil))
 
 (defmethod reduce ((function cl:symbol) (sequence cl:list) &key &allow-other-keys)
   (reduce (cl:symbol-function function) sequence))
+
+;;; indexing
+
+;;; (defgeneric eighth (sequence))
+;;; (defgeneric element (sequence index))
+;;; (defgeneric fifth (sequence))
+
+(defmethod first ((sequence cl:list))
+  (cl:first sequence))
+
+;;; (defgeneric fourth (sequence))
+
+(defmethod last ((sequence cl:list))
+  (cl:first (cl:last sequence)))
+
+;;; (defgeneric ninth (sequence))
+;;; (defgeneric penult (sequence))
+;;; (defgeneric second (sequence))
+;;; (defgeneric seventh (sequence))
+;;; (defgeneric sixth (sequence))
+;;; (defgeneric tenth (sequence))
+;;; (defgeneric third (sequence))
+
+;;; destructuring
+
+(defmethod any ((sequence cl:list))
+  (if sequence
+      (cl:elt sequence
+              (cl:random (cl:length sequence)))
+      nil))
+
+;;; (defgeneric by (count sequence))
+;;; (defgeneric drop (count sequence))
+;;; (defgeneric drop-until (test sequence))
+;;; (defgeneric drop-while (test sequence))
+
+(defmethod leave ((count cl:integer) (sequence cl:list))
+  (cl:subseq sequence (- (cl:length sequence) count)))
+
+;;; (defgeneric partition (function1 function2 sequence))
+
+(defmethod rest ((sequence cl:list))
+  (cl:rest sequence))
+
+;;; (defgeneric split (sequence pivot))
+;;; (defgeneric subsequence (sequence start &optional end))
+;;; (defgeneric tail (sequence))
+;;; (defgeneric tails (sequence))
+;;; (defgeneric take (count sequence))
+;;; (defgeneric take-by (count offset sequence))
+;;; (defgeneric take-until (test sequence))
+;;; (defgeneric take-while (test sequence))
+
+;;; properties
+
+;;; (defgeneric length (sequence))
+
+(defmethod length ((sequence list))
+  (cl:length sequence))
+
+;;; (defgeneric mismatch (sequence1 sequence2))
+
+;;; predicates
+
+(defmethod contains? ((sequence cl:list) value &key (test 'cl:equalp) &allow-other-keys)
+  (cl:find value sequence :test test))
+
+;;; (defgeneric empty? (sequence))
+;;; (defgeneric prefix-match? (sequence1 sequence2))
+;;; (defgeneric suffix-match? (sequence1 sequence2))
+
+;;; searching
+
+;;; (defgeneric find-if (test sequence))
+;;; (defgeneric position-if (test sequence))
+;;; (defgeneric search (sequence))
+
+;;; sorting
+
+;;; (defgeneric sort (test sequence)) ; non-destructive!
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: serialization
