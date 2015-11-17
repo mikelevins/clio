@@ -152,17 +152,27 @@ Operations for constructing values. The center of the Construction
 protocol is the function `make`, which can construct instance of
 almost all of the built-in Clio classes.
 
+**make** (type &rest initargs &key &allow-other-keys) => new-value<br/>
+
 ### The Conversion protocol
 
 Operations that convert values from one type to another.
 
-### The Copies protocol
+**as** (type object &key &allow-other-keys) => new-object<br/>
+
+### The Copying protocol
 
 Operations that create new copies of values.
+
+**copy** (object &key &allow-other-keys) => new-object<br/>
 
 ### The Equal protocol
 
 Operations that test the equality or equivalence of values.
+
+**=** (thing1 thing2 &rest more-things)) => Boolean<br/>
+**identical?** (thing1 thing2 &rest more-things)) => Boolean<br/>
+
 
 ### The Functions protocol
 
@@ -188,9 +198,110 @@ Operations on Lisp packages, the data structures that represent namespaces.
 
 Operations on **pair** objects--that is, objects with a **left** value and a **right** value.
 
+**left** (pair) => anything<br/>
+**pair** (left right) => new-pair<br/>
+**pair?** (thing) => Boolean<br/>
+**right** (pair) => anything<br/>
+**set-left!** (pair new-value) => pair<br/>
+**set-right!** (pair new-value) => pair<br/>
+
+
 ### The Sequences protocol
 
-Operations on objects that represent an ordered group of values.
+Operations on objects that represent an ordered group of values. A
+**sequence** is an object that contains a finite number of elements. A
+**series** is a value that might contain an infinite number of elements.
+
+#### Constructing
+
+**add-first** (thing sequence) => new-sequence<br/>
+**add-last** (sequence thing) => new-sequence<br/>
+**append** (sequence &rest sequences) => new-sequence<br/>
+**binary-append** (sequence1 sequence2) => new-sequence<br/>
+**collect** (type series &key &allow-other-keys) => new-sequence<br/>
+**generate** (fn &key &allow-other-keys) => new-series<br/>
+**interleave** (sequence1 sequence2) => new-sequence<br/>
+**interpose** (thing sequence) => new-sequence<br/>
+**join** (sequence1 cupola sequence2) => new-sequence<br/>
+**reverse** (sequence) => new-sequence<br/>
+**sequence->values** (sequence) => value1, value2, ... valueN<br/>
+**shuffle** (sequence) => new-sequence<br/>
+**substitute-if** (test sequence new-value) => new-sequence<br/>
+**tap** (element-type source &key &allow-other-keys) => new-series<br/>
+
+#### Filtering
+
+**filter** (test sequence) => new-sequence<br/>
+**remove-duplicates** (test sequence) => new-sequence<br/>
+**remove-if** (test sequence) => new-sequence<br/>
+
+#### Mapping
+
+**count-if** (test sequence) => integer<br/>
+**every?** (test sequence) => general Boolean<br/>
+**indexes** (sequence) => new-list<br/>
+**map-over** (function sequence) => new-list<br/>
+**some?** (test sequence) => general Boolean<br/>
+
+#### Reducing
+
+**reduce** (function sequence &key &allow-other-keys) => anything<br/>
+
+#### Indexing
+
+**eighth** (sequence) => anything<br/>
+**element** (sequence index) => anything<br/>
+**fifth** (sequence) => anything<br/>
+**first** (sequence) => anything<br/>
+**fourth** (sequence) => anything<br/>
+**last** (sequence) => anything<br/>
+**ninth** (sequence) => anything<br/>
+**penult** (sequence) => anything<br/>
+**second** (sequence) => anything<br/>
+**seventh** (sequence) => anything<br/>
+**sixth** (sequence) => anything<br/>
+**tenth** (sequence) => anything<br/>
+**third** (sequence) => anything<br/>
+
+#### Destructuring
+
+**any** (sequence) => anything<br/>
+**by** (count sequence) => new-sequence<br/>
+**drop** (count sequence) => new-sequence<br/>
+**drop-until** (test sequence) => new-sequence<br/>
+**drop-while** (test sequence) => new-sequence<br/>
+**leave** (count sequence) => new-sequence<br/>
+**partition** (function1 function2 sequence) => new-sequence1, new-sequence2<br/>
+**rest** (sequence) => new-sequence<br/>
+**split** (sequence pivot) => new-sequence<br/>
+**subsequence** (sequence start &optional end) => new-sequence<br/>
+**tail** (sequence) => new-sequence<br/>
+**tails** (sequence) => new-sequence<br/>
+**take** (count sequence) => new-sequence<br/>
+**take-by** (count offset sequence) => new-sequence<br/>
+**take-until** (test sequence) => new-sequence<br/>
+**take-while** (test sequence) => new-sequence<br/>
+
+#### Properties
+
+**length** (sequence) => integer<br/>
+
+#### Predicates
+
+**contains?** (sequence value &key &allow-other-keys) => Boolean<br/>
+**empty?** (sequence) => Boolean<br/>
+**mismatch** (sequence1 sequence2) => anything<br/>
+**prefix-match?** (sequence1 sequence2) => Boolean<br/>
+**suffix-match?** (sequence1 sequence2) => Boolean<br/>
+
+#### Searching
+
+**find-if** (test sequence) => anything<br/>
+**position-if** (test sequence) => integer or nil<br/>
+**search** (sequence1 sequence2) => anything<br/>
+
+#### Sorting
+**sort** (test sequence) => new-sequence<br/>
 
 ### The Serialization protocol
 
