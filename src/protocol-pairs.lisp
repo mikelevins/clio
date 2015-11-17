@@ -21,3 +21,5 @@
 (defgeneric set-left! (pair new-value))
 (defgeneric set-right! (pair new-value))
 
+(defsetf left set-left!)
+(defsetf right set-right!)

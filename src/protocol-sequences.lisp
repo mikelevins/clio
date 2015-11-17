@@ -95,7 +95,7 @@
 
 (defgeneric find-if (test sequence))
 (defgeneric position-if (test sequence))
-(defgeneric search (sequence))
+(defgeneric search (sequence1 sequence2))
 
 ;;; sorting
 

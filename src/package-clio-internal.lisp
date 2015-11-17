@@ -130,6 +130,8 @@
    #:abs
    #:acos
    #:acosh
+   #:add-first
+   #:add-last
    #:adjust-timestamp
    #:adjust-timestamp!
    #:and
@@ -144,8 +146,10 @@
    #:atan
    #:atanh
    #:begin
+   #:binary-append
    #:binary-merge
    #:bind
+   #:by
    #:case
    #:catch
    #:ceiling
@@ -193,7 +197,11 @@
    #:do-external-symbols
    #:do-symbols
    #:drop
+   #:drop-until
+   #:drop-while
    #:eighth
+   #:element
+   #:empty?
    #:encode-timestamp
    #:enough-uri
    #:ensure
@@ -252,17 +260,23 @@
    #:in-package
    #:inc
    #:inc!
+   #:indexes
    #:inspect
    #:integer
    #:integer?
    #:integer-decode-float
    #:integer-length
+   #:interleave
+   #:interpose
    #:intern
    #:internal-time-units-per-second
    #:isqrt
    #:keys
+   #:join
    #:last
+   #:leave
    #:list
+   #:list?
    #:lcm
    #:leave
    #:length
@@ -313,9 +327,11 @@
    #:parse-rfc3339-timestring
    #:parse-timestring
    #:parse-uri
+   #:partition
    #:phase
    #:pi
    #:plus?
+   #:prefix-match?
    #:position-if
    #:put
    #:random
@@ -353,6 +369,7 @@
    #:seventh
    #:shadow
    #:shadowing-import
+   #:shuffle
    #:sign
    #:signal
    #:sin
@@ -361,6 +378,7 @@
    #:sleep
    #:some?
    #:sort ; NOTE: non-destructive!
+   #:split
    #:sqrt
    #:stream
    #:stream?
@@ -368,14 +386,20 @@
    #:string?
    #:symbol
    #:symbol?
-   #:substitute-if  
+   #:subsequence
+   #:substitute-if
+   #:suffix-match?
    #:symbol-function
    #:symbol-name
    #:symbol-package
    #:symbol-value
    #:t
+   #:tail
+   #:tails
    #:take
    #:take-by
+   #:take-until
+   #:take-while
    #:tan
    #:tanh
    #:tap

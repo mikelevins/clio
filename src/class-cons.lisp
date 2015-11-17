@@ -67,6 +67,25 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: pairs
 ;;; ---------------------------------------------------------------------
+
+(defmethod left ((pair cl:cons))
+  (cl:car pair))
+
+(defmethod pair (left right)
+  (cl:cons left right))
+
+(defmethod pair? (thing) nil)
+(defmethod pair? ((thing cl:cons)) t)
+
+(defmethod right ((pair cl:cons))
+  (cl:cdr pair))
+
+(defmethod set-left! ((pair cl:cons) new-value)
+  (cl:setf (cl:car pair) new-value))
+
+(defmethod set-right! ((pair cl:cons) new-value)
+  (cl:setf (cl:cdr pair) new-value))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: sequences
 ;;; ---------------------------------------------------------------------
@@ -87,4 +106,4 @@
 ;;; ---------------------------------------------------------------------
 
 (defmethod cons? (thing) nil)
-(defmethod cons? ((thing cons)) t)
+(defmethod cons? ((thing cl:cons)) t)
