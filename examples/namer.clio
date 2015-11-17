@@ -26,10 +26,8 @@
   (any (filter (^ (part)(mergeable? start part))
                parts)))
 
-;;; ---------------------------------------------------------------------
-
 (defmethod extend-name ((start string)(parts list)(ends list))
-  (let ((next (find-extension start)))
+  (let ((next (find-extension start parts)))
     (if next
         (if (contains? ends next)
             (merge-parts start next)
@@ -37,16 +35,19 @@
                          parts ends))
         start)))
 
+
 (defmethod generate-name ((starts list)(parts list)(ends list))
   (let ((start (any starts)))
     (extend-name start parts ends)))
 
 (defmethod generate-names ((count integer)(samples-file uri))
   (let ((samples (read-names samples-file))
-        (starts (map-over 'first name-lists))
-        (parts (map-over 'rest name-lists))
-        (ends (map-over 'last name-lists)))
+        (starts (map-over 'first samples))
+        (parts (reduce 'append (map-over 'rest samples)))
+        (ends (map-over 'last samples)))
     (take count
           (repeat (generate-name starts
                                  parts
                                  ends)))))
+
+;;; (time (generate-names 10 (uri "file:///Users/mikel/Workshop/src/clio/examples/dickens.names")))

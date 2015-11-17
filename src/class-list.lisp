@@ -115,20 +115,55 @@
 ;;; protocol: sequences
 ;;; ---------------------------------------------------------------------
 
+;;; constructing
 
-;;; destructuring
+;;; (defgeneric add-first (thing sequence))
+;;; (defgeneric add-last (sequence thing))
+
+(defmethod append ((sequence cl:list) &rest sequences)
+  (if (cl:null sequences)
+      sequence
+      (if (cl:null (cdr sequences))
+          (cl:append sequence (car sequences))
+          (cl:apply 'append
+                    (cl:append sequence (car sequences))
+                    (cdr sequences)))))
+
+(defmethod binary-append ((sequence1 cl:list) (sequence2 cl:list))
+  (cl:append sequence1 sequence2))
+
+;;; (defgeneric collect (type series &key &allow-other-keys))
+;;; (defgeneric generate (fn &key &allow-other-keys))
+;;; (defgeneric interleave (sequence1 sequence2))
+;;; (defgeneric interpose (thing sequence))
+;;; (defgeneric join (sequence1 cupola sequence2))
+;;; (defgeneric reverse (sequence))
+;;; (defgeneric sequence->values (sequence))
+;;; (defgeneric shuffle (sequence))
+;;; (defgeneric substitute-if (test sequence new-value))
+;;; (defgeneric tap (element-type source &key &allow-other-keys))
+
+;;; ;;; destructuring
 
 (defmethod any ((sequence cl:list))
-  (cl:elt sequence
-       (cl:random (cl:length sequence))))
+  (if sequence
+      (cl:elt sequence
+              (cl:random (cl:length sequence)))
+      nil))
 
 ;;; (defgeneric by (count sequence))
 ;;; (defgeneric drop (count sequence))
 ;;; (defgeneric drop-until (test sequence))
 ;;; (defgeneric drop-while (test sequence))
-;;; (defgeneric leave (count sequence))
+
+(defmethod leave ((count cl:integer) (sequence cl:list))
+  (cl:subseq sequence (- (cl:length sequence) count)))
+
 ;;; (defgeneric partition (function1 function2 sequence))
-;;; (defgeneric rest (sequence))
+
+(defmethod rest ((sequence cl:list))
+  (cl:rest sequence))
+
 ;;; (defgeneric split (sequence pivot))
 ;;; (defgeneric subsequence (sequence start &optional end))
 ;;; (defgeneric tail (sequence))
@@ -150,6 +185,28 @@
 ;;; (defgeneric remove-if (test sequence))
 
 
+;;; indexing
+
+;;; (defgeneric eighth (sequence))
+;;; (defgeneric element (sequence index))
+;;; (defgeneric fifth (sequence))
+
+(defmethod first ((sequence cl:list))
+  (cl:first sequence))
+
+;;; (defgeneric fourth (sequence))
+
+(defmethod last ((sequence cl:list))
+  (cl:first (cl:last sequence)))
+
+;;; (defgeneric ninth (sequence))
+;;; (defgeneric penult (sequence))
+;;; (defgeneric second (sequence))
+;;; (defgeneric seventh (sequence))
+;;; (defgeneric sixth (sequence))
+;;; (defgeneric tenth (sequence))
+;;; (defgeneric third (sequence))
+
 ;;; mapping
 
 ;;; (defgeneric count-if (test sequence))
@@ -164,6 +221,14 @@
 
 ;;; (defgeneric some? (test sequence))
 
+;;; predicates
+
+(defmethod contains? ((sequence cl:list) value &key (test 'cl:equalp) &allow-other-keys)
+  (cl:find value sequence :test test))
+
+;;; (defgeneric empty? (sequence))
+;;; (defgeneric prefix-match? (sequence1 sequence2))
+;;; (defgeneric suffix-match? (sequence1 sequence2))
 
 ;;; properties
 
@@ -172,6 +237,13 @@
 
 ;;; (defgeneric mismatch (sequence1 sequence2))
 
+
+;;; reducing
+(defmethod reduce ((function cl:function) (sequence cl:list) &key &allow-other-keys)
+  (cl:reduce function sequence :initial-value nil))
+
+(defmethod reduce ((function cl:symbol) (sequence cl:list) &key &allow-other-keys)
+  (reduce (cl:symbol-function function) sequence))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: serialization

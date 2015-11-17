@@ -26,3 +26,5 @@ With that said, Clio itself is not exactly either a subset or  an extension of C
 ## Documentation
 
 See the doc directory for detailed documentation about Clio.
+
+See the examples directory for a few example programs written in Clio.

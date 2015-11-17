@@ -42,7 +42,7 @@
 (defgeneric some? (test sequence))
 
 ;;; reducing
-(defgeneric reduce (function sequence))
+(defgeneric reduce (function sequence &key &allow-other-keys))
 
 ;;; indexing
 
@@ -86,6 +86,7 @@
 
 ;;; predicates
 
+(defgeneric contains? (sequence value &key &allow-other-keys))
 (defgeneric empty? (sequence))
 (defgeneric prefix-match? (sequence1 sequence2))
 (defgeneric suffix-match? (sequence1 sequence2))

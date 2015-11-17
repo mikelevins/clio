@@ -167,6 +167,7 @@
    #:cons?
    #:conjugate
    #:constantly
+   #:contains?
    #:copy-symbol
    #:copy-uri
    #:cos
@@ -252,6 +253,7 @@
    #:inc
    #:inc!
    #:inspect
+   #:integer
    #:integer?
    #:integer-decode-float
    #:integer-length
@@ -330,6 +332,7 @@
    #:remove-if
    #:rename-package
    #:render-uri
+   #:repeat
    #:reread-timezone-repository
    #:rest
    #:return-from

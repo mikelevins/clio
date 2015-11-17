@@ -10,7 +10,10 @@
 
 (in-package :clio-internal)
 
-;; (defmacro repeat (expr) ) ; creates a series of values by repeatedly evaluating expr
+(defmacro repeat (expr)
+  `(let* ((integers (series:scan-range :from 0)))
+     (series:map-fn t (lambda (i)(progn ,expr))
+                    integers)))
 
 (defgeneric tap (element-type source &key &allow-other-keys))
 
