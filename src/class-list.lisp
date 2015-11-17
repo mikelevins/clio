@@ -116,6 +116,33 @@
 ;;; ---------------------------------------------------------------------
 
 
+;;; filtering
+
+(defmethod filter ((test cl:function) (sequence cl:list))
+  (cl:remove-if-not test sequence))
+
+(defmethod filter ((test cl:symbol) (sequence cl:list))
+  (filter (cl:symbol-function test) sequence))
+
+;;; (defgeneric remove-duplicates (test sequence))
+;;; (defgeneric remove-if (test sequence))
+
+
+;;; mapping
+
+;;; (defgeneric count-if (test sequence))
+;;; (defgeneric every? (test sequence))
+;;; (defgeneric indexes (sequence))
+
+(defmethod map-over ((function cl:function) (sequence cl:list))
+  (mapcar function sequence))
+
+(defmethod map-over ((function cl:symbol) (sequence cl:list))
+  (map-over (cl:symbol-function function) sequence))
+
+;;; (defgeneric some? (test sequence))
+
+
 ;;; properties
 
 (defmethod length ((sequence list))

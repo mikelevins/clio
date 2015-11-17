@@ -11,7 +11,9 @@
 (defmethod read-names ((filename uri))
   (map-over 'triples
             (filter 'long-enough?
-                    (tap :lines (uri-path filename)))))
+                    (tap :lines filename))))
+
+;;; (time (read-names (uri "file:///Users/mikel/Workshop/src/clio/examples/dickens.names")))
 
 (defmethod mergeable? ((left string)(right string))
   (= (leave 2 left)

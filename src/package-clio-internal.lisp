@@ -207,6 +207,7 @@
    #:fceiling
    #:ffloor
    #:fifth
+   #:filter
    #:find-all-symbols
    #:find-if
    #:find-package
@@ -274,6 +275,7 @@
    #:map
    #:map?
    #:map-fn
+   #:map-over
    #:max
    #:merge
    #:merge-uris
@@ -368,6 +370,7 @@
    #:symbol-value
    #:t
    #:take
+   #:take-by
    #:tan
    #:tanh
    #:tap

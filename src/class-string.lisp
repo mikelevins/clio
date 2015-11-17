@@ -190,6 +190,49 @@
 ;;; ---------------------------------------------------------------------
 
 
+;;; destructuring
+
+;;; (defgeneric any (sequence))
+;;; (defgeneric by (count sequence))
+;;; (defgeneric drop (count sequence))
+;;; (defgeneric drop-until (test sequence))
+;;; (defgeneric drop-while (test sequence))
+;;; (defgeneric leave (count sequence))
+;;; (defgeneric partition (function1 function2 sequence))
+;;; (defgeneric rest (sequence))
+;;; (defgeneric split (sequence pivot))
+;;; (defgeneric subsequence (sequence start &optional end))
+;;; (defgeneric tail (sequence))
+;;; (defgeneric tails (sequence))
+;;; (defgeneric take (count sequence))
+
+(defmethod take-by ((count integer) (offset integer) (sequence string))
+  (loop for i from 0 upto (- (cl:length sequence) count) by offset
+     collect (cl:subseq sequence i (+ i count))))
+
+;;; (defgeneric take-until (test sequence))
+;;; (defgeneric take-while (test sequence))
+
+
+;;; indexing
+
+;;; (defgeneric eighth (sequence))
+;;; (defgeneric element (sequence index))
+;;; (defgeneric fifth (sequence))
+
+(defmethod first ((sequence cl:string))
+  (elt sequence 0))
+
+;;; (defgeneric fourth (sequence))
+;;; (defgeneric last (sequence))
+;;; (defgeneric ninth (sequence))
+;;; (defgeneric penult (sequence))
+;;; (defgeneric second (sequence))
+;;; (defgeneric seventh (sequence))
+;;; (defgeneric sixth (sequence))
+;;; (defgeneric tenth (sequence))
+;;; (defgeneric third (sequence))
+
 ;;; properties
 
 (defmethod length ((sequence string))
