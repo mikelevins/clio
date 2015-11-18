@@ -75,6 +75,10 @@
    #:write)
 
   (:export
+   #:&allow-other-keys
+   #:&key
+   #:&optional
+   #:&rest
    #:$
    #:*
    #:**
@@ -183,6 +187,7 @@
    #:dec!
    #:decode-float
    #:decode-timestamp
+   #:defclass
    #:define
    #:define-condition
    #:define-timezone
@@ -207,6 +212,7 @@
    #:ensure
    #:eof
    #:eof?
+   #:eql
    #:error
    #:even?
    #:every?
@@ -231,6 +237,7 @@
    #:float-radix
    #:float-sign
    #:floor
+   #:format
    #:format-rfc1123-timestring
    #:format-rfc3339-timestring
    #:format-timestring
@@ -285,6 +292,7 @@
    #:list-all-packages
    #:load
    #:make
+   #:make-instance
    #:make-package
    #:make-random-state
    #:make-symbol
@@ -332,6 +340,8 @@
    #:pi
    #:plus?
    #:prefix-match?
+   #:print-object
+   #:print-unreadable-object
    #:position-if
    #:put
    #:random

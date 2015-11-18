@@ -23,6 +23,10 @@
   (:shadow)
 
   (:export
+   #:&allow-other-keys
+   #:&key
+   #:&optional
+   #:&rest
    #:$
    #:^
    #:<
@@ -30,26 +34,45 @@
    #:=
    #:>
    #:>=
+   #:and
    #:append
+   #:apply
    #:begin
    #:class
    #:close
    #:count-if
+   #:defclass
+   #:define
+   #:defun
+   #:defmethod
+   #:defpackage
+   #:describe
    #:eighth
+   #:eql
    #:fifth
    #:find-if
    #:first
+   #:format
    #:fourth
    #:get
+   #:if
+   #:in-package
    #:last
    #:length
+   #:let
    #:make
+   #:make-instance
    #:map
    #:merge
    #:mismatch
    #:open
+   #:or
+   #:nil
    #:ninth
+   #:null?
    #:position-if
+   #:print-object
+   #:print-unreadable-object
    #:put
    #:read
    #:reduce
@@ -64,7 +87,9 @@
    #:seventh
    #:sixth
    #:sort ; NOTE: non-destructive!
+   #:stream
    #:substitute-if
+   #:t
    #:tenth
    #:third
    #:type
