@@ -28,7 +28,6 @@
                                        (:file "package-clio")
                                        (:file "protocol-conditions")
                                        (:file "protocol-construction")
-                                       (:file "protocol-conversion")
                                        (:file "protocol-equal")
                                        (:file "protocol-copying")
                                        (:file "protocol-functions")
@@ -65,6 +64,7 @@
                                        (:file "class-timestamp")
                                        (:file "class-uri")
                                        (:file "class-vector")
+                                       (:file "protocol-conversion") ; need class definitions before conversions
                                        (:file "syntax-list")
                                        (:file "syntax-map")
                                        (:file "syntax-special")

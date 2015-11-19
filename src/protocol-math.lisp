@@ -12,10 +12,8 @@
 
 
 (defgeneric complex? (thing))
-(defgeneric dec! (place))
 (defgeneric even? (thing))
 (defgeneric float? (thing))
-(defgeneric inc! (place))
 (defgeneric integer? (thing))
 (defgeneric minus? (thing))
 (defgeneric number? (thing))
@@ -25,6 +23,12 @@
 (defgeneric rational? (thing))
 (defgeneric real? (thing))
 (defgeneric zero? (thing))
+
+(defmacro dec! (place &optional (delta 1))
+  `(cl:decf ,place ,delta))
+
+(defmacro inc! (place &optional (delta 1))
+  `(cl:incf ,place ,delta))
 
 #| re-exported from common lisp
 

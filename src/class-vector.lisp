@@ -10,6 +10,16 @@
 
 (in-package :clio-internal)
 
+;;; NOTE:
+;;; some Common Lisp implementations warn about defining functions on
+;;; symbols exported from the CL package.  we want our own function
+;;; named vector distinct from CL's, so we shadow that symbol from CL
+;;; and cause it to refer to the CL class of the same name.
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (cl:setf (cl:find-class 'clio-internal::vector)
+           (cl:find-class 'cl::vector)))
+
 ;;; ---------------------------------------------------------------------
 ;;; private: vector helpers
 ;;; ---------------------------------------------------------------------
@@ -23,6 +33,14 @@
           thing
           (error "No fill-pointer: ~S" thing))
       (error "Not an adjustable vector: ~S" thing)))
+
+;;; ---------------------------------------------------------------------
+;;; protocol: construction
+;;; ---------------------------------------------------------------------
+
+(defun vector (&rest elements)
+  (let* ((len (cl:length elements)))
+    (cl:make-array len :adjustable t :fill-pointer len :initial-contents elements)))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
@@ -174,7 +192,10 @@
 ;;; indexing
 
 ;;; (defgeneric eighth (sequence))
-;;; (defgeneric element (sequence index))
+
+(defmethod element ((sequence vector) (index integer))
+  (cl:elt sequence index))
+
 ;;; (defgeneric fifth (sequence))
 ;;; (defgeneric first (sequence))
 ;;; (defgeneric fourth (sequence))

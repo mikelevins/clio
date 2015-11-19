@@ -72,6 +72,7 @@
    #:tenth
    #:third
    #:type
+   #:vector
    #:write)
 
   (:export

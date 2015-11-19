@@ -11,14 +11,6 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
-;;; protocol: conversion
-;;; ---------------------------------------------------------------------
-
-(defmethod as ((type (eql 'vector)) (object cl:list) &key &allow-other-keys)
-  (let* ((len (cl:length object)))
-    (cl:make-array len :adjustable t :fill-pointer len :initial-contents object)))
-
-;;; ---------------------------------------------------------------------
 ;;; protocol: copying
 ;;; ---------------------------------------------------------------------
 
