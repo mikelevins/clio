@@ -91,6 +91,7 @@
    #:and
    #:any
    #:append
+   #:append!
    #:apply
    #:apropos
    #:as
@@ -102,6 +103,7 @@
    #:atanh
    #:begin
    #:binary-append
+   #:binary-append!
    #:binary-merge
    #:bind
    #:by

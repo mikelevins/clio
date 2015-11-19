@@ -24,10 +24,10 @@
 ;;; private: vector helpers
 ;;; ---------------------------------------------------------------------
 
-(defmethod %ensure-stretchy-vector (thing)
+(defmethod %ensure-adjustable-vector (thing)
   (error "Not a vector: ~S" thing))
 
-(defmethod %ensure-stretchy-vector ((thing cl:vector))
+(defmethod %ensure-adjustable-vector ((thing cl:vector))
   (if (adjustable-array-p thing)
       (if (array-has-fill-pointer-p thing)
           thing
@@ -124,14 +124,42 @@
 
 ;;; mutating
 
-;;; (defgeneric add-first! (thing sequence))
+(defmethod add-first! (thing (sequence cl:vector))
+  (%ensure-adjustable-vector sequence)
+  ;; to add something to the front of a vector we have to moved
+  ;; everything to the right one first
+  ;; first make room by pushing a nil onto the end
+  (cl:vector-push-extend nil sequence)
+  ;; now move everything to the right one
+  (loop for i from (cl:1- (cl:fill-pointer sequence)) downto 1
+     do (cl:setf (cl:elt sequence i)
+                 (cl:elt sequence (cl:1- i))))
+  ;; now put thing into the first slot
+  (cl:setf (cl:elt sequence 0) thing)
+  sequence)
 
 (defmethod add-last! ((sequence cl:vector) thing)
-  (%ensure-stretchy-vector sequence)
-  (cl:vector-push-extend thing sequence))
+  (%ensure-adjustable-vector sequence)
+  (cl:vector-push-extend thing sequence)
+  sequence)
 
-;;; (defgeneric append! (sequence &rest sequences))
-;;; (defgeneric binary-append! (sequence1 sequence2))
+(defmethod append! ((sequence cl:vector) &rest sequences)
+  (loop for sequence2 in sequences
+     do (binary-append! sequence sequence2))
+  sequence)
+
+(defmethod binary-append! ((sequence1 cl:vector) (sequence2 cl:vector))
+  (%ensure-adjustable-vector sequence1)
+  (let* ((len1 (cl:length sequence1))
+         (len2 (cl:length sequence2)))
+    (cl:adjust-array sequence1 (+ len1 len2))
+    (setf (cl:fill-pointer sequence1)
+          (+ len1 len2))
+    (loop for i from 0 below len2
+       do (progn (setf (cl:elt sequence1 (+ len1 i))
+                       (cl:elt sequence2 i))))
+    sequence1))
+
 ;;; (defgeneric drop! (count sequence))
 ;;; (defgeneric drop-until! (test sequence))
 ;;; (defgeneric drop-while! (test sequence))
