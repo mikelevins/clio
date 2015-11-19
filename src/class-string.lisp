@@ -34,7 +34,7 @@
 ;;; ---------------------------------------------------------------------
 
 (defmethod = ((thing1 string) (thing2 string) &rest more-things)
-  (cl:apply #'cl:string= thing1 thing2 more-things))
+  (cl:apply #'cl:equalp thing1 thing2 more-things))
 
 (defmethod identical? ((thing1 string) (thing2 string) &rest more-things)
   (cl:apply #'cl:eq thing1 thing2 more-things))
