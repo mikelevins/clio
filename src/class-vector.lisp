@@ -34,6 +34,30 @@
           (error "No fill-pointer: ~S" thing))
       (error "Not an adjustable vector: ~S" thing)))
 
+(defmethod %shift-elements-right ((vector vector) &optional (count 1))
+  (%ensure-adjustable-vector vector)
+  ;; first make room by pushing a nil onto the end
+  (let* ((old-length (cl:fill-pointer vector))
+         (new-length (+ old-length count)))
+    (cl:adjust-array vector new-length)
+    (setf (fill-pointer vector) new-length)
+    ;; now move everything to the right one
+    (loop for i from (cl:1- new-length) downto 1
+       do (cl:setf (cl:elt vector i)
+                   (cl:elt vector (cl:- i count))))
+    vector))
+
+(defmethod %shift-elements-left ((vector vector) &optional (count 1))
+  (%ensure-adjustable-vector vector)
+  ;; first move everything to the left one
+  (let* ((old-length (cl:fill-pointer vector))
+         (new-length (- old-length count)))
+    (loop for i from 0 below new-length
+       do (cl:setf (cl:elt vector i)
+                   (cl:elt vector (+ i count))))
+    (setf (cl:fill-pointer vector) new-length)
+    vector))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
@@ -126,15 +150,7 @@
 
 (defmethod add-first! (thing (sequence cl:vector))
   (%ensure-adjustable-vector sequence)
-  ;; to add something to the front of a vector we have to moved
-  ;; everything to the right one first
-  ;; first make room by pushing a nil onto the end
-  (cl:vector-push-extend nil sequence)
-  ;; now move everything to the right one
-  (loop for i from (cl:1- (cl:fill-pointer sequence)) downto 1
-     do (cl:setf (cl:elt sequence i)
-                 (cl:elt sequence (cl:1- i))))
-  ;; now put thing into the first slot
+  (%shift-elements-right sequence)
   (cl:setf (cl:elt sequence 0) thing)
   sequence)
 
@@ -160,7 +176,14 @@
                        (cl:elt sequence2 i))))
     sequence1))
 
-;;; (defgeneric drop! (count sequence))
+(defmethod drop! ((count cl:integer) (sequence cl:vector))
+  (%ensure-adjustable-vector sequence)
+  (let* ((old-count (cl:fill-pointer sequence))
+         (new-count (- old-count count)))
+    (%shift-elements-left sequence count)
+    (setf (fill-pointer sequence) new-count)
+    sequence))
+
 ;;; (defgeneric drop-until! (test sequence))
 ;;; (defgeneric drop-while! (test sequence))
 ;;; (defgeneric insert! (sequence index new-value))

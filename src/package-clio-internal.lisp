@@ -207,6 +207,7 @@
    #:do-external-symbols
    #:do-symbols
    #:drop
+   #:drop!
    #:drop-until
    #:drop-while
    #:eighth
