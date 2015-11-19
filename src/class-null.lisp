@@ -11,6 +11,13 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
+;;; private: null helpers
+;;; ---------------------------------------------------------------------
+
+(defun %error-nil-is-immutable ()
+  (error "nil is immutable"))
+
+;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
@@ -26,6 +33,35 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: maps
 ;;; ---------------------------------------------------------------------
+;;; ---------------------------------------------------------------------
+;;; protocol: mutable-sequences
+;;; ---------------------------------------------------------------------
+
+;;; mutating
+
+(defmethod add-first! (thing (sequence cl:null))(%error-nil-is-immutable))
+(defmethod add-last! ((sequence cl:null) thing)(%error-nil-is-immutable))
+(defmethod append! ((sequence cl:null) &rest sequences)(%error-nil-is-immutable))
+(defmethod binary-append! ((sequence1 cl:null) (sequence2 cl:null))(%error-nil-is-immutable))
+(defmethod drop! (count (sequence cl:null))(%error-nil-is-immutable))
+(defmethod drop-until! (test (sequence cl:null))(%error-nil-is-immutable))
+(defmethod drop-while! (test (sequence cl:null))(%error-nil-is-immutable))
+(defmethod insert! ((sequence cl:null) index new-value)(%error-nil-is-immutable))
+(defmethod leave! (count (sequence cl:null))(%error-nil-is-immutable))
+(defmethod remove-last! ((sequence cl:null))(%error-nil-is-immutable))
+(defmethod replace! ((sequence cl:null) index new-value)(%error-nil-is-immutable))
+(defmethod reverse! ((sequence cl:null))(%error-nil-is-immutable))
+(defmethod shuffle! ((sequence cl:null))(%error-nil-is-immutable))
+(defmethod substitute-if! (test (sequence cl:null) new-value)(%error-nil-is-immutable))
+
+;;; filtering
+(defmethod remove-duplicates! (test (sequence cl:null))(%error-nil-is-immutable))
+(defmethod remove-if! (test (sequence cl:null))(%error-nil-is-immutable))
+
+;;; sorting
+
+(defmethod sort! (test (sequence cl:null))(%error-nil-is-immutable)) ; non-destructive!
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: pairs
 ;;; ---------------------------------------------------------------------

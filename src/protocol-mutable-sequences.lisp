@@ -25,7 +25,6 @@
 (defgeneric remove-last! (sequence))
 (defgeneric replace! (sequence index new-value))
 (defgeneric reverse! (sequence))
-(defgeneric set-first! (thing sequence))
 (defgeneric shuffle! (sequence))
 (defgeneric substitute-if! (test sequence new-value))
 

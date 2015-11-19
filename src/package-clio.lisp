@@ -156,7 +156,9 @@
    #:drop
    #:drop!
    #:drop-until
+   #:drop-until!
    #:drop-while
+   #:drop-while!
    #:eighth
    #:element
    #:empty?
@@ -222,6 +224,7 @@
    #:inc!
    #:indexes
    #:initialize-instance
+   #:insert!
    #:inspect
    #:integer
    #:integer?
@@ -236,6 +239,7 @@
    #:join
    #:last
    #:leave
+   #:leave!
    #:list
    #:list?
    #:lcm
@@ -309,14 +313,19 @@
    #:reduce
    #:rem
    #:remove-duplicates
+   #:remove-duplicates!
    #:remove-if
+   #:remove-if!
+   #:remove-last!
    #:rename-package
    #:render-uri
    #:repeat
+   #:replace!
    #:reread-timezone-repository
    #:rest
    #:return-from
    #:reverse
+   #:reverse!
    #:room
    #:round
    #:scale-float
@@ -334,6 +343,7 @@
    #:shadow
    #:shadowing-import
    #:shuffle
+   #:shuffle!
    #:sign
    #:signal
    #:sin
@@ -342,6 +352,7 @@
    #:sleep
    #:some?
    #:sort ; NOTE: non-destructive!
+   #:sort! ; NOTE: destructive!
    #:split
    #:sqrt
    #:stream
@@ -352,6 +363,7 @@
    #:symbol?
    #:subsequence
    #:substitute-if
+   #:substitute-if!
    #:suffix-match?
    #:symbol-function
    #:symbol-name

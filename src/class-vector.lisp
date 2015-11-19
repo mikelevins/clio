@@ -191,7 +191,6 @@
 ;;; (defgeneric remove-last! (sequence))
 ;;; (defgeneric replace! (sequence index new-value))
 ;;; (defgeneric reverse! (sequence))
-;;; (defgeneric set-first! (thing sequence))
 ;;; (defgeneric shuffle! (sequence))
 ;;; (defgeneric substitute-if! (test sequence new-value))
 
@@ -201,7 +200,11 @@
 
 ;;; sorting
 
-;;; (defgeneric sort! (test sequence)) ; non-destructive!
+(defmethod sort! ((test cl:function) (sequence cl:vector))
+  (cl:sort sequence test))
+
+(defmethod sort! ((test cl:symbol) (sequence cl:vector))
+  (cl:sort sequence (cl:symbol-function test)))
 
 ;;; ---------------------------------------------------------------------
 ;;; protocol: sequences
@@ -209,8 +212,24 @@
 
 ;;; constructing
 
-;;; (defgeneric add-first (thing sequence))
-;;; (defgeneric add-last (sequence thing))
+(defmethod add-first (thing (sequence cl:vector))
+  (let* ((len (cl:length sequence))
+         (sequence2 (cl:make-array (+ len 1) :adjustable t :fill-pointer (+ len 1))))
+    (loop for i from 0 below len
+       do (setf (elt sequence2 (cl:1+ i))
+                (elt sequence i)))
+    (setf (elt sequence2 0) thing)
+    sequence2))
+
+(defmethod add-last ((sequence cl:vector) thing)
+  (let* ((len (cl:length sequence))
+         (sequence2 (cl:make-array (+ len 1) :adjustable t :fill-pointer (+ len 1))))
+    (loop for i from 0 below len
+       do (setf (elt sequence2 i)
+                (elt sequence i)))
+    (setf (elt sequence2 len) thing)
+    sequence2))
+
 ;;; (defgeneric append (sequence &rest sequences))
 ;;; (defgeneric binary-append (sequence1 sequence2))
 ;;; (defgeneric collect (type series &key &allow-other-keys))

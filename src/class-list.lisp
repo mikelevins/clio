@@ -85,10 +85,29 @@
 
 ;;; mutating
 
-;;; (defgeneric add-first! (thing sequence))
-;;; (defgeneric add-last! (sequence thing))
-;;; (defgeneric append! (sequence &rest sequences))
-;;; (defgeneric binary-append! (sequence1 sequence2))
+(defmethod add-first! (thing (sequence cl:list))
+  (let* ((new-cdr (cl:cons (cl:car sequence)
+                           (cl:cdr sequence))))
+    (setf (car sequence) thing)
+    (setf (cdr sequence) new-cdr)
+    sequence))
+
+(defmethod add-last! ((sequence cl:list) thing)
+  (let* ((last-cell (cl:last sequence)))
+    (setf (cl:cdr last-cell)
+          (cl:list thing))
+    sequence))
+
+(defmethod append! ((sequence cl:list) &rest sequences)
+  (loop for sequence2 in sequences
+     do (binary-append! sequence sequence2))
+  sequence)
+
+(defmethod binary-append! ((sequence1 cl:list) (sequence2 cl:list))
+  (let* ((last-cell (cl:last sequence1)))
+    (setf (cl:cdr last-cell) sequence2)
+    sequence1))
+
 ;;; (defgeneric drop! (count sequence))
 ;;; (defgeneric drop-until! (test sequence))
 ;;; (defgeneric drop-while! (test sequence))
@@ -97,7 +116,6 @@
 ;;; (defgeneric remove-last! (sequence))
 ;;; (defgeneric replace! (sequence index new-value))
 ;;; (defgeneric reverse! (sequence))
-;;; (defgeneric set-first! (thing sequence))
 ;;; (defgeneric shuffle! (sequence))
 ;;; (defgeneric substitute-if! (test sequence new-value))
 
