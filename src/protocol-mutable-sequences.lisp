@@ -14,6 +14,7 @@
 ;;; mutating
 
 (defgeneric add-first! (thing sequence))
+(defgeneric add-last! (sequence thing))
 (defgeneric append! (sequence &rest sequences))
 (defgeneric binary-append! (sequence1 sequence2))
 (defgeneric drop! (count sequence))
@@ -21,6 +22,7 @@
 (defgeneric drop-while! (test sequence))
 (defgeneric insert! (sequence index new-value))
 (defgeneric leave! (count sequence))
+(defgeneric remove-last! (sequence))
 (defgeneric replace! (sequence index new-value))
 (defgeneric reverse! (sequence))
 (defgeneric set-first! (thing sequence))

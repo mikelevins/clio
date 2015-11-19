@@ -26,7 +26,7 @@
 (defun symbol (name &optional package)
   (if package
       (cl:make-symbol name)
-      (cl:intern name :package package)))
+      (cl:intern name package)))
 
 
 ;;; ---------------------------------------------------------------------

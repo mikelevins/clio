@@ -135,7 +135,9 @@
    #:acos
    #:acosh
    #:add-first
+   #:add-first!
    #:add-last
+   #:add-last!
    #:adjust-timestamp
    #:adjust-timestamp!
    #:and

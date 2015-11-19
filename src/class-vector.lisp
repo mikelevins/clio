@@ -11,6 +11,20 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
+;;; private: vector helpers
+;;; ---------------------------------------------------------------------
+
+(defmethod %ensure-stretchy-vector (thing)
+  (error "Not a vector: ~S" thing))
+
+(defmethod %ensure-stretchy-vector ((thing cl:vector))
+  (if (adjustable-array-p thing)
+      (if (array-has-fill-pointer-p thing)
+          thing
+          (error "No fill-pointer: ~S" thing))
+      (error "Not an adjustable vector: ~S" thing)))
+
+;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
@@ -89,6 +103,37 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: mutable-sequences
 ;;; ---------------------------------------------------------------------
+
+;;; mutating
+
+;;; (defgeneric add-first! (thing sequence))
+
+(defmethod add-last! ((sequence cl:vector) thing)
+  (%ensure-stretchy-vector sequence)
+  (cl:vector-push-extend thing sequence))
+
+;;; (defgeneric append! (sequence &rest sequences))
+;;; (defgeneric binary-append! (sequence1 sequence2))
+;;; (defgeneric drop! (count sequence))
+;;; (defgeneric drop-until! (test sequence))
+;;; (defgeneric drop-while! (test sequence))
+;;; (defgeneric insert! (sequence index new-value))
+;;; (defgeneric leave! (count sequence))
+;;; (defgeneric remove-last! (sequence))
+;;; (defgeneric replace! (sequence index new-value))
+;;; (defgeneric reverse! (sequence))
+;;; (defgeneric set-first! (thing sequence))
+;;; (defgeneric shuffle! (sequence))
+;;; (defgeneric substitute-if! (test sequence new-value))
+
+;;; filtering
+;;; (defgeneric remove-duplicates! (test sequence))
+;;; (defgeneric remove-if! (test sequence))
+
+;;; sorting
+
+;;; (defgeneric sort! (test sequence)) ; non-destructive!
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: sequences
 ;;; ---------------------------------------------------------------------
