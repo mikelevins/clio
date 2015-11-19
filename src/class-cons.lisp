@@ -11,20 +11,6 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
-;;; protocol: construction
-;;; ---------------------------------------------------------------------
-
-(defmethod make ((type (eql 'cons)) &rest initargs
-                 &key (car nil)(cdr nil) &allow-other-keys)
-  (cons car cdr))
-
-(defmethod make ((type (eql (cl:find-class 'cl:cons))) &rest initargs
-                 &key (car nil)(cdr nil) &allow-other-keys)
-  (cons car cdr))
-
-;;; function cons imported from cl
-
-;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------

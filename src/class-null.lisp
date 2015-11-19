@@ -11,22 +11,6 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
-;;; protocol: construction
-;;; ---------------------------------------------------------------------
-
-(defmethod make ((type (eql 'null)) &rest initargs
-                 &key &allow-other-keys)
-  nil)
-
-(defmethod make ((type (eql (cl:find-class 'cl:null))) &rest initargs
-                 &key &allow-other-keys)
-  nil)
-
-(defmethod make ((type (eql 'nil)) &rest initargs
-                 &key &allow-other-keys)
-  nil)
-
-;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------

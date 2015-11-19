@@ -11,22 +11,22 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
-;;; protocol: construction
-;;; ---------------------------------------------------------------------
-
-(defmethod make ((type (eql 'list)) &rest initargs
-                 &key (length 0)(initial-element nil) &allow-other-keys)
-  (cl:make-list length :initial-element initial-element))
-
-(defmethod make ((type (eql (cl:find-class 'cl:list))) &rest initargs
-                 &key (length 0)(initial-element nil) &allow-other-keys)
-  (cl:make-list length :initial-element initial-element))
-
-;;; function list imported from cl
-
-;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
+
+(defmethod as ((type (eql 'vector)) (object cl:list) &key &allow-other-keys)
+  (let* ((len (cl:length object)))
+    (cl:make-array len :adjustable t :fill-pointer len :initial-contents object)))
+
+;;; ---------------------------------------------------------------------
+;;; protocol: copying
+;;; ---------------------------------------------------------------------
+
+(defmethod copy ((object cl:list) &key (deep t) &allow-other-keys)
+  (if deep
+      (cl:copy-tree object)
+      (cl:mapcar 'cl:identity object)))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
@@ -134,13 +134,24 @@
   (filter (cl:symbol-function test) sequence))
 
 
-;;; (defgeneric remove-duplicates (test sequence))
+(defmethod remove-duplicates ((test cl:function) (sequence cl:list))
+  (cl:remove-duplicates sequence :test test))
+
+(defmethod remove-duplicates ((test cl:symbol) (sequence cl:list))
+  (remove-duplicates (cl:symbol-function test) sequence))
+
 ;;; (defgeneric remove-if (test sequence))
 
 ;;; mapping
 
 ;;; (defgeneric count-if (test sequence))
-;;; (defgeneric every? (test sequence))
+
+(defmethod every? ((test cl:function) (sequence cl:list))
+  (cl:every test sequence))
+
+(defmethod every? ((test cl:symbol) (sequence cl:list))
+  (every? (cl:symbol-function test) sequence))
+
 ;;; (defgeneric indexes (sequence))
 
 (defmethod map-over ((function cl:function) (sequence cl:list))

@@ -30,7 +30,7 @@
                                        (:file "protocol-construction")
                                        (:file "protocol-conversion")
                                        (:file "protocol-equal")
-                                       (:file "protocol-copies")
+                                       (:file "protocol-copying")
                                        (:file "protocol-functions")
                                        (:file "protocol-ordered")
                                        (:file "protocol-pairs")

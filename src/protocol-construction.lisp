@@ -10,4 +10,6 @@
 
 (in-package :clio-internal)
 
-(defgeneric make (type &rest initargs &key &allow-other-keys))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (setf (symbol-function 'clio-internal::make)
+        (symbol-function 'cl::make-instance)))

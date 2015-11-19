@@ -11,49 +11,6 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
-;;; protocol: construction
-;;; ---------------------------------------------------------------------
-
-(defmethod make ((type (eql 'seq)) &rest initargs
-                 &key
-                   (contents nil contents?)
-                   (element nil element?)
-                   (length nil length?)
-                   &allow-other-keys)
-  (if length?
-      (if contents?
-          (if (equal length (cl:length contents))
-              (fset:convert 'seq contents)
-              (cl:error "length must equal the length of contents"))
-          (fset:convert 'seq (cl:make-list length :initial-element element)))
-      (if contents?
-          (if element?
-              (error "Can't specify both contents and element to make 'seq")
-              (fset:convert 'seq contents))
-          (seq))))
-
-
-(defmethod make ((type (eql (cl:find-class 'fset:seq))) &rest initargs
-                 &key
-                   (contents nil contents?)
-                   (element nil element?)
-                   (length nil length?)
-                   &allow-other-keys)
-  (if length?
-      (if contents?
-          (if (equal length (cl:length contents))
-              (fset:convert 'seq contents)
-              (cl:error "length must equal the length of contents"))
-          (fset:convert 'seq (cl:make-list length :initial-element element)))
-      (if contents?
-          (if element?
-              (error "Can't specify both contents and element to make 'seq")
-              (fset:convert 'seq contents))
-          (seq))))
-
-;;; function seq imported from fset
-
-;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------

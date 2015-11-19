@@ -11,50 +11,6 @@
 (in-package :clio-internal)
 
 ;;; ---------------------------------------------------------------------
-;;; protocol: construction
-;;; ---------------------------------------------------------------------
-
-(defmethod make ((type (eql 'uri)) &rest initargs
-                 &key
-                   (scheme nil)
-                   (host nil)
-                   (port nil)
-                   (path nil)
-                   (query nil)
-                   (fragment nil)
-                   (plist nil)
-                   &allow-other-keys)
-  (cl:make-instance 'uri
-                    :scheme scheme
-                    :host host
-                    :port port
-                    :path path
-                    :query query
-                    :fragment fragment
-                    :plist plist))
-
-(defmethod make ((type (eql (cl:find-class 'puri:uri))) &rest initargs
-                 &key
-                   (scheme nil)
-                   (host nil)
-                   (port nil)
-                   (path nil)
-                   (query nil)
-                   (fragment nil)
-                   (plist nil)
-                   &allow-other-keys)
-  (cl:make-instance 'uri
-                    :scheme scheme
-                    :host host
-                    :port port
-                    :path path
-                    :query query
-                    :fragment fragment
-                    :plist plist))
-
-;;; function uri imported from puri
-
-;;; ---------------------------------------------------------------------
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------

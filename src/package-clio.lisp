@@ -28,72 +28,414 @@
    #:&optional
    #:&rest
    #:$
-   #:^
+   #:*
+   #:**
+   #:***
+   #:*clock*
+   #:*default-timezone*
+   #:*default-timezone*
+   #:*features*
+   #:*package*
+   #:*random-state*
+   #:+
+   #:++
+   #:+++
+   #:+asctime-format+
+   #:+day-names+
+   #:+days-per-week+
+   #:+gmt-zone+
+   #:+hours-per-day+
+   #:+iso-8601-date-format+
+   #:+iso-8601-format+
+   #:+iso-8601-time-format+
+   #:+iso-week-date-format+
+   #:+minutes-per-day+
+   #:+minutes-per-hour+
+   #:+month-names+
+   #:+months-per-year+
+   #:+rfc-1123-format+
+   #:+rfc3339-format+
+   #:+rfc3339-format/date-only+
+   #:+seconds-per-day+
+   #:+seconds-per-hour+
+   #:+seconds-per-minute+
+   #:+short-day-names+
+   #:+short-month-names+
+   #:+utc-zone+
+   #:-
+   #:/
+   #://
+   #:///
+   #:/=
+   #:<
    #:<
    #:<=
+   #:<=
+   #:=
    #:=
    #:>
+   #:>
    #:>=
+   #:>=
+   #:^
+   #:abort
+   #:abs
+   #:acos
+   #:acosh
+   #:add-first
+   #:add-last
+   #:adjust-timestamp
+   #:adjust-timestamp!
    #:and
+   #:any
    #:append
    #:apply
+   #:apropos
+   #:as
+   #:asin
+   #:asinh
+   #:assert
+   #:astronomical-julian-date
+   #:atan
+   #:atanh
    #:begin
+   #:binary-append
+   #:binary-merge
+   #:bind
+   #:by
+   #:case
+   #:catch
+   #:ceiling
+   #:character
+   #:character?
    #:class
+   #:clock-now
+   #:clock-today
    #:close
+   #:collect
+   #:compile-file
+   #:complement
+   #:complex
+   #:complex?
+   #:cond
+   #:condition
+   #:condition?
+   #:cons
+   #:cons?
+   #:conjugate
+   #:constantly
+   #:contains?
+   #:copy
+   #:cos
+   #:cosh
    #:count-if
+   #:date
+   #:days-in-month
+   #:dec
+   #:dec!
+   #:decode-float
+   #:decode-timestamp
    #:defclass
    #:define
-   #:defun
+   #:define-condition
+   #:define-timezone
    #:defmethod
    #:defpackage
+   #:defun
+   #:delete-package
+   #:denominator
    #:describe
+   #:disassemble
+   #:do-all-symbols
+   #:do-external-symbols
+   #:do-symbols
+   #:drop
+   #:drop-until
+   #:drop-while
    #:eighth
+   #:element
+   #:empty?
+   #:encode-timestamp
+   #:enough-uri
+   #:ensure
+   #:eof
+   #:eof?
    #:eql
+   #:error
+   #:even?
+   #:every?
+   #:exp
+   #:export
+   #:expt
+   #:fbound?
+   #:fceiling
+   #:ffloor
    #:fifth
+   #:filter
+   #:find-all-symbols
    #:find-if
+   #:find-package
+   #:find-symbol
+   #:find-timezone-by-location-name
    #:first
+   #:float
+   #:float?
+   #:float-digits
+   #:float-precision
+   #:float-radix
+   #:float-sign
+   #:floor
    #:format
+   #:format-rfc1123-timestring
+   #:format-rfc3339-timestring
+   #:format-timestring
+   #:foundation-series
    #:fourth
+   #:fround
+   #:ftruncate
+   #:funbind!
+   #:funcall
+   #:function
+   #:function?
+   #:gather
+   #:gcd
+   #:generate
+   #:gensym
    #:get
+   #:handler-case
+   #:hash-table
+   #:hash-table?
+   #:home-uri
+   #:identical?
+   #:identity
    #:if
+   #:ignore-errors
+   #:imaginary-part
+   #:import
    #:in-package
+   #:inc
+   #:inc!
+   #:indexes
+   #:initialize-instance
+   #:inspect
+   #:integer
+   #:integer?
+   #:integer-decode-float
+   #:integer-length
+   #:interleave
+   #:interpose
+   #:intern
+   #:internal-time-units-per-second
+   #:isqrt
+   #:keys
+   #:join
    #:last
+   #:leave
+   #:list
+   #:list?
+   #:lcm
+   #:leave
    #:length
    #:let
+   #:list->values
+   #:list-all-packages
+   #:load
    #:make
-   #:make-instance
+   #:make-package
+   #:make-random-state
+   #:make-symbol
+   #:make-timestamp
+   #:make-uri-space
    #:map
+   #:map?
+   #:map-fn
+   #:map-over
+   #:max
    #:merge
+   #:merge-uris
+   #:min
+   #:minus
    #:mismatch
-   #:open
-   #:or
+   #:mod
+   #:modified-julian-date
    #:nil
    #:ninth
+   #:not
+   #:notany?
+   #:notevery?
+   #:now
    #:null?
-   #:position-if
+   #:number?
+   #:numerator
+   #:odd?
+   #:open
+   #:or
+   #:package?
+   #:package-name
+   #:package-nicknames
+   #:package-shadowing-symbols
+   #:package-use-list
+   #:package-used-by-list
+   #:pair
+   #:pair?
+   #:pairs
+   #:parse-integer
+   #:parse-rfc3339-timestring
+   #:parse-timestring
+   #:parse-uri
+   #:partition
+   #:phase
+   #:pi
+   #:plus?
+   #:prefix-match?
    #:print-object
    #:print-unreadable-object
+   #:position-if
    #:put
+   #:random
+   #:random-state?
+   #:ratio
+   #:rational
+   #:rational?
+   #:rationalize
    #:read
+   #:real?
+   #:realpart
    #:reduce
+   #:rem
    #:remove-duplicates
    #:remove-if
+   #:rename-package
+   #:render-uri
+   #:repeat
+   #:reread-timezone-repository
    #:rest
    #:return-from
    #:reverse
+   #:room
+   #:round
+   #:scale-float
+   #:scan
    #:search
    #:second
+   #:select
+   #:seq
+   #:seq?
+   #:sequence->values
+   #:series
+   #:series?
    #:set!
    #:seventh
+   #:shadow
+   #:shadowing-import
+   #:shuffle
+   #:sign
+   #:signal
+   #:sin
+   #:sinh
    #:sixth
+   #:sleep
+   #:some?
    #:sort ; NOTE: non-destructive!
+   #:split
+   #:sqrt
    #:stream
+   #:stream?
+   #:string
+   #:string?
+   #:symbol
+   #:symbol?
+   #:subsequence
    #:substitute-if
+   #:suffix-match?
+   #:symbol-function
+   #:symbol-name
+   #:symbol-package
+   #:symbol-value
    #:t
+   #:tail
+   #:tails
+   #:take
+   #:take-by
+   #:take-until
+   #:take-while
+   #:tan
+   #:tanh
+   #:tap
    #:tenth
    #:third
+   #:throw
+   #:time
+   #:time-of-day
+   #:timestamp
+   #:timestamp?
+   #:timestamp+
+   #:timestamp-
+   #:timestamp-century
+   #:timestamp-day
+   #:timestamp-day-of-week
+   #:timestamp-decade
+   #:timestamp-difference
+   #:timestamp-hour
+   #:timestamp-maximize-part
+   #:timestamp-maximum
+   #:timestamp-microsecond
+   #:timestamp-millennium
+   #:timestamp-millisecond
+   #:timestamp-minimize-part
+   #:timestamp-minimum
+   #:timestamp-minute
+   #:timestamp-month
+   #:timestamp-second
+   #:timestamp-subtimezone
+   #:timestamp-to-universal
+   #:timestamp-to-unix
+   #:timestamp-whole-year-difference
+   #:timestamp-year
+   #:timestamp/=
+   #:timestamp<
+   #:timestamp<=
+   #:timestamp=
+   #:timestamp>
+   #:timestamp>=
+   #:to-rfc1123-timestring
+   #:to-rfc3339-timestring
+   #:today
+   #:truncate
    #:type
-   #:write))
+   #:unexport
+   #:unintern
+   #:universal-to-timestamp
+   #:unix-to-timestamp
+   #:unless
+   #:unuse-package
+   #:unzip
+   #:uri
+   #:uri?
+   #:uri-authority
+   #:uri-escaped
+   #:uri-fragment
+   #:uri-hashcode
+   #:uri-host
+   #:uri-parsed-path
+   #:uri-path
+   #:uri-plist
+   #:uri-port
+   #:uri-query
+   #:uri-scheme
+   #:uri-space
+   #:uri-string
+   #:use-package
+   #:vals
+   #:values
+   #:vector
+   #:warn
+   #:when
+   #:with-decoded-timestamp
+   #:write
+   #:zero?
+   #:zip
+   ))
 
 
 

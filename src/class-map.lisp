@@ -14,20 +14,6 @@
 ;;; protocol: construction
 ;;; ---------------------------------------------------------------------
 
-(defmethod make ((type (eql 'map)) &rest initargs
-                 &key (contents nil) &allow-other-keys)
-  (fset:convert 'map
-                (loop for tail on contents by #'cddr
-                   collect (cons (cl:first tail)
-                                 (cl:second tail)))))
-
-(defmethod make ((type (eql (cl:find-class 'fset:map))) &rest initargs
-                 &key (contents nil) &allow-other-keys)
-  (fset:convert 'map
-                (loop for tail on contents by #'cddr
-                   collect (cons (cl:first tail)
-                                 (cl:second tail)))))
-
 (defun map (&rest contents)
   (fset:convert 'map
                 (loop for tail on contents by #'cddr

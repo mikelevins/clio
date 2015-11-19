@@ -143,6 +143,7 @@
    #:append
    #:apply
    #:apropos
+   #:as
    #:asin
    #:asinh
    #:assert
@@ -176,8 +177,7 @@
    #:conjugate
    #:constantly
    #:contains?
-   #:copy-symbol
-   #:copy-uri
+   #:copy
    #:cos
    #:cosh
    #:count-if
@@ -268,6 +268,7 @@
    #:inc
    #:inc!
    #:indexes
+   #:initialize-instance
    #:inspect
    #:integer
    #:integer?
@@ -292,7 +293,6 @@
    #:list-all-packages
    #:load
    #:make
-   #:make-instance
    #:make-package
    #:make-random-state
    #:make-symbol
@@ -346,6 +346,7 @@
    #:put
    #:random
    #:random-state?
+   #:ratio
    #:rational
    #:rational?
    #:rationalize

@@ -1,6 +1,6 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-copies.lisp
+;;;; Name:          protocol-copying.lisp
 ;;;; Project:       the clio language
 ;;;; Purpose:       making copies of objects
 ;;;; Author:        mikel evins
