@@ -16,6 +16,10 @@
 ;;; clio system
 ;;; ---------------------------------------------------------------------
 
+;;; enable asdf to deal with SBCL pickiness
+#+sbcl(setf asdf:*compile-file-warnings-behaviour* :ignore)
+#+sbcl(setf asdf:*compile-file-failure-behaviour* :ignore)
+
 (asdf:defsystem #:clio
     :serial t
     :description "Common Lisp's simpler newphew"
@@ -68,6 +72,7 @@
                                        (:file "syntax-list")
                                        (:file "syntax-map")
                                        (:file "syntax-special")
-                                       (:file "version")))))
+                                       (:file "version")
+                                       ))))
 
 ;;; (asdf:load-system :clio)

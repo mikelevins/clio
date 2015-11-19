@@ -230,8 +230,28 @@
     (setf (elt sequence2 len) thing)
     sequence2))
 
-;;; (defgeneric append (sequence &rest sequences))
-;;; (defgeneric binary-append (sequence1 sequence2))
+(defmethod append ((sequence cl:vector) &rest sequences)
+  (if (cl:null sequences)
+      sequence
+      (if (cdr sequences)
+          (cl:apply 'append
+                    (binary-append sequence (car sequences))
+                    (cdr sequences))
+          (binary-append sequence (car sequences)))))
+
+(defmethod binary-append ((sequence1 cl:vector) (sequence2 cl:vector))
+  (let* ((len1 (cl:length sequence1))
+         (len2 (cl:length sequence2))
+         (len3 (+ len1 len2))
+         (result (make-array len3 :adjustable t :fill-pointer len3)))
+    (loop for i from 0 below len1
+       do (setf (elt result i)
+                (elt sequence1 i)))
+    (loop for j from 0 below len2
+       do (setf (elt result (+ len1 j))
+                (elt sequence2 j)))
+    result))
+
 ;;; (defgeneric collect (type series &key &allow-other-keys))
 ;;; (defgeneric generate (fn &key &allow-other-keys))
 ;;; (defgeneric interleave (sequence1 sequence2))
@@ -241,10 +261,18 @@
 ;;; (defgeneric sequence->values (sequence))
 ;;; (defgeneric shuffle (sequence))
 ;;; (defgeneric substitute-if (test sequence new-value))
-;;; (defgeneric tap (element-type source &key &allow-other-keys))
+
+(defmethod tap ((element-type (eql :objects)) (source cl:vector) &key &allow-other-keys)
+  (series:scan source))
 
 ;;; filtering
-;;; (defgeneric filter (test sequence))
+
+(defmethod filter ((test cl:function) (sequence cl:vector))
+  (cl:remove-if-not test sequence))
+
+(defmethod filter ((test cl:symbol) (sequence cl:vector))
+  (cl:remove-if-not (cl:symbol-function test) sequence))
+
 ;;; (defgeneric remove-duplicates (test sequence))
 ;;; (defgeneric remove-if (test sequence))
 

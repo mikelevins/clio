@@ -160,7 +160,9 @@
 ;;; (defgeneric sequence->values (sequence))
 ;;; (defgeneric shuffle (sequence))
 ;;; (defgeneric substitute-if (test sequence new-value))
-;;; (defgeneric tap (element-type source &key &allow-other-keys))
+
+(defmethod tap ((element-type (eql :objects)) (source cl:list) &key &allow-other-keys)
+  (series:scan source))
 
 ;;; filtering
 
@@ -177,7 +179,11 @@
 (defmethod remove-duplicates ((test cl:symbol) (sequence cl:list))
   (remove-duplicates (cl:symbol-function test) sequence))
 
-;;; (defgeneric remove-if (test sequence))
+(defmethod remove-if ((test cl:function) (sequence cl:list))
+  (cl:remove-if test sequence))
+
+(defmethod remove-if ((test cl:symbol) (sequence cl:list))
+  (cl:remove-if (cl:symbol-function test) sequence))
 
 ;;; mapping
 
