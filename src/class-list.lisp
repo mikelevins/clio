@@ -223,7 +223,10 @@
 ;;; indexing
 
 ;;; (defgeneric eighth (sequence))
-;;; (defgeneric element (sequence index))
+
+(defmethod element ((sequence cl:list) index)
+  (cl:elt sequence index))
+
 ;;; (defgeneric fifth (sequence))
 
 (defmethod first ((sequence cl:list))
