@@ -186,6 +186,13 @@
 
 ;;; (defgeneric drop-until! (test sequence))
 ;;; (defgeneric drop-while! (test sequence))
+
+(defmethod set-element! ((sequence vector) (index integer) val)
+  (cl:setf (cl:elt sequence index)
+           val))
+
+(defsetf element set-element!)
+
 ;;; (defgeneric insert! (sequence index new-value))
 ;;; (defgeneric leave! (count sequence))
 ;;; (defgeneric remove-last! (sequence))

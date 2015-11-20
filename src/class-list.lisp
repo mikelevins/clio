@@ -116,6 +116,13 @@
 ;;; (defgeneric remove-last! (sequence))
 ;;; (defgeneric replace! (sequence index new-value))
 ;;; (defgeneric reverse! (sequence))
+
+(defmethod set-element! ((sequence cl:list) (index integer) val)
+  (cl:setf (cl:elt sequence index)
+           val))
+
+(defsetf element set-element!)
+
 ;;; (defgeneric shuffle! (sequence))
 ;;; (defgeneric substitute-if! (test sequence new-value))
 
