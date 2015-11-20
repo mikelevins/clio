@@ -76,9 +76,20 @@
 ;;; ---------------------------------------------------------------------
 ;;; protocol: symbols
 ;;; ---------------------------------------------------------------------
+
+(defmethod bound? ((symbol cl:symbol))
+  (cl:fboundp symbol))
+
+(defmethod unbind! ((symbol cl:symbol))
+  (cl:makunbound symbol))
+
 ;;; ---------------------------------------------------------------------
 ;;; protocol: types
 ;;; ---------------------------------------------------------------------
+
+(defmethod keyword? (thing) nil)
+(defmethod keyword? ((thing cl:symbol))
+  (cl:keywordp thing))
 
 (defmethod symbol? (thing) nil)
 (defmethod symbol? ((thing cl:symbol)) t)

@@ -447,6 +447,7 @@
    #:vals
    #:values
    #:vector
+   #:vector?
    #:warn
    #:when
    #:with-decoded-timestamp
