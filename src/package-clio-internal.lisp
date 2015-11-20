@@ -392,6 +392,7 @@
    #:series
    #:series?
    #:set!
+   #:set-element!
    #:seventh
    #:shadow
    #:shadowing-import
