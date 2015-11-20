@@ -32,6 +32,24 @@
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
+;;; protocol: copying
+;;; ---------------------------------------------------------------------
+
+(defmethod copy ((object cl:hash-table) &key (deep t) &allow-other-keys)
+  (let* ((copy (make-hash-table :test (hash-table-test object)
+                                :size (hash-table-size object)
+                                :rehash-size (hash-table-rehash-size object)
+                                :rehash-threshold (hash-table-rehash-threshold object))))
+    (if deep
+        (loop for key being the hash-keys of object
+           do (setf (gethash key copy)
+                    (copy (gethash key object) :deep t)))
+        (loop for key being the hash-keys of object
+           do (setf (gethash key copy)
+                    (gethash key object))))
+    copy))
+
+;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------

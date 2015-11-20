@@ -24,6 +24,20 @@
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
+;;; protocol: copying
+;;; ---------------------------------------------------------------------
+
+(defmethod copy ((object map) &key (deep t) &allow-other-keys)
+  (if deep
+      (let* ((keys (keys object))
+             (vals (cl:mapcar (lambda (val)(copy val :deep t))
+                              (vals object))))
+        (zip keys vals))
+      (let* ((keys (keys object))
+             (vals (vals object)))
+        (zip keys vals))))
+
+;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
 

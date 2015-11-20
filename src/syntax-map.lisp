@@ -17,7 +17,7 @@
                      (lambda (stream char)
                        (declare (ignore char))
                        (let ((elts (read-delimited-list #\} stream t)))
-                         `(clio:make 'clio:map :contents (list ,@elts)))))
+                         `(cl:apply 'clio:map (list ,@elts)))))
 
 
 (in-package :fset)

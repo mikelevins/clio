@@ -70,6 +70,18 @@
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
+;;; protocol: copying
+;;; ---------------------------------------------------------------------
+
+(defmethod copy ((object cl:vector) &key (deep t) &allow-other-keys)
+  (let* ((len (cl:length object))
+         (result (cl:make-array len :adjustable t :fill-pointer len)))
+    (if deep
+        (loop for i from 0 below len do (setf (elt result i)(copy (elt object i) :deep t)))
+        (loop for i from 0 below len do (setf (elt result i)(elt object i))))
+    result))
+
+;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
 

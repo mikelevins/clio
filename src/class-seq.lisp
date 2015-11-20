@@ -14,6 +14,16 @@
 ;;; protocol: conversion
 ;;; ---------------------------------------------------------------------
 ;;; ---------------------------------------------------------------------
+;;; protocol: copying
+;;; ---------------------------------------------------------------------
+
+(defmethod copy ((object seq) &key (deep t) &allow-other-keys)
+  (if deep
+      (fset:convert 'seq (cl:map 'cl:vector (lambda (it)(copy it :deep t))
+                                 (fset:convert 'cl:vector object)))
+      (fset:convert 'seq (fset:convert 'cl:vector object))))
+
+;;; ---------------------------------------------------------------------
 ;;; protocol: equal
 ;;; ---------------------------------------------------------------------
 
