@@ -10,4 +10,4 @@
 
 (in-package :clio-internal)
 
-(defparameter +clio-version+ "0.1.0 (build 64")
+(defparameter +clio-version+ "0.1.0 (build 67")

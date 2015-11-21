@@ -56,6 +56,7 @@
    #:put
    #:read
    #:reduce
+   #:remove
    #:remove-duplicates
    #:remove-if
    #:rest
@@ -277,7 +278,7 @@
    #:inc!
    #:indexes
    #:initialize-instance
-   #:insert!
+   #:insert-at!
    #:inspect
    #:integer
    #:integer?
@@ -365,6 +366,8 @@
    #:realpart
    #:reduce
    #:rem
+   #:remove
+   #:remove-at!
    #:remove-duplicates
    #:remove-duplicates!
    #:remove-if

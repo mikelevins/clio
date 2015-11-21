@@ -55,6 +55,7 @@
 (defmethod drop-while! (test (sequence cl:null))(%error-nil-is-immutable))
 (defmethod insert! ((sequence cl:null) index new-value)(%error-nil-is-immutable))
 (defmethod leave! (count (sequence cl:null))(%error-nil-is-immutable))
+(defmethod remove-at! ((sequence cl:null) (index integer))(%error-nil-is-immutable))
 (defmethod remove-last! ((sequence cl:null))(%error-nil-is-immutable))
 (defmethod replace! ((sequence cl:null) index new-value)(%error-nil-is-immutable))
 (defmethod reverse! ((sequence cl:null))(%error-nil-is-immutable))

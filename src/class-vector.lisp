@@ -34,7 +34,10 @@
           (error "No fill-pointer: ~S" thing))
       (error "Not an adjustable vector: ~S" thing)))
 
-(defmethod %shift-elements-right ((vector vector) &optional (count 1))
+(defmethod %shift-elements-right ((vector vector)
+                                  &key
+                                    (count 1)
+                                    (from 0))
   (%ensure-adjustable-vector vector)
   ;; first make room by pushing a nil onto the end
   (let* ((old-length (cl:fill-pointer vector))
@@ -42,17 +45,20 @@
     (cl:adjust-array vector new-length)
     (setf (fill-pointer vector) new-length)
     ;; now move everything to the right one
-    (loop for i from (cl:1- new-length) downto 1
+    (loop for i from (cl:1- new-length) downto (1+ from)
        do (cl:setf (cl:elt vector i)
                    (cl:elt vector (cl:- i count))))
     vector))
 
-(defmethod %shift-elements-left ((vector vector) &optional (count 1))
+(defmethod %shift-elements-left ((vector vector)
+                                 &key
+                                   (count 1)
+                                   (from 1))
   (%ensure-adjustable-vector vector)
   ;; first move everything to the left one
   (let* ((old-length (cl:fill-pointer vector))
          (new-length (- old-length count)))
-    (loop for i from 0 below new-length
+    (loop for i from from below (1- old-length)
        do (cl:setf (cl:elt vector i)
                    (cl:elt vector (+ i count))))
     (setf (cl:fill-pointer vector) new-length)
@@ -192,7 +198,7 @@
   (%ensure-adjustable-vector sequence)
   (let* ((old-count (cl:fill-pointer sequence))
          (new-count (- old-count count)))
-    (%shift-elements-left sequence count)
+    (%shift-elements-left sequence :count count)
     (setf (fill-pointer sequence) new-count)
     sequence))
 
@@ -207,7 +213,17 @@
 
 ;;; (defgeneric insert! (sequence index new-value))
 ;;; (defgeneric leave! (count sequence))
-;;; (defgeneric remove-last! (sequence))
+
+(defmethod remove-at! ((sequence cl:vector) (index integer))
+  (%ensure-adjustable-vector sequence)
+  (%shift-elements-left sequence :count 1 :from index)
+  sequence)
+
+(defmethod remove-last! ((sequence cl:vector))
+  (%ensure-adjustable-vector sequence)
+  (remove-at! sequence (1- (cl:length sequence)))
+  sequence)
+
 ;;; (defgeneric replace! (sequence index new-value))
 ;;; (defgeneric reverse! (sequence))
 ;;; (defgeneric shuffle! (sequence))

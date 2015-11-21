@@ -113,7 +113,34 @@
 ;;; (defgeneric drop-while! (test sequence))
 ;;; (defgeneric insert! (sequence index new-value))
 ;;; (defgeneric leave! (count sequence))
-;;; (defgeneric remove-last! (sequence))
+
+(defmethod remove-at! ((sequence cl:list) (index integer))
+  (let* ((len (cl:length sequence))
+         (last-index (- len 1)))
+    (cond
+      ((> index last-index)(error "index ~S out of range"))
+      ((< index 0)(error "index ~S out of range"))
+      ((< len 2)(error "cannot remove elements from ~S" sequence))
+      ((= index last-index)(let* ((cell (nthcdr (1- index) sequence)))
+                             (setf (cdr cell)
+                                   (cddr cell))
+                             sequence))
+      ((zerop index) (progn (setf (car sequence)
+                                  (cadr sequence))
+                            (setf (cdr sequence)
+                                  (cddr sequence))
+                            sequence))
+      (t (let* ((cell (nthcdr index sequence)))
+           (setf (car cell)
+                 (cadr cell))
+           (setf (cdr cell)
+                 (cddr cell))
+           sequence)))))
+
+(defmethod remove-last! ((sequence cl:list))
+  (remove-at! sequence (1- (cl:length sequence))))
+
+
 ;;; (defgeneric replace! (sequence index new-value))
 ;;; (defgeneric reverse! (sequence))
 
