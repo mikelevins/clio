@@ -375,7 +375,13 @@
 ;;; searching
 
 ;;; (defgeneric find-if (test sequence))
-;;; (defgeneric position-if (test sequence))
+
+(defmethod position-if ((test cl:function) (sequence cl:vector))
+  (cl:position-if test sequence))
+
+(defmethod position-if ((test cl:symbol) (sequence cl:vector))
+  (position-if (cl:symbol-function test) sequence))
+
 ;;; (defgeneric search (sequence))
 
 ;;; sorting
