@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          package-clio-internal.lisp
+;;;; Name:          package.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       private implementation package
+;;;; Purpose:       package definitions
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -13,9 +13,8 @@
 ;;; ---------------------------------------------------------------------
 ;;; package clio-internal
 ;;; ---------------------------------------------------------------------
-;;; the package in which clio is implemented.  it imports all of
-;;; common-lisp, shadowing symbols as-needed, and exporting the
-;;; symbols that are part of clio
+;;; the package in which clio is implemented. 
 
 (defpackage :clio-internal
   (:use :cl :sqlite))
+
