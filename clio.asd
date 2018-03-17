@@ -21,7 +21,7 @@
     :description "A language about data"
     :author "mikel evins <mevins@me.com>"
     :license "Apache 2.0"
-    :depends-on (:sqlite :fare-csv)
+    :depends-on (:sqlite :sxql :fare-csv)
     :components ((:module "src"
                           :serial t
                           :components ((:file "package")
