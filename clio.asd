@@ -26,6 +26,7 @@
                           :serial t
                           :components ((:file "package")
                                        (:file "version")
-                                       (:file "utilities")))))
+                                       (:file "utilities")
+                                       (:file "storage")))))
 
 ;;; (asdf:load-system :clio)
