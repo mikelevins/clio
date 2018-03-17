@@ -1,25 +1,21 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          protocol-pairs.lisp
+;;;; Name:          package-clio-internal.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       operations on pairs 
+;;;; Purpose:       private implementation package
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :clio-internal)
+(in-package :cl-user)
 
 ;;; ---------------------------------------------------------------------
-;;; generic functions
+;;; package clio-internal
 ;;; ---------------------------------------------------------------------
+;;; the package in which clio is implemented.  it imports all of
+;;; common-lisp, shadowing symbols as-needed, and exporting the
+;;; symbols that are part of clio
 
-(defgeneric left (pair))
-(defgeneric pair (left right))
-(defgeneric pair? (thing))
-(defgeneric right (pair))
-(defgeneric set-left! (pair new-value))
-(defgeneric set-right! (pair new-value))
-
-(defsetf left set-left!)
-(defsetf right set-right!)
+(defpackage :clio-internal
+  (:use :cl :sqlite))
