@@ -2,7 +2,7 @@
 
 Clio is a simple, flexible language for working with persistent data.
 
-## Basic value types
+## Atomic value types
 
 ### Null
 
@@ -38,4 +38,25 @@ fields. Each field can contain a value of any of the basic types.
 When you define a structure, Clio creates a table that describes
 it. Each instance of the structure is represented by a row in the
 table.
+
+For example, you can define a clio structure called `Point` with
+fields `x` and `y`. The definition creates a table called `Point` with
+columns named `x` and `y`.
+
+If you then create an instance of `Point` with some expression like
+
+    ? make Point (10,100)
+
+then clio adds a new row to the `Point` table and returns a reference
+to that row:
+
+    #Point(392) {x = 10, y = 100}
+
+Each row that is created is assigned an ID that is unique in its
+table. You can retrieve the same object at any time by referring to
+that id:
+
+    ? get Point (392)
+    #Point(392) {x = 10, y = 100}
+
 
