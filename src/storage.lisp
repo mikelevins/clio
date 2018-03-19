@@ -10,6 +10,25 @@
 
 (in-package :clio-internal)
 
+;;; GENERIC FUNCTION make-sqlite-file (path)
+;;; ---------------------------------------------------------------------
+;;; creates a SQLite file with user_version = 0 at the supplied path.
+;;; returns the path if successful
+
+(defmethod make-sqlite-file ((path pathname))
+  (if (and path
+           (file-pathname-p path))
+      (with-open-database (db path)
+        (execute-non-query db "pragma user_version = 0"))
+      (error "Invalid pathname for creating a SQLite file: ~S"
+             path)))
+
+(defmethod make-sqlite-file ((path string))
+  (make-sqlite-file (pathname path)))
+
+;;; (make-sqlite-file "/Users/mikel/Desktop/test.sqlite")
+;;; (valid-sqlite-file? "/Users/mikel/Desktop/test.sqlite")
+
 ;;; GENERIC FUNCTION valid-sqlite-file? (path)
 ;;; ---------------------------------------------------------------------
 ;;; returns PATH if it's a valid SQLite file; returns NIL if it isn't
@@ -24,7 +43,7 @@
                          ;; the right way to check whether a file is a SQLite file,
                          ;; according to SQLite docs:
                          (execute-non-query db "pragma schema_version"))
-           (condition (c) nil))
+           (condition (c)(declare (ignore c)) nil))
          path)))
 
 (defmethod valid-sqlite-file? ((path string))
