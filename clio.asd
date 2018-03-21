@@ -27,6 +27,6 @@
                           :components ((:file "package")
                                        (:file "version")
                                        (:file "utilities")
-                                       (:file "storage")))))
+                                       (:file "sqlite")))))
 
 ;;; (asdf:load-system :clio)

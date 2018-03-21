@@ -10,6 +10,10 @@
 
 (in-package :clio-internal)
 
+;;; =====================================================================
+;;; Constructors
+;;; =====================================================================
+
 ;;; GENERIC FUNCTION make-sqlite-file (path)
 ;;; ---------------------------------------------------------------------
 ;;; creates a SQLite file with user_version = 0 at the supplied path.
@@ -28,6 +32,10 @@
 
 ;;; (make-sqlite-file "/Users/mikel/Desktop/test.sqlite")
 ;;; (valid-sqlite-file? "/Users/mikel/Desktop/test.sqlite")
+
+;;; =====================================================================
+;;; Readers
+;;; =====================================================================
 
 ;;; GENERIC FUNCTION valid-sqlite-file? (path)
 ;;; ---------------------------------------------------------------------
@@ -153,4 +161,7 @@
 ;;; (sqlite-get-row "/Users/mikel/Workshop/src/delectus/test-data/Movies.delectus2" "contents" 0)
 ;;; (sqlite-get-row "/Users/mikel/Workshop/src/delectus/test-data/Movies.delectus2" "contents" 100)
 
+;;; =====================================================================
+;;; Writers
+;;; =====================================================================
 
