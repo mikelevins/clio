@@ -1,8 +1,8 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          version.lisp
+;;;; Name:          clio.lisp
 ;;;; Project:       the clio language
-;;;; Purpose:       Clio version
+;;;; Purpose:       the clio parser
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2015 by mikel evins
 ;;;;
@@ -10,4 +10,5 @@
 
 (in-package :clio)
 
-(defparameter +clio-version+ "0.2.0")
+;;; esrap source and examples: https://github.com/scymtym/esrap
+

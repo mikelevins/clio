@@ -15,6 +15,6 @@
 ;;; ---------------------------------------------------------------------
 ;;; the package in which clio is implemented. 
 
-(defpackage :clio-internal
-  (:use :cl :sqlite))
+(defpackage :clio
+  (:use :cl :esrap))
 

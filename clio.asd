@@ -18,15 +18,15 @@
 
 (asdf:defsystem #:clio
     :serial t
-    :description "A language about data"
+    :description "A friendly and flexible programming language"
     :author "mikel evins <mevins@me.com>"
     :license "Apache 2.0"
-    :depends-on (:sqlite :sxql :fare-csv)
+    :depends-on (:esrap)
     :components ((:module "src"
                           :serial t
                           :components ((:file "package")
                                        (:file "version")
-                                       (:file "utilities")
-                                       (:file "sqlite")))))
+                                       (:file "parser")
+                                       (:file "clio")))))
 
 ;;; (asdf:load-system :clio)
