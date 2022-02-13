@@ -2,20 +2,22 @@
 
 The presentation process for clio. To run the stage:
 
-1. git clone the clio repository
+1. Install node.js and neutralinojs (https://github.com/neutralinojs/neutralinojs).
 
-2. cd into the stage directory
+2. git clone the clio repository
 
-3. run the  neutralino  updater  to fetch  the  needed resources  and
+3. cd into the stage directory
+
+4. run the  neutralino  updater  to fetch  the  needed resources  and
    executables:
    
       `neu update`
 
-4. Execute the neutralino runner:
+5. Execute the neutralino runner:
 
        `neu run`
 
-5. On Linux, if the library libappindicator3 is not installed then
+6. On Linux, if the library libappindicator3 is not installed then
    running stage will fail with a message like:
    
     `neutralino-linux_x64 was stopped with error code 127`
