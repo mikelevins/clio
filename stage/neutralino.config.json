@@ -1,5 +1,5 @@
 {
-  "applicationId": "js.neutralino.sample",
+  "applicationId": "net.bardcode.clio",
   "version": "1.0.0",
   "defaultMode": "window",
   "port": 0,
@@ -30,7 +30,7 @@
   },
   "modes": {
     "window": {
-      "title": "clio",
+      "title": "Clio",
       "width": 800,
       "height": 500,
       "minWidth": 400,
