@@ -8,9 +8,11 @@ The presentation process for clio. To run the stage:
 
 3. run the  neutralino  updater  to fetch  the  needed resources  and
    executables:
+   
       neu update
 
 4. Execute the neutralino runner:
+5. 
       neu run
 
 5. On Linux, if the library libappindicator3 is not installed then
