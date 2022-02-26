@@ -23,13 +23,18 @@
   :author "mikel evins <mikel@evns.net>"
   :license  "MIT"
   :version "0.5.1"
-  :depends-on ()
+  :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass)
   :serial t
   :components ((:module "src"
                 :serial t
                 :components ((:file "package")
+                             (:file "parameters")
+                             (:file "http-server")
+                             (:file "ui")
+                             (:file "routes")
                              (:file "clio")))))
 
 #+nil (asdf:load-system :clio)
 
-
+#+nil (clio::start-server 8000)
+#+nil (clio::stop-server)
