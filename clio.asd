@@ -31,8 +31,7 @@
                              (:file "parameters")
                              (:file "http-server")
                              (:file "ui")
-                             (:file "routes")
-                             (:file "clio")))))
+                             (:file "routes")))))
 
 #+nil (asdf:load-system :clio)
 
