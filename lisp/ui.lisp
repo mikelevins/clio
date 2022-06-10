@@ -8,7 +8,7 @@
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :clio)
+(in-package :cliocl)
 
 (defun landing-page ()
   (cl-who:with-html-output-to-string (out nil :prologue t)

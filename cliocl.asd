@@ -1,7 +1,7 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          clio.asd
-;;;; Project:       the clio development environment
+;;;; Name:          cliocl.asd
+;;;; Project:       the clio Common Lisp development environment
 ;;;; Purpose:       system definition
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2021-2022 by mikel evins
@@ -9,7 +9,7 @@
 ;;;; ***********************************************************************
 
 ;;; ---------------------------------------------------------------------
-;;; clio
+;;; cliocl
 ;;; ---------------------------------------------------------------------
 
 ;;; make sure we load hunchentoot at the start with
@@ -18,14 +18,14 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (pushnew :HUNCHENTOOT-NO-SSL *features*))
 
-(asdf:defsystem #:clio
+(asdf:defsystem #:cliocl
   :description "Clio: a Lisp development environment with HTML5 UI support"
   :author "mikel evins <mikel@evns.net>"
   :license  "MIT"
-  :version "0.5.1"
+  :version "0.6.1"
   :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass)
   :serial t
-  :components ((:module "src"
+  :components ((:module "lisp"
                 :serial t
                 :components ((:file "package")
                              (:file "parameters")
@@ -34,7 +34,10 @@
                              (:file "routes")
                              (:file "clio")))))
 
-#+nil (asdf:load-system :clio)
+#+nil (asdf:load-system :cliocl)
 
-#+nil (clio::start-server 8000)
-#+nil (clio::stop-server)
+#+nil (cliocl::start-server 8000)
+#+nil (cliocl::stop-server)
+
+
+#+nil (trivial-ws:send (first (trivial-ws:clients cliocl::*websocket-server*)) "{\"name\": \"Goodbye!\"}")
