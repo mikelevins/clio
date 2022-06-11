@@ -23,7 +23,7 @@
   :author "mikel evins <mikel@evins.net>"
   :license  "MIT"
   :version "0.6.2"
-  :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass)
+  :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass :find-port)
   :serial t
   :components ((:module "cliocl"
                 :serial t

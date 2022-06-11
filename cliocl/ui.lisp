@@ -17,7 +17,7 @@
       (:link :rel "stylesheet" :href "css/normalize.css")
       (:link :rel "stylesheet" :href "css/clio.css")
       (:link :rel "stylesheet" :href "css/fontawesome-all.min.css")
-      (:link :rel "icon":type "image/png" :href "clio-icon.png")
+      (:link :rel "icon":type "image/png" :href "icons/clio-icon.png")
       (:title "clio"))
      (:body
       ;; preloaded Javascript
