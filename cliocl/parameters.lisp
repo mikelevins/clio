@@ -17,4 +17,4 @@
 
 (defun http-document-root ()
   "find the document root for the HTTP server"
-  (asdf:system-relative-pathname :cliocl "static/"))
+  (asdf:system-relative-pathname :cliocl "resources/"))

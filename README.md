@@ -1,13 +1,17 @@
-# clio
-### _mikel evins <mikel@evins.net>_
+# neutralinojs-minimal
 
-A Lisp development environment built on SBCL and neutralinojs.
+The default template for a Neutralinojs app. It's possible to use your favorite frontend framework by using [these steps](https://neutralino.js.org/docs/how-to/use-a-frontend-library).
 
-- clio: the neutralino GUI application
-- lisp: Lisp source code for the cliocl server process
-- static: static web assets used by the GUI app
+## Contributors
+
+<a href="https://github.com/neutralinojs/neutralinojs-minimal/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=neutralinojs/neutralinojs-minimal" />
+</a>
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
+## Icon credits
+
+- `trayIcon.png` - Made by [Freepik](https://www.freepik.com) and downloaded from [Flaticon](https://www.flaticon.com)

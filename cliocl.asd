@@ -20,12 +20,12 @@
 
 (asdf:defsystem #:cliocl
   :description "Clio: a Lisp development environment with HTML5 UI support"
-  :author "mikel evins <mikel@evns.net>"
+  :author "mikel evins <mikel@evins.net>"
   :license  "MIT"
   :version "0.6.1"
   :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass)
   :serial t
-  :components ((:module "lisp"
+  :components ((:module "cliocl"
                 :serial t
                 :components ((:file "package")
                              (:file "parameters")
