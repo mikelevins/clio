@@ -19,10 +19,15 @@
   #+linux
   (asdf:system-relative-pathname :cliocl "bin/neutralino-linux_x64"))
 
+;;; see https://neutralino.js.org/docs/cli/internal-cli-arguments/
+;;; for documentation of the neutralinojs internal CLI arguments
+
 (defun runapp (&key (port 8000))
   (let ((args (list "--load-dir-res"
-                    (format nil "--path=~A" (namestring +clio-root+))
                     "--mode=window"
+                    "--window-title=clio"
+                    "--enable-extensions=true"
+                    (format nil "--path=~A" (namestring +clio-root+))
                     (format nil "--port=~A" port))))
     (sb-ext:run-program +neutralino-path+ args)))
 
