@@ -13,18 +13,15 @@
 (defparameter +clio-root+ (asdf:system-relative-pathname :cliocl ""))
 (defparameter +neutralino-path+
   #+(or macos darwin)
-  (asdf:system-relative-pathname :cliocl "bin/neutralino-mac_x64"))
+  (asdf:system-relative-pathname :cliocl "bin/neutralino-mac_x64")
+  #+(or win32 mswindows windows)
+  (asdf:system-relative-pathname :cliocl "bin/neutralino-win_x64.exe"))
 
 (defun runapp (&key (port 8000))
   (let ((args (list "--load-dir-res"
                     (format nil "--path=~A" (namestring +clio-root+))
                     "--mode=window"
                     (format nil "--port=~A" port))))
-    #+(or macos darwin)
-    (sb-ext:run-program +neutralino-path+ args)
-    #+(or win32 mswindows windows)
-    (sb-ext:run-program "start chrome" args)
-    #+linux
-    (sb-ext:run-program "/usr/bin/google-chrome" args)))
+    (sb-ext:run-program +neutralino-path+ args)))
 
 #+nil (runapp :port 10101)
