@@ -15,7 +15,9 @@
   #+(or macos darwin)
   (asdf:system-relative-pathname :cliocl "bin/neutralino-mac_x64")
   #+(or win32 mswindows windows)
-  (asdf:system-relative-pathname :cliocl "bin/neutralino-win_x64.exe"))
+  (asdf:system-relative-pathname :cliocl "bin/neutralino-win_x64.exe")
+  #+linux
+  (asdf:system-relative-pathname :cliocl "bin/neutralino-linux_x64"))
 
 (defun runapp (&key (port 8000))
   (let ((args (list "--load-dir-res"
