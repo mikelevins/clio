@@ -36,6 +36,9 @@
 
 #+nil (asdf:load-system :cliocl)
 
+#+nil (cliocl::runapp :port 10101)
+
+
 #+nil (cliocl::start-server 8000)
 #+nil (cliocl::stop-server)
 
