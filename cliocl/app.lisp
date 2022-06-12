@@ -22,13 +22,20 @@
 ;;; see https://neutralino.js.org/docs/cli/internal-cli-arguments/
 ;;; for documentation of the neutralinojs internal CLI arguments
 
-(defun runapp (&key (port 8000))
-  (let ((args (list "--load-dir-res"
-                    "--mode=window"
-                    "--window-title=clio"
-                    "--enable-extensions=true"
-                    (format nil "--path=~A" (namestring +clio-root+))
-                    (format nil "--port=~A" port))))
+(defun %build-runapp-args (&key
+                             (mode "chrome") ; chrome | window | browser | cloud
+                             (port 10101))
+  (list "--load-dir-res"
+        "--window-title=clio"
+        "--enable-extensions=true"
+        (format nil "--path=~A" (namestring +clio-root+))
+        (format nil "--port=~A" port)
+        (format nil "--mode=~A" mode)))
+
+#+nil (%build-runapp-args :port 8000)
+
+(defun runapp (&key (port 10101)(mode "chrome"))
+  (let ((args (%build-runapp-args :port port :mode mode)))
     (sb-ext:run-program +neutralino-path+ args)))
 
 #+nil (runapp :port 10101)
