@@ -38,7 +38,7 @@
 
 #+nil (cliocl::start-server 8000)
 #+nil (cliocl::runapp :port 10101)
-;;; now open the devtools window in the running app
+;;; now open the devtools window in the running app, then send a message to it:
 #+nil (trivial-ws:send (first (trivial-ws:clients cliocl::*websocket-server*)) "{\"name\": \"Goodbye!\"}")
 
 #+nil (cliocl::stop-server)
