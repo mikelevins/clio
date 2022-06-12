@@ -30,6 +30,7 @@
                 :components ((:file "package")
                              (:file "parameters")
                              (:file "http-server")
+                             (:file "app")
                              (:file "ui")
                              (:file "routes")))))
 
