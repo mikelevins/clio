@@ -48,3 +48,4 @@ if(NL_OS != "Darwin") { // TODO: Fix https://github.com/neutralinojs/neutralinoj
 }
 
 showInfo();
+window.location.href='http://localhost:8000';
