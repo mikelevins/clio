@@ -42,4 +42,3 @@
 #+nil (trivial-ws:send (first (trivial-ws:clients cliocl::*websocket-server*)) "{\"name\": \"Goodbye!\"}")
 
 #+nil (cliocl::stop-server)
-
