@@ -8,7 +8,7 @@
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :cliocl)
+(in-package :clio)
 
 (hunchentoot:define-easy-handler (landing :uri "/") ()
   (setf (hunchentoot:content-type*) "text/html")

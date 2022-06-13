@@ -1,4 +1,4 @@
 ;;;; package.lisp
 
-(defpackage #:cliocl
+(defpackage #:clio
   (:use #:cl #:cl-who))

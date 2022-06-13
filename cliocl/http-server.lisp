@@ -8,7 +8,7 @@
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package #:cliocl)
+(in-package #:clio)
 
 (defun start-server (port)
   (setf *http-server* (make-instance 'hunchentoot:easy-acceptor :port port :document-root (http-document-root)))

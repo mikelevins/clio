@@ -1,3 +1,3 @@
 ;;;; clio.lisp
 
-(in-package #:cliocl)
+(in-package #:clio)

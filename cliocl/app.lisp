@@ -8,7 +8,7 @@
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :cliocl)
+(in-package :clio)
 
 (defparameter +clio-root+ (asdf:system-relative-pathname :cliocl ""))
 (defparameter +neutralino-path+

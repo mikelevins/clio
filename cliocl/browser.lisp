@@ -8,7 +8,7 @@
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :cliocl)
+(in-package :clio)
 
 (defun open-browser (&key (port 8000))
   (let ((args (list (format nil "--app=http://localhost:~A" port))))

@@ -8,7 +8,7 @@
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package #:cliocl)
+(in-package #:clio)
 
 (defparameter *http-server* nil)
 (defparameter *websocket-server* nil)
