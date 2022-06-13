@@ -1,3 +1,5 @@
+let APPLICATION_PORT=20202;
+
 function showInfo() {
     document.getElementById('info').innerHTML = `
         ${NL_APPID} is running on port ${NL_PORT}  inside ${NL_OS}
@@ -49,4 +51,4 @@ if(NL_OS != "Darwin") { // TODO: Fix https://github.com/neutralinojs/neutralinoj
 }
 
 showInfo();
-window.location.href='http://localhost:8000';
+window.location.href='http://localhost:'+APPLICATION_PORT;

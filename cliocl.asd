@@ -30,14 +30,15 @@
                 :components ((:file "package")
                              (:file "parameters")
                              (:file "http-server")
+                             (:file "state")
                              (:file "app")
                              (:file "ui")
                              (:file "routes")))))
 
 #+nil (asdf:load-system :cliocl)
 
-#+nil (clio::start-server 8000)
-#+nil (clio::runapp :port 10101 :mode :window)
+#+nil (clio::start-server clio::*http-server-port*)
+#+nil (clio::runapp :port clio::*neutralino-application-port* :mode "chrome")
 ;;; now open the devtools window in the running app, then send a message to it:
 #+nil (trivial-ws:send (first (trivial-ws:clients clio::*websocket-server*)) "{\"name\": \"Goodbye!\"}")
 

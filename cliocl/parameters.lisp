@@ -11,6 +11,10 @@
 (in-package #:clio)
 
 (defparameter *http-server* nil)
+(defparameter *http-server-port* 20202)
+
+(defparameter *neutralino-application-port* 10101)
+
 (defparameter *websocket-server* nil)
 (defparameter *websocket-handler* nil)
 (defparameter *websocket-port* 40404)

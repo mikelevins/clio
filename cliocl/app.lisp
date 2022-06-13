@@ -24,7 +24,7 @@
 
 (defun %build-runapp-args (&key
                              (mode "chrome") ; chrome | window | browser | cloud
-                             (port 10101))
+                             (port *neutralino-application-port*))
   (list "--load-dir-res"
         "--window-title=clio"
         "--enable-extensions=true"
@@ -36,7 +36,7 @@
 
 (defparameter *app-process* nil)
 
-(defun runapp (&key (port 10101)(mode "chrome"))
+(defun runapp (&key (port *neutralino-application-port*)(mode "chrome"))
   (let ((args (%build-runapp-args :port port :mode mode)))
     (setf *app-process* (sb-ext:run-program +neutralino-path+ args))))
 
