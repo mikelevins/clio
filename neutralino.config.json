@@ -8,7 +8,7 @@
   "enableServer": true,
   "enableNativeAPI": true,
   "enableNativeExtensions": true,
-  "tokenSecurity": "one-time",
+  "tokenSecurity": "none",
   "logging": {
     "enabled": true,
     "writeToLogFile": true
