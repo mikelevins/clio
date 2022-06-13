@@ -34,8 +34,10 @@
 
 #+nil (%build-runapp-args :port 8000)
 
+(defparameter *app-process* nil)
+
 (defun runapp (&key (port 10101)(mode "chrome"))
   (let ((args (%build-runapp-args :port port :mode mode)))
-    (sb-ext:run-program +neutralino-path+ args)))
+    (setf *app-process* (sb-ext:run-program +neutralino-path+ args))))
 
-#+nil (runapp :port 10101)
+#+nil (runapp :port 10101 :mode :chrome)

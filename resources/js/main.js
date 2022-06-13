@@ -35,6 +35,7 @@ function onTrayMenuItemClicked(event) {
 }
 
 function onWindowClose() {
+    console.log('received Window close');
     Neutralino.app.exit();
 }
 
