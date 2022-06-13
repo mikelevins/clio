@@ -16,12 +16,22 @@ body {
     width: 100%;
 }
 
-#listener-input {
+.listener-input {
     font-family: "Courier New", monospace;
+    font-weight: 600;
     width: calc(100% - 12rem);
 }
 
-#prompt { font-family: "Courier New", monospace; }
+.listener-output {
+    font-family: "Courier New", monospace;
+    font-weight: 300;
+    width: calc(100% - 12rem);
+}
+
+#prompt {
+    font-family: "Courier New", monospace;
+    font-weight: 600;
+}
 
 #worksheet {
     padding: 0.25rem;

@@ -19,5 +19,9 @@
   (let* ((vals (multiple-value-list (eval (read-from-string listener-input))))
          (val-strings (mapcar (lambda (v) (with-output-to-string (out) (prin1 v out))) vals)))
     (with-html-output-to-string (s)
+      (htm (:div
+            (:pre  :class "listener-input"
+             (str (hunchentoot:escape-for-html listener-input)))))
       (loop for val in val-strings
-            do (htm (:div (:pre (str (hunchentoot:escape-for-html val)))))))))
+            do (htm (:div
+                     (:pre  :class "listener-output" (str (hunchentoot:escape-for-html val)))))))))

@@ -35,3 +35,5 @@
 ;;; then converts it to an html element and sends it back to the repl
 ;;; window for rendering
 
+(defparameter *listener-history* nil)
+
