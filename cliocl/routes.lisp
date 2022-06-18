@@ -24,4 +24,6 @@
              (str (hunchentoot:escape-for-html listener-input)))))
       (loop for val in val-strings
             do (htm (:div
-                     (:pre  :class "listener-output" (str (hunchentoot:escape-for-html val)))))))))
+                     (:pre  :class "listener-output" (str (hunchentoot:escape-for-html val))))
+                    (:input :id "listener-input" :hx-swap-oob "true"
+                            :class "listener-input" :name "listener-input" :type "text"))))))

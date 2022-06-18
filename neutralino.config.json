@@ -1,6 +1,6 @@
 {
   "applicationId": "net.bardcode.clio",
-  "version": "1.0.0",
+  "version": "0.6.3",
   "defaultMode": "window",
   "port": 0,
   "documentRoot": "/resources/",

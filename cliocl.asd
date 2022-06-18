@@ -22,7 +22,7 @@
   :description "Clio: a Lisp development environment with HTML5 UI support"
   :author "mikel evins <mikel@evins.net>"
   :license  "MIT"
-  :version "0.6.2"
+  :version "0.6.3"
   :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass :find-port)
   :serial t
   :components ((:module "cliocl"
@@ -39,6 +39,7 @@
 
 #+nil (clio::start-server clio::*http-server-port*)
 #+nil (clio::runapp :port clio::*neutralino-application-port* :mode "chrome")
+#+nil (clio::runapp :port clio::*neutralino-application-port* :mode "window")
 ;;; now open the devtools window in the running app, then send a message to it:
 #+nil (trivial-ws:send (first (trivial-ws:clients clio::*websocket-server*)) "{\"name\": \"Goodbye!\"}")
 
