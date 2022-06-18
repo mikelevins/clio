@@ -25,7 +25,7 @@
   :version "0.6.3"
   :depends-on (:hunchentoot :trivial-ws :parenscript :st-json :cl-who :lass :find-port)
   :serial t
-  :components ((:module "cliocl"
+  :components ((:module "lisp"
                 :serial t
                 :components ((:file "package")
                              (:file "parameters")

@@ -10,8 +10,9 @@
 
 (in-package :clio)
 
-(defparameter +clio-root+ (asdf:system-relative-pathname :cliocl ""))
-(defparameter +neutralino-path+
+(defun clio-root ()(asdf:system-relative-pathname :cliocl ""))
+
+(defun neutralino-path ()
   #+(or macos darwin)
   (asdf:system-relative-pathname :cliocl "bin/neutralino-mac_x64")
   #+(or win32 mswindows windows)
@@ -28,16 +29,15 @@
   (list "--load-dir-res"
         "--window-title=clio"
         "--enable-extensions=true"
-        (format nil "--path=~A" (namestring +clio-root+))
+        (format nil "--path=~A" (namestring (clio-root)))
         (format nil "--port=~A" port)
         (format nil "--mode=~A" mode)))
-
-#+nil (%build-runapp-args :port 8000)
 
 (defparameter *app-process* nil)
 
 (defun runapp (&key (port *neutralino-application-port*)(mode "chrome"))
   (let ((args (%build-runapp-args :port port :mode mode)))
-    (setf *app-process* (sb-ext:run-program +neutralino-path+ args))))
+    (setf *app-process* (sb-ext:run-program (neutralino-path) args))))
 
+#+nil (%build-runapp-args :port 10101 :mode "window")
 #+nil (runapp :port 10101 :mode :chrome)
