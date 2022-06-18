@@ -10,7 +10,10 @@
 
 (in-package :cl-user)
 
+#+(or macos darwin linux)
 (defparameter $binpath (asdf:system-relative-pathname :cliocl "cliocl"))
+#+(or win32 mswindows windows)
+(defparameter $binpath (asdf:system-relative-pathname :cliocl "cliocl.exe"))
 
 (defun build-clio ()
   (asdf:load-system :cliocl)
