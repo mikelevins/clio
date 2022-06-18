@@ -33,7 +33,8 @@
                              (:file "state")
                              (:file "app")
                              (:file "ui")
-                             (:file "routes")))))
+                             (:file "routes")
+                             (:file "build")))))
 
 #+nil (asdf:load-system :cliocl)
 
