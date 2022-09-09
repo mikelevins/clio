@@ -11,6 +11,9 @@
 ;;; ---------------------------------------------------------------------
 ;;; cliocl
 ;;; ---------------------------------------------------------------------
+;;; NOTE: use sbcl 2.2.3 on Windows 64; later versions are unable to
+;;; load usocket or other quicklisp libraries due to package-lock and
+;;; other issues
 
 ;;; make sure we load hunchentoot at the start with
 ;;; :hunchentoot-no-ssl on *features*, so that we don't run into
