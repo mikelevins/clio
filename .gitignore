@@ -9,3 +9,5 @@
 *.log
 .tmp
 cliocl.exe
+
+cliocl
