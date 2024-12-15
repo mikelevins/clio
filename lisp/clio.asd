@@ -18,15 +18,18 @@
 
 (asdf:defsystem #:clio
   :serial t
-  :description "Apis: swarms of threads and processes passing messages"
+  :description "An Electron UI for Lisp programs"
   :author "mikel evins <mevins@me.com>"
   :license "MIT"
   :version (:read-file-form "version.lisp")
-  :depends-on (
-               :find-port ; [MIT] https://github.com/eudoxia0/find-port
-               )
+  :depends-on ( :command-line-arguments ; [MIT] https://github.com/fare/command-line-arguments
+                :find-port ; [MIT] https://github.com/eudoxia0/find-port
+                )
+  :build-operation "program-op"
+  :build-pathname "clio"
+  :entry-point "cl-user::main"
   :components ((:file "package")
-               (:file "clio")))
+               (:file "clio")
+               (:file "main")))
 
-;;; (asdf:load-system :clio)
-;;; (ql:quickload :clio)
+
