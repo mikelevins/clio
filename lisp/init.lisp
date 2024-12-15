@@ -7,8 +7,4 @@
     (load quicklisp-init)))
 
 (require :asdf)
-(asdf:initialize-source-registry
- '(:source-registry
-   (:tree (:home "lisp"))
-   (:tree (:home "Triton/repos/"))
-   :inherit-configuration))
+

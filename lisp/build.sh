@@ -9,6 +9,7 @@ sbcl --dynamic-space-size 2048 \
      --no-userinit \
      --disable-debugger \
      --load "init.lisp" \
+     --load "clio.asd" \
      --eval '(asdf:make "clio" :force t :verbose t)' \
      --quit
 
