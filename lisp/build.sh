@@ -4,8 +4,7 @@ GIT_HASH=$(git rev-parse --short HEAD)
 
 rm -f clio
 
-sbcl --dynamic-space-size 2048 \
-     --non-interactive \
+sbcl --non-interactive \
      --no-userinit \
      --disable-debugger \
      --load "init.lisp" \
