@@ -23,5 +23,8 @@
   "homepage": "https://github.com/mikelevins/clio#readme",
   "devDependencies": {
     "electron": "^33.2.1"
+  },
+  "dependencies": {
+    "portfinder": "^1.0.32"
   }
 }
