@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 const portfinder = require('portfinder');
-const path = require('node:path')
+const path = require('node:path');
+const exec = require('child_process').exec;
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -13,7 +14,17 @@ const createWindow = () => {
     })
 
     win.loadFile('index.html')
+    exec("ls -al", {timeout: 10000, maxBuffer: 20000*1024},
+         function(error, stdout, stderr) {
+             var out = stdout.toString();
+             const outArray = out.split('\n');
 
+             let result = 'ls -al output:\n'
+             outArray.forEach(e => {
+                 result += `${e}\n`
+             });
+             console.log(result)
+         });
 }
 
 app.on('window-all-closed', () => {
