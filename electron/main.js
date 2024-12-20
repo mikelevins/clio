@@ -1,16 +1,33 @@
-const { app, BrowserWindow } = require('electron')
+const remote = require('electron');
+const app = remote.app;
+const BrowserWindow = remote.BrowserWindow;
 const portfinder = require('portfinder');
 const path = require('node:path');
 const exec = require('child_process').exec;
+const isDev = import('electron-is-dev');
+
+const appPath = remote.app.getAppPath();
+const extrasPath = isDev ?
+    path.join(appPath, 'src', 'main', 'extras') :
+    path.join(appPath, '..', '..', 'extras');
+
+console.log('\nappPath == '+appPath);
+console.log('\nextrasPath == '+extrasPath);
+console.log('\n');
+
+// We finally have our exe!
+//const exePath = path.join(extrasPath, 'myexe.exe');
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
             preload: path.join(__dirname, 'preload.js')
-        }
-        
+        }        
     })
 
     win.loadFile('index.html')
