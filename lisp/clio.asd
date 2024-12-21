@@ -30,7 +30,7 @@
   :build-pathname "clio"
   :entry-point "cl-user::main"
   :components ((:file "package")
-               (:file "clio")
+               (:file "parameters")
                (:file "main")))
 
 

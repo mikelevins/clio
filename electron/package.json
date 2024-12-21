@@ -1,6 +1,6 @@
 {
   "name": "clio",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Electron-based Lisp UI",
   "main": "main.js",
   "scripts": {
