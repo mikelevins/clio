@@ -35,3 +35,4 @@
 
 
 
+#+test (asdf:load-system :clio)
