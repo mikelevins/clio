@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "electron-is-dev": "^3.0.1",
-    "portfinder": "^1.0.32"
+    "portfinder": "^1.0.32",
+    "yargs": "^17.7.2"
   }
 }

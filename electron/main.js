@@ -1,4 +1,6 @@
+
 const remote = require('electron');
+const process = require('process');
 const app = remote.app;
 const BrowserWindow = remote.BrowserWindow;
 const portfinder = require('portfinder');
@@ -6,14 +8,23 @@ const path = require('node:path');
 const exec = require('child_process').exec;
 const isDev = import('electron-is-dev');
 
+const yargs = require('yargs/yargs')
+// how to hide the executable path in the argmap:
+//const { hideBin } = require('yargs/helpers')
+//const argmap = yargs(hideBin(process.argv)).argv
+const argmap = yargs(process.argv).argv
 const appPath = remote.app.getAppPath();
-const extrasPath = isDev ?
-    path.join(appPath, 'src', 'main', 'extras') :
-    path.join(appPath, '..', '..', 'extras');
+const server_path = path.join(appPath,argmap['server_path']);
 
-console.log('\nappPath == '+appPath);
-console.log('\nextrasPath == '+extrasPath);
+console.log('\nserver_path =='+JSON.stringify(server_path));
 console.log('\n');
+
+// how to adjust paths depending on whether the Electron app is
+// in developmentor packaged for release:
+const extrasPath = isDev ?
+   path.join(appPath, 'src', 'main', 'extras') :
+   path.join(appPath, '..', '..', 'extras');
+
 
 // We finally have our exe!
 //const exePath = path.join(extrasPath, 'myexe.exe');
