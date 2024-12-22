@@ -21,14 +21,22 @@
     (("websocket-server-port" #\w) :type integer :optional t
      :documentation "the port on which the websocket server listens; starts the websocket server")))
 
+(defun run-swank-server (port)
+  (format t "swank server port supplied: ~A~%" port))
+
+(defun run-http-server (port)
+  (format t "HTTP server port supplied: ~A~%" port))
+
+(defun run-websocket-server (port)
+  (format t "websocket server port supplied: ~A~%" port))
 
 (defun run-clio (&key help swank-server-port http-server-port websocket-server-port version)
   (format t "~%")
   (when help (progn (command-line-arguments:show-option-help +command-line-spec+)(sb-ext:quit)))
   (when version (format t "~A~%~%" (asdf:component-version (asdf:find-system :clio)))(progn (sb-ext:quit)))
-  (when swank-server-port (format t "swank server port supplied: ~A~%" swank-server-port))
-  (when http-server-port (format t "HTTP server port supplied: ~A~%" http-server-port))
-  (when websocket-server-port (format t "Websocket port supplied: ~A~%" websocket-server-port)))
+  (when swank-server-port (run-swank-server swank-server-port))
+  (when http-server-port (run-http-server http-server-port))
+  (when websocket-server-port (run-websocket-server websocket-server-port)))
 
 
 ;;; FUNCTION main
