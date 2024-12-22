@@ -25,6 +25,7 @@
   :depends-on (
                :command-line-arguments ; [MIT] https://github.com/fare/command-line-arguments
                :find-port ; [MIT] https://github.com/eudoxia0/find-port
+               :swank ; [Public Domain] https://github.com/slime/slime 
                )
   :build-operation "program-op"
   :build-pathname "clio"

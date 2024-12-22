@@ -22,7 +22,12 @@
      :documentation "the port on which the websocket server listens; starts the websocket server")))
 
 (defun run-swank-server (port)
-  (format t "swank server port supplied: ~A~%" port))
+  (let ((server-port (cond ((integerp port) port)
+                           ((stringp port) (parse-integer port))
+                           (t (error "Invalid swank port: ~S" port)))))
+    (format t "Starting swank server on port ~A~%" server-port)
+    (swank:create-server :port server-port)
+    (sb-impl::toplevel-init)))
 
 (defun run-http-server (port)
   (format t "HTTP server port supplied: ~A~%" port))
