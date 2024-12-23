@@ -23,6 +23,8 @@
   :license "MIT"
   :version (:read-file-form "version.lisp")
   :depends-on (
+               :cl-who ; [BSD] https://edicl.github.io/cl-who/
+               :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
                :command-line-arguments ; [MIT] https://github.com/fare/command-line-arguments
                :find-port ; [MIT] https://github.com/eudoxia0/find-port
                :swank ; [Public Domain] https://github.com/slime/slime 
@@ -32,6 +34,7 @@
   :entry-point "cl-user::main"
   :components ((:file "package")
                (:file "parameters")
+               (:file "ui")
                (:file "main")))
 
 

@@ -9,7 +9,7 @@
 ;;;; ***********************************************************************
 
 (in-package :cl-user)
-  
+
 (defparameter +command-line-spec+
   '((("help" #\h) :type boolean :optional t :documentation "print a help message and quit")
     (("version" #\V) :type boolean :optional t
@@ -21,16 +21,25 @@
     (("websocket-server-port" #\w) :type integer :optional t
      :documentation "the port on which the websocket server listens; starts the websocket server")))
 
+(defparameter *swank-server* nil)
+
 (defun run-swank-server (port)
   (let ((server-port (cond ((integerp port) port)
                            ((stringp port) (parse-integer port))
                            (t (error "Invalid swank port: ~S" port)))))
     (format t "Starting swank server on port ~A~%" server-port)
-    (swank:create-server :port server-port)
-    (sb-impl::toplevel-init)))
+    (setf *swank-server* (swank:create-server :port server-port))))
+
+(defparameter *http-server* nil)
 
 (defun run-http-server (port)
-  (format t "HTTP server port supplied: ~A~%" port))
+  (setf *http-server* (make-instance 'hunchentoot:easy-acceptor :port port))
+  (hunchentoot:start *http-server*)
+  *http-server*)
+
+(defun stop-http-server ()
+  (hunchentoot:stop *http-server*)
+  *http-server*)
 
 (defun run-websocket-server (port)
   (format t "websocket server port supplied: ~A~%" port))
@@ -41,14 +50,17 @@
   (when version (format t "~A~%~%" (asdf:component-version (asdf:find-system :clio)))(progn (sb-ext:quit)))
   (when swank-server-port (run-swank-server swank-server-port))
   (when http-server-port (run-http-server http-server-port))
-  (when websocket-server-port (run-websocket-server websocket-server-port)))
+  (when websocket-server-port (run-websocket-server websocket-server-port))
+  (when (or swank-server-port
+            http-server-port
+            websocket-server-port)
+    (sb-impl::toplevel-init)))
 
 
 ;;; FUNCTION main
 ;;; ---------------------------------------------------------------------
 ;;; the main entry point of the clio Lisp process. Handles
 ;;; command-line arguments and runs the chosen subsystems, then exits.
-
 
 (defun main ()
   (let ((args (uiop:command-line-arguments)))
