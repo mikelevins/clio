@@ -41,8 +41,19 @@
   (hunchentoot:stop *http-server*)
   *http-server*)
 
+(defparameter *websocket-server* nil)
+
+(defun handle-websocket-message (server message)
+  (cond (t (format t "Received (~S): ~A~%" server message))))
+
 (defun run-websocket-server (port)
-  (format t "websocket server port supplied: ~A~%" port))
+  (setf *websocket-server*
+        (trivial-ws:make-server
+         :on-connect #'(lambda (server)(format t "Connected~%"))
+         :on-disconnect #'(lambda (server)(format t "Disconnected~%"))
+         :on-message #'(lambda (server message)(handle-websocket-message server message))))
+  (trivial-ws:start *websocket-server* port))
+
 
 (defun run-clio (&key help swank-server-port http-server-port websocket-server-port version)
   (format t "~%")

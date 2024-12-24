@@ -16,7 +16,7 @@
     (:html
      (:head)
      (:body
-      (:script :src "https://unpkg.com/htmx.org@0.0.4")
+      (:script :src "https://unpkg.com/htmx.org@2.0.4")
       (:h1 "clio")
       (:div
        (:h4 (fmt "Running Hunchentoot on SBCL v~A" (lisp-implementation-version)))
