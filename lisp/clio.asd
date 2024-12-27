@@ -16,6 +16,10 @@
 ;;; clio system
 ;;; ---------------------------------------------------------------------
 
+#+sb-core-compression
+(defmethod asdf:perform ((o asdf:image-op) (c asdf:system))
+  (uiop:dump-image (asdf:output-file o c) :executable t :compression t))
+
 (asdf:defsystem #:clio
   :serial t
   :description "An Electron UI for Lisp programs"
@@ -31,7 +35,7 @@
                :trivial-ws ; [MIT] https://github.com/ceramic/trivial-ws
                )
   :build-operation "program-op"
-  :build-pathname "clio"
+  :build-pathname #+win32 "clio" #-win32 "clio.exe"
   :entry-point "cl-user::main"
   :components ((:file "package")
                (:file "parameters")

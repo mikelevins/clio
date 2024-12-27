@@ -8,22 +8,24 @@ const path = require('node:path');
 const exec = require('child_process').exec;
 const isDev = import('electron-is-dev');
 
-// pass the path to the server executable
-//   on Windows:  npm start /server_path "C:\Users\mikel"
-//   on UNIX-likes:  npm start -- --server_path "C:\Users\mikel"
-const argv = process.argv;
+if (isDev) {
+	console.log('Running in development');
+} else {
+	console.log('Running in production');
+}
 
 const appPath = remote.app.getAppPath();
 
-console.log('\argv =='+JSON.stringify(argv));
-console.log('\n');
-console.log('\n');
+console.log('\appPath =='+JSON.stringify(appPath));
 
 // how to adjust paths depending on whether the Electron app is
 // in developmentor packaged for release:
-const extrasPath = isDev ?
-   path.join(appPath, 'src', 'main', 'extras') :
-   path.join(appPath, '..', '..', 'extras');
+const exePath = isDev ?
+   path.join(appPath, 'clio.exe') :
+   path.join(appPath, '..', '..', 'clio.exe');
+
+console.log('\exePath =='+JSON.stringify(exePath));
+console.log('\n');
 
 
 // We finally have our exe!
