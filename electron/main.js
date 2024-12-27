@@ -8,22 +8,15 @@ const path = require('node:path');
 const exec = require('child_process').exec;
 const isDev = import('electron-is-dev');
 
-const yargs = require('yargs/yargs')
+// pass the path to the server executable
+//   on Windows:  npm start /server_path "C:\Users\mikel"
+//   on UNIX-likes:  npm start -- --server_path "C:\Users\mikel"
+const argv = process.argv;
 
-// how to hide the executable path in the argmap:
-//const { hideBin } = require('yargs/helpers')
-//const argmap = yargs(hideBin(process.argv)).argv
-//const argmap = yargs(process.argv).argv
-
-// how to invoke electron with command-line args (e.g):
-// arguments to our electron main process come after '--'
-// npm start -- --server_path /home/mikel
-
-const argmap = yargs(process.argv);
 const appPath = remote.app.getAppPath();
-//const server_path = path.join(appPath,argmap['server_path']);
 
-console.log('\argmap =='+JSON.stringify(argmap));
+console.log('\argv =='+JSON.stringify(argv));
+console.log('\n');
 console.log('\n');
 
 // how to adjust paths depending on whether the Electron app is
