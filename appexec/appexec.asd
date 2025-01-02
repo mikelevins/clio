@@ -1,7 +1,7 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          clio.asd
-;;;; Project:       clio: an Electron presentation server for Lisp
+;;;; Name:          app.asd
+;;;; Project:       appexec: a skeletal commandline app in Lisp
 ;;;; Purpose:       system definition
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2024 by mikel evins
@@ -13,35 +13,29 @@
 (require :asdf)
 
 ;;; ---------------------------------------------------------------------
-;;; clio system
+;;; appexec system
 ;;; ---------------------------------------------------------------------
 
 #+sb-core-compression
 (defmethod asdf:perform ((o asdf:image-op) (c asdf:system))
   (uiop:dump-image (asdf:output-file o c) :executable t :compression t))
 
-(asdf:defsystem #:clio
+(asdf:defsystem #:appexec
   :serial t
-  :description "An Electron UI for Lisp programs"
+  :description "A command-line executable skeleton for Lisp"
   :author "mikel evins <mevins@me.com>"
   :license "MIT"
   :version (:read-file-form "version.lisp")
-  :depends-on (
-               :cl-who ; [BSD] https://edicl.github.io/cl-who/
-               :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
-               :command-line-arguments ; [MIT] https://github.com/fare/command-line-arguments
-               :find-port ; [MIT] https://github.com/eudoxia0/find-port
-               :trivial-ws ; [MIT] https://github.com/ceramic/trivial-ws
+  :depends-on (:command-line-arguments ; [MIT] https://github.com/fare/command-line-arguments
                )
   :build-operation "program-op"
-  :build-pathname #+win32 "clio" #-win32 "clio.exe"
+  :build-pathname #+win32 "app" #-win32 "app.exe"
   :entry-point "cl-user::main"
   :components ((:file "package")
                (:file "parameters")
                (:file "util")
-               (:file "ui")
                (:file "main")))
 
 
 
-#+test (asdf:load-system :clio)
+#+test (asdf:load-system :appexec)

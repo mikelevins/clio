@@ -1,4 +1,4 @@
-;;; initialization code for building the clio executable
+;;; initialization code for building the app executable
 
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"

@@ -1,7 +1,7 @@
 ;;;; ***********************************************************************
 ;;;;
 ;;;; Name:          main.lisp
-;;;; Project:       clio: an Electron presentation server for Lisp
+;;;; Project:       appsexec: a skeletal command-line app in Lisp
 ;;;; Purpose:       main lisp process
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2024 by mikel evins
@@ -44,10 +44,10 @@
   (trivial-ws:start *websocket-server* port))
 
 
-(defun run-clio (&key help http-server-port websocket-server-port version)
+(defun run-app (&key help http-server-port websocket-server-port version)
   (format t "~%")
   (when help (progn (command-line-arguments:show-option-help +command-line-spec+)(sb-ext:quit)))
-  (when version (format t "~A~%~%" (asdf:component-version (asdf:find-system :clio)))(progn (sb-ext:quit)))
+  (when version (format t "~A~%~%" (asdf:component-version (asdf:find-system :appexec)))(progn (sb-ext:quit)))
   (when http-server-port (run-http-server http-server-port))
   (when websocket-server-port (run-websocket-server websocket-server-port))
   (when (or http-server-port
@@ -57,15 +57,15 @@
 
 ;;; FUNCTION main
 ;;; ---------------------------------------------------------------------
-;;; the main entry point of the clio Lisp process. Handles
+;;; the main entry point of the app Lisp process. Handles
 ;;; command-line arguments and runs the chosen subsystems, then exits.
 
 (defun main ()
   (let ((args (uiop:command-line-arguments)))
     (if args
         (handler-case (command-line-arguments:handle-command-line +command-line-spec+
-                                                                  'run-clio
-                                                                  :name "clio"
+                                                                  'run-app
+                                                                  :name "app"
                                                                   :command-line args)
           (error (err)
             (command-line-arguments:show-option-help +command-line-spec+)))
