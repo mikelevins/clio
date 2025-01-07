@@ -13,6 +13,13 @@
 (defparameter +minimum-application-port+ 49152)
 (defparameter +maximum-application-port+ 65535)
 
-(defparameter *backstage-http-server-port* nil)
-(defparameter *backstage-websocket-server-port* nil)
-(defparameter *backstage-swank-server-port* nil)
+;;; BUG: hardcode some values until dynamic lookup is working
+(defparameter *backstage-http-server-port* 10080)
+(defparameter *backstage-websocket-server-port* 10081)
+(defparameter *backstage-swank-server-port* 5005)
+
+(defparameter *backstage-http-server* nil)
+
+(defun http-document-root ()
+  "find the document root for the HTTP server"
+  (asdf:system-relative-pathname :backstage "resources/"))

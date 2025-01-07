@@ -33,6 +33,7 @@
                           :components ((:file "package")
                                        (:file "parameters")
                                        (:file "util")
+                                       (:file "server")
                                        (:file "ui")))))
 
 
