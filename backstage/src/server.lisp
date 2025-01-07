@@ -17,6 +17,8 @@
                        :document-root (http-document-root)))
   (hunchentoot:start *backstage-http-server*))
 
-(defun stop-server (port)
+(defun stop-server ()
   (hunchentoot:stop *backstage-http-server*))
 
+#+test (start-server *backstage-http-server-port*)
+#+test (stop-server)

@@ -14,8 +14,8 @@
 (defparameter +maximum-application-port+ 65535)
 
 ;;; BUG: hardcode some values until dynamic lookup is working
-(defparameter *backstage-http-server-port* 10080)
-(defparameter *backstage-websocket-server-port* 10081)
+(defparameter *backstage-http-server-port* 8080)
+(defparameter *backstage-websocket-server-port* 8081)
 (defparameter *backstage-swank-server-port* 5005)
 
 (defparameter *backstage-http-server* nil)
