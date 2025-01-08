@@ -40,3 +40,5 @@
 
 
 #+test (asdf:load-system :backstage)
+#+test (backstage::start-server backstage::*backstage-http-server-port*)
+#+test (backstage::stop-server)
