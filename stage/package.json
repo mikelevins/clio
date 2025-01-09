@@ -1,12 +1,15 @@
 {
   "name": "stage",
   "private": true,
-    "version": "0.7.7",
+  "version": "0.7.7",
   "type": "module",
   "scripts": {
     "tauri": "tauri"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2"
+  },
+  "dependencies": {
+    "@tauri-apps/plugin-cli": "^2.2.0"
   }
 }
