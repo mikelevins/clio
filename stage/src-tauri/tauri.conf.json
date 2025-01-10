@@ -8,14 +8,13 @@
     },
     "plugins": {
         "cli": {
-            "description": "Tauri CLI Plugin Example",
+            "description": "Tauri CLI Plugin",
             "args": [
                 {
-                    "name": "http_port",
+                    "name": "http-port",
                     "short": "H",
-                    "description": "Port used by the HTTP server",
-                    "takesValue": true,
-                    "multiple": false
+                    "description": "Port on which the HTTP server listens",
+                    "takesValue": true
                 }
             ]
         }
