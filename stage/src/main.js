@@ -9,12 +9,11 @@ let matchesData = "Matches";
 async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
     greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
-    matchesMsgEl.textContent = JSON.stringify(matchesData);
 }
 
 getMatches().then((result) => {
     matchesData = result;
-    greet();
+    matchesMsgEl.textContent = JSON.stringify(matchesData);
 });
 
 window.addEventListener("DOMContentLoaded", () => {
