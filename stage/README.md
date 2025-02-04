@@ -1,7 +1,39 @@
-# Tauri + Vanilla
+# Stage
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Javascript.
+A presentation app built on Tauri
 
-## Recommended IDE Setup
+To build:
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- release:
+  - also create bundles:
+    npm run tauri build
+  - don't create bundles:
+    npm run tauri build -- --no-bundle
+
+- debug:
+  - also create bundles:
+    npm run tauri build -- --debug
+  - don't create bundles:
+    npm run tauri build -- --debug --no-bundle
+
+To run:
+- release:
+  ./src-tauri/target/release/stage
+- release with CLI args:
+  ./src-tauri/target/release/stage --http-port 8080 --websocket-port 8081  
+  ./src-tauri/target/release/stage -H 8080 -W 8081
+
+- debug:
+  ./src-tauri/target/debug/stage
+- debug with CLI args:
+  ./src-tauri/target/debug/stage --http-port 8080 --websocket-port 8081  
+  ./src-tauri/target/debug/stage -H 8080 -W 8081
+
+To test and debug:
+- run the debug version and right-click an element in the window to
+  view the JS debugger UI
+
+To add or modify CLI args accepted:
+- Edit tauri.conf.json. Change, add, or remove elements of the "args"
+  array in "plugins" > "cli".
+
