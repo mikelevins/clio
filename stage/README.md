@@ -5,15 +5,15 @@ A presentation app built on Tauri
 To build:
 
 - release:
-  - also create bundles:
+  - also create bundles:  
     npm run tauri build
-  - don't create bundles:
+  - don't create bundles:  
     npm run tauri build -- --no-bundle
 
 - debug:
-  - also create bundles:
+  - also create bundles:  
     npm run tauri build -- --debug
-  - don't create bundles:
+  - don't create bundles:  
     npm run tauri build -- --debug --no-bundle
 
 To run:
