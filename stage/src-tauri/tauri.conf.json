@@ -11,13 +11,19 @@
             "description": "Tauri CLI Plugin",
             "args": [
                 {
-                    "name": "http-port",
+                    "name": "http_port",
                     "short": "H",
                     "description": "Port on which the HTTP server listens",
                     "takesValue": true
                 },
                 {
-                    "name": "websocket-port",
+                    "name": "swank_port",
+                    "short": "S",
+                    "description": "Port on which the Lisp swank server listens",
+                    "takesValue": true
+                },
+                {
+                    "name": "websocket_port",
                     "short": "W",
                     "description": "Port on which the websocket server listens",
                     "takesValue": true
