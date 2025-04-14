@@ -23,3 +23,6 @@
 (defun http-document-root ()
   "find the document root for the HTTP server"
   (asdf:system-relative-pathname :backstage "resources/"))
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (setf cl-who:*attribute-quote-char* #\"))

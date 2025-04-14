@@ -10,6 +10,8 @@
 
 (in-package :backstage)
 
+
+
 (hunchentoot:define-easy-handler (landing :uri "/") ()
   (setf (hunchentoot:content-type*) "text/html")
   (with-html-output-to-string (out nil :prologue t)
@@ -30,9 +32,17 @@
     // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
   }).catch(console.error);"
                )
-      (:h2 "Server Info")
+
+      (:h2 "Datastar tests")
       (:input :data-bind "input")
       (:div :data-text "$input")
+
+      (:input :type "checkbox" :data-bind "checkboxes.checkbox1" "Checkbox 1")
+      (:input :type "checkbox" :data-bind "checkboxes.checkbox2" "Checkbox 2")
+      (:input :type "checkbox" :data-bind "checkboxes.checkbox3" "Checkbox 3")
+      (:button :data-on-click "@setAll('checkboxes.*', true)" "Check All")
+      
+      (:h2 "Server Info")
       (:div
        (:h4 (fmt "Running Hunchentoot on SBCL v~A" (lisp-implementation-version)))
        (:h5 "SBCL *features*:")
