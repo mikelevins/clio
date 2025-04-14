@@ -15,7 +15,8 @@
   (with-html-output-to-string (out nil :prologue t)
     (:html
      (:head
-      (:script :src "https://unpkg.com/htmx.org@2.0.4")
+      (:script :type "module"
+               :src "https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.11/bundles/datastar.js")
       (:script :src "https://cdn.jsdelivr.net/npm/vega@5")
       (:script :src "https://cdn.jsdelivr.net/npm/vega-lite@5")
       (:script :src "https://cdn.jsdelivr.net/npm/vega-embed@5"))
@@ -30,6 +31,8 @@
   }).catch(console.error);"
                )
       (:h2 "Server Info")
+      (:input :data-bind "input")
+      (:div :data-text "$input")
       (:div
        (:h4 (fmt "Running Hunchentoot on SBCL v~A" (lisp-implementation-version)))
        (:h5 "SBCL *features*:")
