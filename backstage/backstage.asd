@@ -25,6 +25,7 @@
     :depends-on (
                  :cl-who ; [BSD] https://edicl.github.io/cl-who/
                  :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
+                 :sse-server ; [MIT] https://github.com/dtenny/cl-sse
                  :find-port ; [MIT] https://github.com/eudoxia0/find-port
                  :trivial-ws ; [MIT] https://github.com/ceramic/trivial-ws
                  )
