@@ -42,4 +42,6 @@
 
 #+test (asdf:load-system :backstage)
 #+test (backstage::start-server backstage::*backstage-http-server-port*)
+#+test (backstage::start-browser "https://www.google.com")
+#+test (backstage::start-browser)
 #+test (backstage::stop-server)

@@ -20,5 +20,13 @@
 (defun stop-server ()
   (hunchentoot:stop *backstage-http-server*))
 
+(defun start-browser (&optional (url (format nil "http://localhost:~A/" *backstage-http-server-port*)))
+  #+(or win32 mswindows windows)
+  (uiop:run-program (format nil "explorer ~S" url))
+  #+(or macos darwin)
+  (uiop:run-program (format nil "open ~S" url))
+  #-(or win32 mswindows macos darwin windows)
+  (uiop:run-program (format nil "xdg-open ~S" url)))
+
 #+test (start-server *backstage-http-server-port*)
 #+test (stop-server)
