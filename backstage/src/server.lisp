@@ -10,10 +10,10 @@
 
 (in-package :backstage)
 
-(defun start-server (port)
+(defun start-server (&optional (port *backstage-http-server-port*))
   (setf *backstage-http-server*
         (make-instance 'hunchentoot:easy-acceptor
-                       :port *backstage-http-server-port*
+                       :port port
                        :document-root (http-document-root)))
   (hunchentoot:start *backstage-http-server*))
 
