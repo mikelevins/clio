@@ -21,18 +21,18 @@
     (:html
      (:head
       (:script :src "https://unpkg.com/htmx.org@2.0.4")
-      (:script :src "https://unpkg.com/hyperscript.org@0.9.14")))
+      (:script :src "https://unpkg.com/hyperscript.org@0.9.14")
+      (:script :src "https://cdn.jsdelivr.net/npm/umbrellajs")
+      (:link :rel "stylesheet" :href "https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css")))
     (:body
-     (:div )
-     (:h1 "backstage")
-     (:h2 "Clio")
-     (:a :href "/vegalite-test" (:h3 "VegaLite Test"))
-     (:h3 "Server info")
-     (:div
-      (:h4 (fmt "Running Hunchentoot on SBCL v~A" (lisp-implementation-version)))
-      (:h5 "SBCL *features*:")
-      (:p :font-size "8pt" (str cl:*features*))))
+     (:div :id "main-container")
+     (:footer :class "ph1 pv1 bt b--black-10 black-70"
+              (:div :class "flex justify-between items-center f6 fw6"
+                    (:div "Clio")
+                    (:a :href "/vegalite-test" (:h3 "VegaLite Test"))
+                    (:div (fmt "SBCL v~A" (lisp-implementation-version))))))
     (values)))
+
 
 ;;; ---------------------------------------------------------------------
 ;;; VegaLite test
