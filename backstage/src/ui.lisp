@@ -11,6 +11,10 @@
 (in-package :backstage)
 
 
+;;; ---------------------------------------------------------------------
+;;; landing
+;;; ---------------------------------------------------------------------
+
 (hunchentoot:define-easy-handler (landing :uri "/") ()
   (setf (hunchentoot:content-type*) "text/html")
   (with-html-output-to-string (out nil :prologue t)
@@ -19,6 +23,7 @@
       (:script :src "https://unpkg.com/htmx.org@2.0.4")
       (:script :src "https://unpkg.com/hyperscript.org@0.9.14")))
     (:body
+     (:div )
      (:h1 "backstage")
      (:h2 "Clio")
      (:a :href "/vegalite-test" (:h3 "VegaLite Test"))
@@ -28,7 +33,11 @@
       (:h5 "SBCL *features*:")
       (:p :font-size "8pt" (str cl:*features*))))
     (values)))
-      
+
+;;; ---------------------------------------------------------------------
+;;; VegaLite test
+;;; ---------------------------------------------------------------------
+
 (hunchentoot:define-easy-handler (vegalite-test :uri "/vegalite-test") ()
   (setf (hunchentoot:content-type*) "text/html")
   (with-html-output-to-string (out nil :prologue t)
