@@ -12,27 +12,6 @@
 
 
 ;;; ---------------------------------------------------------------------
-;;; SSE events
-;;; ---------------------------------------------------------------------
-
-(defparameter *utf-8* (flex:make-external-format :utf-8 :eol-style :lf))
-
-(hunchentoot:define-easy-handler (events :uri "/events") ()
-  (setf (hunchentoot:content-type*) "text/event-stream; charset=utf-8")
-  (setf (hunchentoot:reply-external-format*) *utf-8*)
-  (hunchentoot:no-cache)
-  (let ((counter 0)
-        (output-stream (flex:make-flexi-stream (hunchentoot:send-headers)
-                                               :external-format *utf-8*)))
-    (loop repeat 10
-          do 
-             (sleep 1)
-             (sse-server:send-event! output-stream 
-                                     "my-custom-event"
-                                     (format nil "Hello World! ~d" (incf counter)))
-             (finish-output output-stream))))
-
-;;; ---------------------------------------------------------------------
 ;;; landing
 ;;; ---------------------------------------------------------------------
 
@@ -53,21 +32,7 @@
                     (:div "Clio")
                     (:a :href "/vegalite-test" (:h3 "VegaLite Test"))
                     (:div (fmt "SBCL v~A" (lisp-implementation-version)))))
-     (:script :type "text/javascript"
-              (str (ps
-                     (var ul (chain document (get-element-by-id "eventlist")))
-                     (var es (new (-event-source "/events")))
-                     (defun li (text)
-                       (var newli (chain document (create-element "li")))
-                       (setf (@ newli inner-text) text)
-                       (chain ul (append-child newli))
-                       ul)
-                     (var openfun (lambda () (li "Server connected")))
-                     (chain es (add-event-listener "open" openfun))
-                     (var msgfun (lambda (event) (li (getprop event 'data))))
-                     (chain es (add-event-listener "my-custom-event" msgfun))
-                     (var errfun (lambda () (li "Server unavailable")))
-                     (chain es (add-event-listener "error" errfun))))))
+     (:script :src "/clio-ws.js"))
     (values)))
 
 

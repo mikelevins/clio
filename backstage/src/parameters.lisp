@@ -13,12 +13,13 @@
 (defparameter +minimum-application-port+ 49152)
 (defparameter +maximum-application-port+ 65535)
 
-;;; BUG: hardcode some values until dynamic lookup is working
 (defparameter *backstage-http-server-port* 8080)
-(defparameter *backstage-websocket-server-port* 8081)
+(defparameter *backstage-websocket-port* 40404)
 (defparameter *backstage-swank-server-port* 5005)
 
 (defparameter *backstage-http-server* nil)
+(defparameter *backstage-websocket-server* nil)
+(defparameter *backstage-websocket-handler* nil)
 
 (defun http-document-root ()
   "find the document root for the HTTP server"

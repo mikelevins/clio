@@ -23,11 +23,9 @@
     :license "MIT"
     :version (:read-file-form "version.lisp")
     :depends-on (
-                 :flexi-streams ; [BSD] https://github.com/edicl/flexi-streams
                  :cl-who ; [BSD] https://edicl.github.io/cl-who/
                  :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
                  :parenscript
-                 :sse-server
                  :find-port ; [MIT] https://github.com/eudoxia0/find-port
                  :trivial-ws ; [MIT] https://github.com/ceramic/trivial-ws
                  )
@@ -46,18 +44,8 @@
 #+repl (backstage::start-server backstage::*backstage-http-server-port*)
 #+repl (backstage::start-browser)
 #+repl (backstage::stop-server)
-
-
-;;; remote-js
-;;; ---------------------------------------------------------------------
-
-#+repl (defparameter ctx (remote-js:make-context))
-#+repl (remote-js:start ctx)
-#+repl (with-open-file (stream (merge-pathnames #p"test.html" (user-homedir-pathname))
-                               :direction :output
-                               :if-exists :supersede
-                               :if-does-not-exist :create)
-         (write-string (remote-js:html ctx) stream))
-#+test (backstage::start-browser)
-#+test (remote-js:eval ctx "alert('hello!')")
+#+repl (trivial-ws:clients backstage::*backstage-websocket-server*)
+#+repl (let ((client (first (trivial-ws:clients backstage::*backstage-websocket-server*)))
+             (json (cl-json:encode-json-alist '(("data" . "ping")))))
+         (trivial-ws:send client "{\"data\": \"ping\"}"))
 
