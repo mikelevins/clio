@@ -8,6 +8,21 @@
 ;;;;
 ;;;; ***********************************************************************
 
+(in-package :hunchentoot)
+
+(defmethod start-listening ((acceptor acceptor))
+  (when (acceptor-listen-socket acceptor)
+    (hunchentoot-error "acceptor ~A is already listening" acceptor))
+  (setf (acceptor-listen-socket acceptor)
+        (usocket:socket-listen (or (acceptor-address acceptor)
+                                   usocket:*wildcard-host*)
+                               (acceptor-port acceptor)
+                               :reuseaddress t
+                               :reuse-address t
+                               :backlog (acceptor-listen-backlog acceptor)
+                               :element-type '(unsigned-byte 8)))
+  (values))
+
 (in-package :backstage)
 
 (defun start-server (&optional (port *backstage-http-server-port*))
@@ -27,11 +42,17 @@
                           *backstage-websocket-port*)))
 
 (defun stop-server ()
-  (hunchentoot:stop *backstage-http-server*))
+  (when (hunchentoot::acceptor-listen-socket *backstage-http-server*)
+    (hunchentoot:stop *backstage-http-server*))
+  (when (hunchentoot::acceptor-listen-socket *backstage-websocket-handler*)
+    (trivial-ws:stop *backstage-websocket-handler*)))
 
 (defmethod listening? ((server null)) nil)
 
 (defmethod listening? ((server hunchentoot:acceptor))
+  (and (hunchentoot::acceptor-listen-socket server) t))
+
+(defmethod listening? ((server trivial-ws:server))
   (and (hunchentoot::acceptor-listen-socket server) t))
 
 (defun handle-ws-message (server message)

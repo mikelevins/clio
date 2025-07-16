@@ -23,6 +23,7 @@
     :license "MIT"
     :version (:read-file-form "version.lisp")
     :depends-on (
+                 :cl-json
                  :cl-who ; [BSD] https://edicl.github.io/cl-who/
                  :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
                  :parenscript
@@ -35,6 +36,7 @@
                                        (:file "parameters")
                                        (:file "util")
                                        (:file "server")
+                                       (:file "browser-api")
                                        (:file "ui")))))
 
 
@@ -45,7 +47,4 @@
 #+repl (backstage::start-browser)
 #+repl (backstage::stop-server)
 #+repl (trivial-ws:clients backstage::*backstage-websocket-server*)
-#+repl (let ((client (first (trivial-ws:clients backstage::*backstage-websocket-server*)))
-             (json (cl-json:encode-json-alist '(("data" . "ping")))))
-         (trivial-ws:send client "{\"data\": \"ping\"}"))
 
