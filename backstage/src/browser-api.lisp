@@ -11,6 +11,18 @@
 (in-package :backstage)
 
 ;;; ---------------------------------------------------------------------
+;;; element ids
+;;; ---------------------------------------------------------------------
+
+(defparameter *element-counter* 0)
+
+(defun next-element-id ()
+  (let ((n (incf *element-counter*)))
+    (format nil "elt~D" n)))
+
+#+repl (next-element-id)
+
+;;; ---------------------------------------------------------------------
 ;;; encode messages
 ;;; ---------------------------------------------------------------------
 
@@ -18,6 +30,14 @@
   (cl-json:encode-json-plist-to-string '(:type "ping")))
 
 #+repl (encode-ping)
+
+(defun encode-create-button (text)
+  (cl-json:encode-json-plist-to-string `(:type "create-element"
+                                         :element-type "button"
+                                         :id ,(next-element-id)
+                                         :text ,text)))
+
+#+repl (encode-create-button "Hello")
 
 ;;; ---------------------------------------------------------------------
 ;;; send to the browser
@@ -28,8 +48,10 @@
     (trivial-ws:send client json-msg)))
 
 #+repl (send-to-browser (encode-ping))
+#+repl (send-to-browser (encode-create-button "Hello"))
 
 
+#+repl (asdf:load-system :backstage)
 #+repl (backstage::start-server backstage::*backstage-http-server-port*)
 #+repl (backstage::start-browser)
 #+repl (backstage::stop-server)

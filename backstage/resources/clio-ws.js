@@ -16,11 +16,36 @@ function handleWSEvent(eventData) {
         Canvas.clear();
     } else if (eventType == 'ping') {
         console.log("Received WS ping");
-    } else{
+    } else if (eventType == 'create-element') {
+        handleCreateElement(eventData);
+    } else {
         console.log("Received WS event: ");
         console.log(eventData);
     }    
 }
+
+function handleCreateElement(eventData){
+    let elementType = eventData['elementType'];
+    if (elementType == 'button') {
+        handleCreateButton(eventData);
+    } else {
+        console.log("Received create element: ");
+        console.log(eventData);
+    }    
+    
+}
+
+function handleCreateButton(eventData){
+    console.log(eventData);
+    let elementText = eventData['text'];
+    let elementId = eventData['id'];
+    let mainContainer = document.getElementById('main-container');
+    let btn = document.createElement("button");
+    btn.setAttribute('id',elementId);
+    btn.innerHTML = elementText;
+    mainContainer.appendChild(btn);
+}
+
 
 // ---------------------------------------------------------------------
 // sending messages
