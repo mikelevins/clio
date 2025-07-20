@@ -43,8 +43,4 @@
 
 
 #+repl (asdf:load-system :backstage)
-#+repl (backstage::start-server backstage::*backstage-http-server-port*)
-#+repl (backstage::start-browser)
-#+repl (backstage::stop-server)
-#+repl (trivial-ws:clients backstage::*backstage-websocket-server*)
 
