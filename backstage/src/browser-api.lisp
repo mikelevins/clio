@@ -31,11 +31,19 @@
 
 #+repl (encode-ping)
 
-(defun encode-create-button (text)
+(defun encode-reload ()
+  (cl-json:encode-json-plist-to-string '(:type "reload")))
+
+#+repl (encode-reload)
+
+(defun encode-create-button (text &key
+                                    (id (next-element-id))
+                                    (onclick nil))
   (cl-json:encode-json-plist-to-string `(:type "create-element"
                                          :element-type "button"
-                                         :id ,(next-element-id)
-                                         :text ,text)))
+                                         :id ,id
+                                         :text ,text
+                                         :onclick ,onclick)))
 
 #+repl (encode-create-button "Hello")
 
@@ -48,7 +56,8 @@
     (trivial-ws:send client json-msg)))
 
 #+repl (send-to-browser (encode-ping))
-#+repl (send-to-browser (encode-create-button "Hello"))
+#+repl (send-to-browser (encode-reload))
+#+repl (send-to-browser (encode-create-button "Hello" :onclick "() => {alert('Hello!')}"))
 
 
 #+repl (asdf:load-system :backstage)

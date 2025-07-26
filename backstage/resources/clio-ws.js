@@ -16,6 +16,8 @@ function handleWSEvent(eventData) {
         Canvas.clear();
     } else if (eventType == 'ping') {
         console.log("Received WS ping");
+    } else if (eventType == 'reload') {
+        window.location.reload();
     } else if (eventType == 'create-element') {
         handleCreateElement(eventData);
     } else {
@@ -39,10 +41,13 @@ function handleCreateButton(eventData){
     console.log(eventData);
     let elementText = eventData['text'];
     let elementId = eventData['id'];
+    let elementScriptText = eventData.onclick;
+    let elementScript = eval(elementScriptText);;
     let mainContainer = document.getElementById('main-container');
     let btn = document.createElement("button");
     btn.setAttribute('id',elementId);
     btn.innerHTML = elementText;
+    btn.onclick = elementScript;
     mainContainer.appendChild(btn);
 }
 
