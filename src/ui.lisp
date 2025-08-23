@@ -1,14 +1,14 @@
 ;;;; ***********************************************************************
 ;;;;
 ;;;; Name:          ui.lisp
-;;;; Project:       backstage: an Electron presentation server for Lisp
+;;;; Project:       clio: an HTTP presentation server for Lisp
 ;;;; Purpose:       HTTP UI
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2024 by mikel evins
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :backstage)
+(in-package :clio)
 
 
 ;;; ---------------------------------------------------------------------
@@ -59,7 +59,7 @@
   vegaEmbed('#vis', spec);
 }"))
      (:body
-      (:h1 "backstage")
+      (:h1 "clio")
       (:h2 "Vega Examples")
       (:div (:p "Taken from https://github.com/vega/vega/tree/main/docs/examples")
             (:p "Try any name from that repo that ends in '.vg.json'"))

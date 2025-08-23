@@ -16,7 +16,7 @@
 ;;; clio system
 ;;; ---------------------------------------------------------------------
 
-(asdf:defsystem #:backstage
+(asdf:defsystem #:clio
     :serial t
     :description "A Lisp HTTP UI server"
     :author "mikel evins <mevins@me.com>"
@@ -42,4 +42,4 @@
 
 
 
-#+repl (asdf:load-system :backstage)
+#+repl (asdf:load-system :clio)

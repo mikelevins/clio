@@ -1,14 +1,14 @@
 ;;;; ***********************************************************************
 ;;;;
 ;;;; Name:          browser-api.lisp
-;;;; Project:       backstage: an Electron presentation server for Lisp
+;;;; Project:       clio: an HTTP presentation server for Lisp
 ;;;; Purpose:       talking to the browser
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2025 by mikel evins
 ;;;;
 ;;;; ***********************************************************************
 
-(in-package :backstage)
+(in-package :clio)
 
 ;;; ---------------------------------------------------------------------
 ;;; element ids
@@ -52,7 +52,7 @@
 ;;; ---------------------------------------------------------------------
 
 (defun send-to-browser (json-msg)
-  (let ((client (first (trivial-ws:clients backstage::*backstage-websocket-server*))))
+  (let ((client (first (trivial-ws:clients clio::*clio-websocket-server*))))
     (trivial-ws:send client json-msg)))
 
 #+repl (send-to-browser (encode-ping))
@@ -60,8 +60,8 @@
 #+repl (send-to-browser (encode-create-button "Hello" :onclick "() => {alert('Hello!')}"))
 
 
-#+repl (asdf:load-system :backstage)
-#+repl (backstage::start-server backstage::*backstage-http-server-port*)
-#+repl (backstage::start-browser)
-#+repl (backstage::stop-server)
-#+repl (trivial-ws:clients backstage::*backstage-websocket-server*)
+#+repl (asdf:load-system :clio)
+#+repl (clio::start-server)
+#+repl (clio::start-browser)
+#+repl (clio::stop-server)
+#+repl (trivial-ws:clients clio::*clio-websocket-server*)
