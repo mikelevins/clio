@@ -1,4 +1,19 @@
 var ClioSocket = new WebSocket("ws://127.0.0.1:40404/");
+let heartbeatInterval;
+
+// ---------------------------------------------------------------------
+// set a heartbeat to keep the websocket open
+// ---------------------------------------------------------------------
+
+ClioSocket.onopen = function() {
+    console.log('Connected');
+    // Send heartbeat every 20 seconds
+    heartbeatInterval = setInterval(() => {
+        if (ClioSocket.readyState === WebSocket.OPEN) {
+            ClioSocket.send(JSON.stringify({ type: 'ping' }));
+        }
+    }, 20000);
+};
 
 // ---------------------------------------------------------------------
 // receiving messages
@@ -16,6 +31,8 @@ function handleWSEvent(eventData) {
         Canvas.clear();
     } else if (eventType == 'ping') {
         console.log("Received WS ping");
+    } else if (eventType == 'pong') {
+        console.log("Received WS pong");
     } else if (eventType == 'reload') {
         window.location.reload();
     } else if (eventType == 'create-element') {

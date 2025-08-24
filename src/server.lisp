@@ -21,9 +21,7 @@
 ;;; ---------------------------------------------------------------------
 ;;; server operations
 ;;; ---------------------------------------------------------------------
-
-;;; :hunchentoot
-;;; ---------------------------------------------------------------------
+;;; package :hunchentoot
 
 (in-package :hunchentoot)
 
@@ -43,8 +41,8 @@
                                :element-type '(unsigned-byte 8)))
   (values))
 
-;;; :clio again
 ;;; ---------------------------------------------------------------------
+;;; package :clio again
 
 (in-package #:clio)
 
@@ -93,7 +91,7 @@
         (t (format t "Received unrecognized browser message: ~%  ~S~%" message))))
 
 (defun send-server-message (json)
-  (let ((client (first (trivial-ws:clients (websocket-server *configuration*)))))
+  (let ((client (first (trivial-ws:clients *clio-websocket-server*))))
     (trivial-ws:send client json)))
 
 (defun start-browser (&optional (url (format nil "http://localhost:~A/" *clio-http-server-port*)))
