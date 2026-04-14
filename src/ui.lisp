@@ -31,8 +31,7 @@
               (:div :class "flex justify-between items-center f6 fw6"
                     (:div "Clio")
                     (:a :href "/vegalite-test" (:h3 "VegaLite Test"))
-                    (:div (fmt "SBCL v~A" (lisp-implementation-version)))))
-     (:script :src "/clio-ws.js"))
+                    (:div (fmt "SBCL v~A" (lisp-implementation-version))))))
     (values)))
 
 
@@ -49,15 +48,62 @@
      (:head
       (:script :src "https://unpkg.com/htmx.org@2.0.4")
       (:script :src "https://unpkg.com/hyperscript.org@0.9.14")
-      (:script :src "https://cdn.jsdelivr.net/npm/vega@5")
-      (:script :src "https://cdn.jsdelivr.net/npm/vega-lite@5")
-      (:script :src "https://cdn.jsdelivr.net/npm/vega-embed@5")
+      (:script :src "https://cdn.jsdelivr.net/npm/vega@6")
+      (:script :src "https://cdn.jsdelivr.net/npm/vega-lite@6")
+      (:script :src "https://cdn.jsdelivr.net/npm/vega-embed@6")
+      (:script :src "/clio-ws.js")
       (:script :type "text/javascript"
-"function showSpec(){
-  let specname = document.getElementById('specID');
-  let spec = 'https://raw.githubusercontent.com/vega/vega/master/docs/examples/'+specname.value+'.vg.json'
-  vegaEmbed('#vis', spec);
-}"))
+               "
+var view = null;
+
+function showSpec(){
+    let specname = document.getElementById('specID');
+    let spec = 'https://raw.githubusercontent.com/vega/vega/master/docs/examples/'+specname.value+'.vg.json'
+    vegaEmbed('#vis', spec).then(function(result) {
+        view = result.view;
+        
+        // right-click on a Vega mark → send datum back to Lisp
+        document.getElementById('vis').addEventListener('contextmenu', function(evt) {
+            evt.preventDefault();
+            
+            // ask the Vega view for the item at this position
+            var item = view.scenegraph().root.items[0];  // not quite — see below
+        });
+        
+        // The cleaner Vega way: use view.addEventListener
+        view.addEventListener('click', function(event, item) {
+            // 'item' is the scenegraph node; item.datum is the data row
+            if (item && item.datum) {
+                var msg = {
+                    type: 'context-event',
+                    datum: item.datum,
+                    markType: item.mark ? item.mark.marktype : null
+                };
+                ClioSocket.send(JSON.stringify(msg));
+            }
+        });
+
+
+        var lastItem = null;
+
+        view.addEventListener('mouseover', function(event, item) {
+            lastItem = item;
+        });
+
+        document.getElementById('vis').addEventListener('contextmenu', function(evt) {
+            evt.preventDefault();
+            if (lastItem && lastItem.datum) {
+                ClioSocket.send(JSON.stringify({
+                    type: 'context-event',
+                    datum: lastItem.datum,
+                    markType: lastItem.mark ? lastItem.mark.marktype : null
+                }));
+            }
+        });
+    });
+}
+
+"))
      (:body
       (:h1 "clio")
       (:h2 "Vega Examples")

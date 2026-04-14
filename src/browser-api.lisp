@@ -58,7 +58,6 @@
 #+repl (send-to-browser (encode-ping))
 #+repl (send-to-browser (encode-reload))
 #+repl (send-to-browser (encode-create-button "Hello" :onclick "() => {alert('Hello!')}"))
-#+repl (send-to-browser (encode-create-button "Hello" :onclick (ps-inline (lambda ()))))
 
 
 #+repl (asdf:load-system :clio)

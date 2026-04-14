@@ -43,3 +43,7 @@
 
 
 #+repl (asdf:load-system :clio)
+#+repl (clio::start-server)
+#+repl (clio::start-browser)
+#+repl (clio::stop-server)
+
