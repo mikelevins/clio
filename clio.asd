@@ -29,7 +29,6 @@
                  :hunchensocket
                  :parenscript
                  :find-port ; [MIT] https://github.com/eudoxia0/find-port
-                 :trivial-ws ; [MIT] https://github.com/ceramic/trivial-ws
                  )
     :components ((:module "src"
                           :serial t

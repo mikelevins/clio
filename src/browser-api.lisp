@@ -31,6 +31,11 @@
 
 #+repl (encode-ping)
 
+(defun encode-pong ()
+  (cl-json:encode-json-plist-to-string '(:type "pong")))
+
+#+repl (encode-pong)
+
 (defun encode-reload ()
   (cl-json:encode-json-plist-to-string '(:type "reload")))
 
@@ -52,4 +57,4 @@
 #+repl (clio::start-server)
 #+repl (clio::start-browser)
 #+repl (clio::stop-server)
-#+repl (trivial-ws:clients clio::*clio-websocket-server*)
+#+repl (hunchensocket:clients clio::*clio-ws-resource*)

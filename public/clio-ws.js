@@ -1,4 +1,4 @@
-var ClioSocket = new WebSocket("ws://127.0.0.1:40404/");
+var ClioSocket = new WebSocket("ws://" + window.location.host + "/ws");
 let heartbeatInterval;
 
 // ---------------------------------------------------------------------
@@ -29,6 +29,7 @@ function handleWSEvent(eventData) {
     let eventType = eventData['type'];
     if (eventType == 'ping') {
         console.log("Received WS ping");
+        sendObject({type: 'pong'});
     } else if (eventType == 'pong') {
         console.log("Received WS pong");
     } else if (eventType == 'reload') {
@@ -77,5 +78,5 @@ function sendObject(object){
 
 
 function pingLisp () {
-    sendObject({type:"pong"});
+    sendObject({type: 'ping'});
 }

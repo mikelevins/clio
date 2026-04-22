@@ -16,13 +16,11 @@
 (defparameter +minimum-application-port+ 49152)
 (defparameter +maximum-application-port+ 65535)
 
-(defparameter *clio-http-server-port* 8080)
-(defparameter *clio-websocket-port* 40404)
+(defparameter *clio-server-port* 8080)
 (defparameter *clio-swank-server-port* 5005)
 
-(defparameter *clio-http-server* nil)
-(defparameter *clio-websocket-server* nil)
-(defparameter *clio-websocket-handler* nil)
+(defparameter *clio-server* nil)
+(defparameter *clio-ws-resource* nil)
 
 (defun http-document-root ()
   "find the document root for the HTTP server"
