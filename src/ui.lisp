@@ -22,6 +22,7 @@
      (:head
       (:script :src "https://unpkg.com/htmx.org@2.0.4")
       (:script :src "https://unpkg.com/hyperscript.org@0.9.14")
+      (:script :src "/clio-ws.js")
       (:script :src "https://cdn.jsdelivr.net/npm/umbrellajs")
       (:link :rel "stylesheet" :href "https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css")))
     (:body

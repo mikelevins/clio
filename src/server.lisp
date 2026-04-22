@@ -1,22 +1,14 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          ui.lisp
+;;;; Name:          server.lisp
 ;;;; Project:       clio: an HTTP presentation server for Lisp
-;;;; Purpose:       HTTP UI
+;;;; Purpose:       Clio application server
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2024-2025 by mikel evins
 ;;;;
 ;;;; ***********************************************************************
 
 (in-package #:clio)
-
-;;; ---------------------------------------------------------------------
-;;; HTTP handlers
-;;; ---------------------------------------------------------------------
-
-(hunchentoot:define-easy-handler (landing :uri "/") ()
-  (setf (hunchentoot:content-type*) "text/html")
-  (landing-page))
 
 ;;; ---------------------------------------------------------------------
 ;;; server operations
@@ -61,8 +53,8 @@
              (hunchentoot:start *clio-http-server*)
              (setf *clio-websocket-server*
                    (trivial-ws:make-server
-                    :on-connect #'(lambda (server)(format t "Connected~%"))
-                    :on-disconnect #'(lambda (server)(format t "Disconnected~%"))
+                    :on-connect #'(lambda (server)(declare (ignore server))(format t "Connected~%"))
+                    :on-disconnect #'(lambda (server)(declare (ignore server))(format t "Disconnected~%"))
                     :on-message #'(lambda (server message)(handle-client-message server message))))
              (setf *clio-websocket-handler*
                    (trivial-ws:start *clio-websocket-server*
@@ -70,20 +62,30 @@
              (values *clio-http-server*
                      *clio-websocket-server*))))
 
+#+repl (start-server)
+
 (defun stop-server ()
   (when (listening? *clio-http-server*)
     (hunchentoot:stop *clio-http-server*))
   (when (listening? *clio-websocket-handler*)
-    (hunchentoot:stop *clio-websocket-handler*)))
+    (trivial-ws:stop *clio-websocket-handler*)))
+
+#+repl (stop-server)
 
 (defmethod listening? ((server null)) nil)
 
 (defmethod listening? ((server hunchentoot:acceptor))
   (and (hunchentoot::acceptor-listen-socket server) t))
 
+(defmethod listening? ((server hunchensocket:websocket-acceptor))
+  (and (hunchentoot::acceptor-listen-socket server) t))
+
+#+repl (listening? *clio-websocket-handler*)
+
 (defparameter *display-client-messages* nil) 
 
 (defun handle-client-message (server message)
+  (declare (ignore server))
   (when *display-client-messages*
     (format t "~%Received message from the browser client: ~%  ~S" message))
   (cond ((equalp message "{\"type\":\"ping\"}")

@@ -1,10 +1,10 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          clio.lisp
+;;;; Name:          parameters.lisp
 ;;;; Project:       clio: an HTTP presentation server for Lisp
 ;;;; Purpose:       system parameter definitions
 ;;;; Author:        mikel evins
-;;;; Copyright:     2024-2025 by mikel evins
+;;;; Copyright:     2024-2026 by mikel evins
 ;;;;
 ;;;; ***********************************************************************
 

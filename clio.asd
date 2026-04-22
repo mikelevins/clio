@@ -1,7 +1,7 @@
 ;;;; ***********************************************************************
 ;;;;
-;;;; Name:          backstage.asd
-;;;; Project:       backstage: an HTTP UI server in a Lisp library
+;;;; Name:          clio.asd
+;;;; Project:       clio: an HTTP UI server in a Lisp library
 ;;;; Purpose:       system definition
 ;;;; Author:        mikel evins
 ;;;; Copyright:     2024 by mikel evins
@@ -26,6 +26,7 @@
                  :cl-json
                  :cl-who ; [BSD] https://edicl.github.io/cl-who/
                  :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
+                 :hunchensocket
                  :parenscript
                  :find-port ; [MIT] https://github.com/eudoxia0/find-port
                  :trivial-ws ; [MIT] https://github.com/ceramic/trivial-ws

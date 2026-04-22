@@ -47,18 +47,6 @@
 
 #+repl (encode-create-button "Hello")
 
-;;; ---------------------------------------------------------------------
-;;; send to the browser
-;;; ---------------------------------------------------------------------
-
-(defun send-to-browser (json-msg)
-  (let ((client (first (trivial-ws:clients clio::*clio-websocket-server*))))
-    (trivial-ws:send client json-msg)))
-
-#+repl (send-to-browser (encode-ping))
-#+repl (send-to-browser (encode-reload))
-#+repl (send-to-browser (encode-create-button "Hello" :onclick "() => {alert('Hello!')}"))
-
 
 #+repl (asdf:load-system :clio)
 #+repl (clio::start-server)

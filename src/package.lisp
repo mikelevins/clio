@@ -2,4 +2,4 @@
 
 (defpackage #:net.evins.clio
   (:nicknames :clio)
-  (:use #:cl #:cl-who #:parenscript))
+  (:use #:cl #:cl-who))

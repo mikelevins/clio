@@ -27,9 +27,7 @@ ClioSocket.onmessage = function (event) {
 
 function handleWSEvent(eventData) {
     let eventType = eventData['type'];
-    if (eventType == 'clear') {
-        Canvas.clear();
-    } else if (eventType == 'ping') {
+    if (eventType == 'ping') {
         console.log("Received WS ping");
     } else if (eventType == 'pong') {
         console.log("Received WS pong");
@@ -59,7 +57,7 @@ function handleCreateButton(eventData){
     let elementText = eventData['text'];
     let elementId = eventData['id'];
     let elementScriptText = eventData.onclick;
-    let elementScript = eval(elementScriptText);;
+    let elementScript = eval(elementScriptText);
     let mainContainer = document.getElementById('main-container');
     let btn = document.createElement("button");
     btn.setAttribute('id',elementId);
@@ -79,5 +77,5 @@ function sendObject(object){
 
 
 function pingLisp () {
-    sendObject("(:ping)");
+    sendObject({type:"pong"});
 }
