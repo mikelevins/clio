@@ -147,8 +147,24 @@ one of four change-handler lanes; see the commentary above
 ENCODE-EVENT-HANDLER for the dispatch rules.
 
 The change event fires when the user commits a new value (typically
-on blur or Enter). FUNCTION-lane handlers receive a payload whose
-:value is the current text of the input.
+on blur or Enter). The current text reaches the handler via different
+paths per lane:
+
+  FUNCTION lane: the handler is a Lisp function of (element payload).
+    The payload plist carries :value, so handlers read it as
+    (getf payload :value).
+
+  STRING / CONS (literal JS / Parenscript) lanes: the handler runs in
+    the browser as a DOM event listener, so it receives the standard
+    change event object. Handlers read the current text from the DOM
+    directly -- e.target.value in literal JS, or (chain e target value)
+    in Parenscript.
+
+The asymmetry is deliberate: only the FUNCTION lane crosses the wire,
+so only the FUNCTION lane needs a purpose-built payload. The STRING
+and CONS lanes run in the browser where the DOM event is already in
+scope, and inventing a synthetic payload for them would cost bytes
+and a synchronization hazard for no gain.
 
 Returns the JSON string to ship over the websocket."
   (let* ((element (make-element "input" :id id))
@@ -165,6 +181,13 @@ Returns the JSON string to ship over the websocket."
 #+repl (encode-create-input :value "initial")
 #+repl (encode-create-input :onchange "function(e){console.log(e.target.value);}")
 #+repl (encode-create-input :onchange '(lambda (e) (chain console (log (chain e target value)))))
+#+repl (encode-create-input                                  ; non-trivial PS handler:
+        :onchange '(lambda (e)                               ; green bg if non-empty,
+                     (let ((val (chain e target value)))     ; white otherwise.
+                       (setf (chain e target style background-color)
+                             (if (> (chain val length) 0)
+                                 "#ccffcc"
+                                 "#ffffff")))))
 #+repl (encode-create-input :onchange (lambda (elt payload)
                                         (declare (ignore elt))
                                         (format t "~&input changed: ~S~%"
