@@ -38,80 +38,95 @@
 
 #+repl (encode-reload)
 
+;;; ---------------------------------------------------------------------
+;;; event-handler encoding helper
+;;; ---------------------------------------------------------------------
+;;; ENCODE-EVENT-HANDLER encapsulates the four-lane dispatch shared by
+;;; every ENCODE-CREATE-* function that accepts event attributes. Each
+;;; caller invokes it once per event attribute it supports, passing
+;;; the element, the event keyword (:click, :change, :mouseover, ...),
+;;; and the user-supplied handler.
+;;;
+;;; The return value is either the value to place in the envelope
+;;; under the event attribute's key, or *OMIT-EVENT-KEY* meaning "do
+;;; not include this key." Callers build the final envelope plist
+;;; with MAKE-ENVELOPE-PLIST, which filters out keys whose value is
+;;; the omit sentinel.
+;;;
+;;; The four lanes, dispatched by HANDLER's type:
+;;;
+;;;   NIL      -- no handler. Returns *OMIT-EVENT-KEY*; the caller
+;;;               leaves the event attribute out of the envelope and
+;;;               the browser wires nothing. Interactions are inert.
+;;;
+;;;   STRING   -- literal JavaScript source. Returned unchanged for
+;;;               inclusion in the envelope. The browser evals it and
+;;;               assigns the result to the appropriate DOM handler
+;;;               slot. The escape hatch for cases where a typed
+;;;               vocabulary would be too slow to reach for.
+;;;
+;;;   CONS     -- a Parenscript form. Compiled to JS at encode time
+;;;               via PS:PS* and returned as a string. Browser
+;;;               behavior is identical to the STRING lane.
+;;;
+;;;   FUNCTION -- a Lisp function of two arguments (element, payload).
+;;;               Registered on ELEMENT under EVENT-NAME via
+;;;               REGISTER-EVENT-HANDLER. Returns T as a sentinel;
+;;;               the browser-side relay sends an element-event
+;;;               message back to Lisp and the element-event
+;;;               dispatcher funcalls the registered function.
+;;;
+;;; Paired with RESOLVEEVENTHANDLER on the JS side in clio-ws.js.
+
+(defparameter *omit-event-key* (make-symbol "OMIT")
+  "Sentinel returned by ENCODE-EVENT-HANDLER meaning 'omit this key
+from the envelope.' An uninterned symbol so it cannot collide with
+any legitimate envelope value.")
+
+(defun encode-event-handler (element event-name handler)
+  "Resolves HANDLER to the envelope value for EVENT-NAME's key.
+See the commentary block above for the four-lane dispatch rules."
+  (etypecase handler
+    (null     *omit-event-key*)
+    (string   handler)
+    (cons     (ps:ps* handler))
+    (function
+     (register-event-handler element event-name handler)
+     t)))
+
+(defun make-envelope-plist (base &rest key-value-pairs)
+  "Returns a plist built by appending KEY-VALUE-PAIRS to BASE, with
+any pair whose value is *OMIT-EVENT-KEY* filtered out. BASE is
+assumed already sanitized. Keyword/value args are supplied as
+alternating arguments, e.g.
+
+  (make-envelope-plist '(:type \"x\") :onclick v1 :onchange v2)"
+  (let ((result (copy-list base)))
+    (loop for (k v) on key-value-pairs by #'cddr
+          unless (eq v *omit-event-key*)
+            do (setf result (append result (list k v))))
+    result))
+
 (defun encode-create-button (text &key
                                     (id (make-element-id))
                                     (onclick nil))
   "Encodes a create-button message for the browser.
 
-TEXT is the visible button label. ID is a KSUID string; a fresh one is
-minted if not supplied. ONCLICK selects one of four click-handler
-lanes, dispatched by type:
-
-  NIL          -- no click behavior. The envelope carries no :onclick;
-                  the browser wires no onclick handler. Clicks are
-                  inert.
-
-  STRING       -- literal JavaScript source. Ships in the envelope as
-                  :onclick. The browser evals it and assigns the result
-                  to btn.onclick. The escape hatch; preserves the
-                  pre-registry behavior for cases where a typed
-                  vocabulary would be too slow to reach for.
-
-  CONS         -- a Parenscript form. Compiled to JS at encode time via
-                  PS:PS*, then sent the same way as a literal string.
-                  Browser behavior is identical to the STRING lane;
-                  authoring moves into Lisp.
-
-  FUNCTION     -- a Lisp function of two arguments (element, payload).
-                  Stored on the element's :click slot via
-                  REGISTER-EVENT-HANDLER. The envelope carries
-                  :onclick t as a sentinel; the browser-side relay
-                  sends an element-event message back to Lisp on
-                  click, and the element-event dispatcher funcalls
-                  this function.
+TEXT is the visible button label. ID is a KSUID string; a fresh one
+is minted if not supplied. ONCLICK selects one of four click-handler
+lanes; see the commentary above ENCODE-EVENT-HANDLER for the
+dispatch rules.
 
 Returns the JSON string to ship over the websocket."
-  ;; TODO (next session that adds a non-button element): lift the
-  ;; ETYPECASE below and the conditional plist building into a shared
-  ;; helper, probably named ENCODE-EVENT-HANDLER. The helper should take
-  ;; (element event-name handler), register on the element when HANDLER
-  ;; is a function, and return either the value to put in the envelope
-  ;; under EVENT-NAME or a sentinel meaning "omit this key." Each
-  ;; ENCODE-CREATE-* then builds its envelope by consulting the helper
-  ;; per event attribute (:onclick, :onmouseover, :onkeydown, ...) and
-  ;; omitting the corresponding keys when resolution returned the
-  ;; sentinel. Paired with the JS-side RESOLVEEVENTHANDLER TODO in
-  ;; clio-ws.js.
-  (let ((element (make-element "button" :id id)))
-    (etypecase onclick
-      (null
-       (cl-json:encode-json-plist-to-string
-        `(:type "create-element"
-          :element-type "button"
-          :id ,id
-          :text ,text)))
-      (string
-       (cl-json:encode-json-plist-to-string
-        `(:type "create-element"
-          :element-type "button"
-          :id ,id
-          :text ,text
-          :onclick ,onclick)))
-      (cons
-       (cl-json:encode-json-plist-to-string
-        `(:type "create-element"
-          :element-type "button"
-          :id ,id
-          :text ,text
-          :onclick ,(ps:ps* onclick))))
-      (function
-       (register-event-handler element :click onclick)
-       (cl-json:encode-json-plist-to-string
-        `(:type "create-element"
-          :element-type "button"
-          :id ,id
-          :text ,text
-          :onclick t))))))
+  (let* ((element (make-element "button" :id id))
+         (onclick-value (encode-event-handler element :click onclick)))
+    (cl-json:encode-json-plist-to-string
+     (make-envelope-plist
+      `(:type "create-element"
+        :element-type "button"
+        :id ,id
+        :text ,text)
+      :onclick onclick-value))))
 
 #+repl (encode-create-button "Hello")
 #+repl (encode-create-button "JS" :onclick "function(){alert('hi');}")
@@ -119,6 +134,41 @@ Returns the JSON string to ship over the websocket."
 #+repl (encode-create-button "Lisp" :onclick (lambda (elt payload)
                                                (declare (ignore elt payload))
                                                (format t "~&clicked~%")))
+
+(defun encode-create-input (&key
+                              (id (make-element-id))
+                              (value "")
+                              (onchange nil))
+  "Encodes a create-input message for the browser.
+
+Creates a text input element. VALUE is its initial contents. ID is a
+KSUID string; a fresh one is minted if not supplied. ONCHANGE selects
+one of four change-handler lanes; see the commentary above
+ENCODE-EVENT-HANDLER for the dispatch rules.
+
+The change event fires when the user commits a new value (typically
+on blur or Enter). FUNCTION-lane handlers receive a payload whose
+:value is the current text of the input.
+
+Returns the JSON string to ship over the websocket."
+  (let* ((element (make-element "input" :id id))
+         (onchange-value (encode-event-handler element :change onchange)))
+    (cl-json:encode-json-plist-to-string
+     (make-envelope-plist
+      `(:type "create-element"
+        :element-type "input"
+        :id ,id
+        :value ,value)
+      :onchange onchange-value))))
+
+#+repl (encode-create-input)
+#+repl (encode-create-input :value "initial")
+#+repl (encode-create-input :onchange "function(e){console.log(e.target.value);}")
+#+repl (encode-create-input :onchange '(lambda (e) (chain console (log (chain e target value)))))
+#+repl (encode-create-input :onchange (lambda (elt payload)
+                                        (declare (ignore elt))
+                                        (format t "~&input changed: ~S~%"
+                                                (getf payload :value))))
 
 ;;; ---------------------------------------------------------------------
 ;;; inbound element events

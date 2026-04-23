@@ -140,11 +140,53 @@ function handleCreateElement(eventData){
     let elementType = eventData['elementType'];
     if (elementType == 'button') {
         handleCreateButton(eventData);
+    } else if (elementType == 'input') {
+        handleCreateInput(eventData);
     } else {
         console.log("Received create element: ");
         console.log(eventData);
     }    
     
+}
+
+// ---------------------------------------------------------------------
+// event-handler resolution
+// ---------------------------------------------------------------------
+// resolveEventHandler encapsulates the three-lane dispatch that pairs
+// with the Lisp-side ENCODE-EVENT-HANDLER in browser-api.lisp. Each
+// handleCreate* function calls it once per event attribute it
+// supports, passing the envelope's value for that attribute and a
+// relay closure.
+//
+//   spec absent / null -- no handler wired; returns null. Interaction
+//                          is inert.
+//   spec === true       -- FUNCTION lane on the Lisp side. Returns the
+//                          relay closure, which sends an element-event
+//                          message back to Lisp. The closure is
+//                          constructed by the caller because its
+//                          payload is event-specific (e.g. button
+//                          clicks carry only id; input changes also
+//                          carry the current value).
+//   spec is string      -- STRING or CONS (Parenscript) lane. Trimmed
+//                          of trailing whitespace and semicolons, then
+//                          wrapped in parens before eval, so both
+//                          anonymous function literals and
+//                          Parenscript's statement-form output parse
+//                          as expressions.
+//
+// Keeping this helper ignorant of event names and payload shapes is
+// what lets it stay small. Event-specific concerns (which payload
+// fields to include, which DOM slot to assign the result to) stay in
+// the handleCreate* caller.
+
+function resolveEventHandler(spec, buildRelay) {
+    if (spec === true) {
+        return buildRelay;
+    } else if (typeof spec === 'string') {
+        return eval('(' + spec.replace(/[\s;]+$/, '') + ')');
+    } else {
+        return null;
+    }
 }
 
 function handleCreateButton(eventData){
@@ -154,31 +196,31 @@ function handleCreateButton(eventData){
     let btn = document.createElement("button");
     btn.setAttribute('id', elementId);
     btn.innerHTML = elementText;
-    // TODO (next session that adds a non-button element): lift the
-    // three-lane dispatch below into a shared helper, probably named
-    // resolveEventHandler(spec, eventName, elementId), returning the
-    // DOM handler function or null. Canvases, inputs, etc. will all
-    // need this logic per event attribute (onclick, onmouseover,
-    // onkeydown, ...) and duplicating it per handleCreate* guarantees
-    // drift. Paired with the Lisp-side ENCODE-EVENT-HANDLER TODO in
-    // browser-api.lisp.
-    //
-    // Three-lane click dispatch, matching encode-create-button on the Lisp side:
-    //   onclick absent   -- NIL lane: no handler wired, clicks inert.
-    //   onclick === true -- FUNCTION lane: relay to Lisp via element-event.
-    //   onclick is string -- STRING / CONS (Parenscript) lane: eval locally.
-    // The string is trimmed of trailing whitespace and semicolons, then
-    // wrapped in parens, so both anonymous function literals and
-    // Parenscript's statement-form output (which ends in a semicolon)
-    // parse as expressions rather than as statements.
-    const onclickSpec = eventData.onclick;
-    if (onclickSpec === true) {
-        btn.onclick = () => sendObject({type: 'element-event', event: 'click', id: elementId});
-    } else if (typeof onclickSpec === 'string') {
-        btn.onclick = eval('(' + onclickSpec.replace(/[\s;]+$/, '') + ')');
-    }
+    const onclick = resolveEventHandler(
+        eventData.onclick,
+        () => sendObject({type: 'element-event', event: 'click', id: elementId}));
+    if (onclick) { btn.onclick = onclick; }
     mainContainer.appendChild(btn);
     registerElement(elementId, 'button', btn, null);
+}
+
+function handleCreateInput(eventData){
+    let elementId = eventData['id'];
+    let initialValue = eventData['value'];
+    let mainContainer = document.getElementById('main-container');
+    let input = document.createElement("input");
+    input.setAttribute('id', elementId);
+    input.setAttribute('type', 'text');
+    input.value = initialValue || '';
+    const onchange = resolveEventHandler(
+        eventData.onchange,
+        () => sendObject({type: 'element-event',
+                          event: 'change',
+                          id: elementId,
+                          value: input.value}));
+    if (onchange) { input.onchange = onchange; }
+    mainContainer.appendChild(input);
+    registerElement(elementId, 'input', input, null);
 }
 
 
