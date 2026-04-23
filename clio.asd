@@ -27,6 +27,7 @@
                  :cl-who ; [BSD] https://edicl.github.io/cl-who/
                  :hunchentoot ; [BSD] https://github.com/edicl/hunchentoot
                  :hunchensocket
+                 :net.bardcode.ksuid ; [Apache 2.0] local
                  :parenscript
                  :find-port ; [MIT] https://github.com/eudoxia0/find-port
                  )
@@ -35,6 +36,7 @@
                           :components ((:file "package")
                                        (:file "parameters")
                                        (:file "util")
+                                       (:file "registry")
                                        (:file "server")
                                        (:file "browser-api")
                                        (:file "ui")))))

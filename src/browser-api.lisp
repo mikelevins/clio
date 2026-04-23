@@ -13,14 +13,11 @@
 ;;; ---------------------------------------------------------------------
 ;;; element ids
 ;;; ---------------------------------------------------------------------
-
-(defparameter *element-counter* 0)
-
-(defun next-element-id ()
-  (let ((n (incf *element-counter*)))
-    (format nil "elt~D" n)))
-
-#+repl (next-element-id)
+;;; Element id minting and the element registry now live in
+;;; registry.lisp. Message-encoding functions here create and register
+;;; clio-element instances through MAKE-ELEMENT, then emit JSON
+;;; envelopes carrying :id so the browser can route messages to the
+;;; corresponding registered wrapper.
 
 ;;; ---------------------------------------------------------------------
 ;;; encode messages
@@ -42,8 +39,9 @@
 #+repl (encode-reload)
 
 (defun encode-create-button (text &key
-                                    (id (next-element-id))
+                                    (id (make-element-id))
                                     (onclick nil))
+  (make-element "button" :id id)
   (cl-json:encode-json-plist-to-string `(:type "create-element"
                                          :element-type "button"
                                          :id ,id
