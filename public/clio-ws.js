@@ -2,6 +2,25 @@ var ClioSocket = new WebSocket("ws://" + window.location.host + "/ws");
 let heartbeatInterval;
 
 // ---------------------------------------------------------------------
+// wire-format invariants
+// ---------------------------------------------------------------------
+// Clio-produced envelopes (in both directions) are JSON objects with
+// unique keys. On this side:
+//
+//   Outbound: all messages are built as plain object literals and
+//   shipped via sendObject. Object literals have unique keys by
+//   language rule.
+//
+//   Inbound:  JSON.parse discards duplicate keys by spec, keeping the
+//   last. The Lisp side guarantees outbound messages have unique keys
+//   by construction, so this is not exercised in practice.
+//
+// See registry.lisp for the matching Lisp-side invariants and the
+// as-message-payload backstop on inbound traffic. Any change that
+// produces messages by a path other than sendObject on an object
+// literal must preserve the uniqueness invariant.
+
+// ---------------------------------------------------------------------
 // KSUID minting (browser side)
 // ---------------------------------------------------------------------
 // Symmetric with the net.bardcode.ksuid Common Lisp library. Uses the
@@ -129,16 +148,35 @@ function handleCreateElement(eventData){
 }
 
 function handleCreateButton(eventData){
-    console.log(eventData);
     let elementText = eventData['text'];
     let elementId = eventData['id'];
-    let elementScriptText = eventData.onclick;
-    let elementScript = eval(elementScriptText);
     let mainContainer = document.getElementById('main-container');
     let btn = document.createElement("button");
-    btn.setAttribute('id',elementId);
+    btn.setAttribute('id', elementId);
     btn.innerHTML = elementText;
-    btn.onclick = elementScript;
+    // TODO (next session that adds a non-button element): lift the
+    // three-lane dispatch below into a shared helper, probably named
+    // resolveEventHandler(spec, eventName, elementId), returning the
+    // DOM handler function or null. Canvases, inputs, etc. will all
+    // need this logic per event attribute (onclick, onmouseover,
+    // onkeydown, ...) and duplicating it per handleCreate* guarantees
+    // drift. Paired with the Lisp-side ENCODE-EVENT-HANDLER TODO in
+    // browser-api.lisp.
+    //
+    // Three-lane click dispatch, matching encode-create-button on the Lisp side:
+    //   onclick absent   -- NIL lane: no handler wired, clicks inert.
+    //   onclick === true -- FUNCTION lane: relay to Lisp via element-event.
+    //   onclick is string -- STRING / CONS (Parenscript) lane: eval locally.
+    // The string is trimmed of trailing whitespace and semicolons, then
+    // wrapped in parens, so both anonymous function literals and
+    // Parenscript's statement-form output (which ends in a semicolon)
+    // parse as expressions rather than as statements.
+    const onclickSpec = eventData.onclick;
+    if (onclickSpec === true) {
+        btn.onclick = () => sendObject({type: 'element-event', event: 'click', id: elementId});
+    } else if (typeof onclickSpec === 'string') {
+        btn.onclick = eval('(' + onclickSpec.replace(/[\s;]+$/, '') + ')');
+    }
     mainContainer.appendChild(btn);
     registerElement(elementId, 'button', btn, null);
 }
