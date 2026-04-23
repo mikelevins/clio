@@ -49,3 +49,20 @@
 #+repl (clio::start-browser)
 #+repl (clio::stop-server)
 
+
+;;; ---------------------------------------------------------------------
+;;; tests
+;;; ---------------------------------------------------------------------
+
+#+repl (loop for k being the hash-keys of clio::*message-handlers* collect k)
+#+repl clio::*handler-initializers*
+#+repl (hash-table-count clio::*message-handlers*)
+
+#+repl (clio::initialize-handlers)
+
+;; single-file reload of server.lisp
+#+repl (load (asdf:system-relative-pathname :clio "src/server.lisp"))
+
+;; single-file reload of browser-api.lisp
+#+repl (load (asdf:system-relative-pathname :clio "src/browser-api.lisp"))
+

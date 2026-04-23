@@ -228,22 +228,29 @@ See the wire-format invariants block at the top of registry.lisp."
         (setf plist (append plist (list key (cdr pair))))))
     plist))
 
-(register-message-handler "element-event"
-  (lambda (resource client parsed)
-    (declare (ignore resource client))
-    (let* ((payload (as-message-payload parsed))
-           (id (getf payload :id))
-           (event-string (getf payload :event))
-           (event-name (intern (string-upcase event-string) :keyword))
-           (element (lookup-element id))
-           (handler (and element (lookup-event-handler element event-name))))
-      (cond
-        ((null element)
-         (format t "~&element-event for unknown element id ~A~%" id))
-        ((null handler)
-         (format t "~&No ~A handler for element ~A~%" event-string id))
-        (t
-         (funcall handler element payload))))))
+(defun handle-element-event (resource client parsed)
+  (declare (ignore resource client))
+  (let* ((payload (as-message-payload parsed))
+         (id (getf payload :id))
+         (event-string (getf payload :event))
+         (event-name (intern (string-upcase event-string) :keyword))
+         (element (lookup-element id))
+         (handler (and element (lookup-event-handler element event-name))))
+    (cond
+      ((null element)
+       (format t "~&element-event for unknown element id ~A~%" id))
+      ((null handler)
+       (format t "~&No ~A handler for element ~A~%" event-string id))
+      (t
+       (funcall handler element payload)))))
+
+(defun initialize-browser-api-message-handlers ()
+  "Registers the built-in message handlers contributed by this file.
+Called by REGISTER-HANDLER-INITIALIZER on load, and again by
+INITIALIZE-HANDLERS whenever the handler table is rebuilt."
+  (register-message-handler "element-event" 'handle-element-event))
+
+(register-handler-initializer 'initialize-browser-api-message-handlers)
 
 
 #+repl (asdf:load-system :clio)
