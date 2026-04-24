@@ -34,7 +34,7 @@ const CLIO_KSUID_BASE62_ALPHABET =
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const CLIO_KSUID_STRING_LENGTH = 27;
 
-function makeKsuid() {
+function make_ksuid() {
     // 20 bytes = 4 big-endian timestamp bytes + 16 random payload bytes
     const bytes = new Uint8Array(20);
     const unixNow = BigInt(Math.floor(Date.now() / 1000));
@@ -63,7 +63,7 @@ function makeKsuid() {
 }
 
 function makeElementId() {
-    return makeKsuid();
+    return make_ksuid();
 }
 
 // ---------------------------------------------------------------------
