@@ -41,6 +41,8 @@
   "find the document root for the HTTP server"
   (asdf:system-relative-pathname :clio "public/"))
 
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (setf cl-who:*attribute-quote-char* #\"))
+;;; HTMX uses hx-* attributes that aren't part of HTML5; tell Spinneret
+;;; not to warn about them at compile time.
+
+(pushnew "hx-" spinneret:*unvalidated-attribute-prefixes* :test #'equal)
 
