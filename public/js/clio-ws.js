@@ -30,8 +30,7 @@ let heartbeatInterval;
 // characters and 160 bits doesn't fit in a Number.
 
 const CLIO_KSUID_UNIX_EPOCH_SECONDS = 1400000000n;
-const CLIO_KSUID_BASE62_ALPHABET =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const CLIO_KSUID_BASE62_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const CLIO_KSUID_STRING_LENGTH = 27;
 
 function make_ksuid() {

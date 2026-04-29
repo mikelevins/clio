@@ -16,6 +16,19 @@ Clio app.
    via a custom WebSocket message type. No use of the element
    registry.
 
+2. **counters** — Three buttons minted from the Lisp REPL after the
+   page is up. Each button has its own Lisp-side click handler
+   dispatched through the element registry. Demonstrates the
+   FUNCTION-lane event handler of `encode-create-button`, dynamic
+   element minting over the WebSocket, and per-button state via
+   Lisp closures.
+
+3. **htmx** — A button that fetches a greeting fragment from Lisp,
+   and a live-filter input that re-renders a list as the user
+   types. Demonstrates HTMX over plain HTTP — no WebSocket, no
+   registry — and confirms that Clio's `hx-*` attribute prefix
+   registration composes cleanly with Spinneret.
+
 More examples will be added in subsequent rounds; the ordering above
 is intended to introduce one Clio concept per step.
 

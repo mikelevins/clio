@@ -33,7 +33,7 @@
     (:html
      (:head
       (:title "Clio hello example")
-      (:script :src "/clio-ws.js"))
+      (:script :src "/js/clio-ws.js"))
      (:body
       (:h1 "Clio hello example")
       (:p (:input :id "hello-name" :type "text" :placeholder "Your name"))
