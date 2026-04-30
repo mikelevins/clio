@@ -122,18 +122,13 @@ smallest thing that loads: a single easy-handler that serves a
             (:p "Hello.")))))
 
 (defun start ()
-  (clio::start-server)
-  (clio::start-browser
+  (clio:start-server)
+  (clio:start-browser
    (format nil "http://localhost:~A/howto"
-           clio::*clio-server-port*)))
+           clio:*clio-server-port*)))
 ```
 
-Two notes on the symbols above. `start-server`, `start-browser`,
-and `*clio-server-port*` are reached through `clio::` (double colon)
-because they aren't yet in Clio's public symbol surface; they're
-candidates for promotion in a future revision. The same pattern
-appears in the `hello` and `counters` examples. The
-`define-easy-handler` form mounts the handler at `/howto` rather
+The `define-easy-handler` form mounts the handler at `/howto` rather
 than `/` so Clio's default landing page is left alone.
 
 Load and start:
@@ -225,10 +220,10 @@ and link the stylesheet from the page:
    (if (clio:deployed-p)
        (clio:executable-relative-pathname "public/")
        (asdf:system-relative-pathname :clio-example-howto "public/")))
-  (clio::start-server)
-  (clio::start-browser
+  (clio:start-server)
+  (clio:start-browser
    (format nil "http://localhost:~A/howto"
-           clio::*clio-server-port*)))
+           clio:*clio-server-port*)))
 ```
 
 Reload the system, call `(howto:start)` again, and the page should
@@ -283,7 +278,7 @@ need it.
 This section adds a button to the page that doesn't exist in the
 HTML. It's created at runtime by Lisp, over the WebSocket, with its
 click handler living on the Lisp side as a closure. The mechanism is
-`clio::encode-create-button` paired with `clio::send-server-message`,
+`clio:encode-create-button` paired with `clio:send-server-message`,
 and the click round-trip uses Clio's element registry.
 
 ### The two Clio script tags
@@ -341,8 +336,8 @@ Add the model and the install function:
   text)
 
 (defun install-button ()
-  (clio::send-server-message
-   (clio::encode-create-button
+  (clio:send-server-message
+   (clio:encode-create-button
     "Announce my click"
     :onclick (lambda (element payload)
                (declare (ignore element payload))
@@ -389,14 +384,6 @@ dispatched by type:
 The `encode-create-input` function uses the same four-lane dispatch
 on its `:onchange` argument. The same lanes apply to any future
 `encode-create-*` Clio adds.
-
-Two more notes on the symbols. `send-server-message` and
-`encode-create-button` are reached through `clio::` for the same
-reason `start-server` and `start-browser` were in section 2: not
-yet in the public surface, candidates for promotion. The KSUID
-the registry keys on isn't visible at the call site — it's minted
-inside `encode-create-button` and threaded through to the browser
-inside the envelope.
 
 ## 5. A custom message type pushed from Lisp
 
@@ -474,7 +461,7 @@ Update `announce` to push the message after recording it:
 (defun announce (text)
   (let ((timestamp (get-universal-time)))
     (push (cons timestamp text) *announcements*)
-    (clio::send-server-message
+    (clio:send-server-message
      (cl-json:encode-json-plist-to-string
       `(:type "announcement"
         :text ,text

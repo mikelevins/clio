@@ -67,8 +67,8 @@ per-button Lisp-side click handler that closes over its own counter
 cell."
   (let ((counter (cons label 0)))
     (push counter *counters*)
-    (clio::send-server-message
-     (clio::encode-create-button
+    (clio:send-server-message
+     (clio:encode-create-button
       label
       :onclick (lambda (element payload)
                  (declare (ignore element payload))
@@ -86,15 +86,15 @@ browser window on this example's landing page at /counters. Once the
 page has loaded, call INSTALL-BUTTONS to mint the three counter
 buttons."
   (clio:serve-static-folder "/clio/" (clio:asset-directory))
-  (clio::start-server)
-  (clio::start-browser
-   (format nil "http://localhost:~A/counters" clio::*clio-server-port*)))
+  (clio:start-server)
+  (clio:start-browser
+   (format nil "http://localhost:~A/counters" clio:*clio-server-port*)))
 
 (defun install-buttons ()
   "Mints three counter buttons (A, B, C) in the browser. Requires
 that the browser has already connected to the Clio WebSocket; if
 called before the browser is connected, the create-button messages
-are silently dropped by CLIO::SEND-SERVER-MESSAGE (see NOTES.md).
+are silently dropped by CLIO:SEND-SERVER-MESSAGE (see NOTES.md).
 Resets *counters* on each call, so repeated calls start fresh
 Lisp-side -- but the browser-side accumulates DOM buttons from prior
 calls unless the page is reloaded."

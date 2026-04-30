@@ -59,5 +59,5 @@ page to get a fresh container.
 ## Shutting down
 
 ```lisp
-(clio::stop-server)
+(clio:stop-server)
 ```

@@ -109,8 +109,8 @@
 (defun start ()
   "Starts the Clio server if not already running, then opens a
 browser window on this example's landing page at /htmx."
-  (clio::start-server)
-  (clio::start-browser
-   (format nil "http://localhost:~A/htmx" clio::*clio-server-port*)))
+  (clio:start-server)
+  (clio:start-browser
+   (format nil "http://localhost:~A/htmx" clio:*clio-server-port*)))
 
 #+repl (start)

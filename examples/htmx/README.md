@@ -63,5 +63,5 @@ will appear inert.
 ## Shutting down
 
 ```lisp
-(clio::stop-server)
+(clio:stop-server)
 ```

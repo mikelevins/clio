@@ -136,13 +136,13 @@ browser as a custom \"announcement\" message. The handler registered
 in the landing page's <head> appends a list item to the
 announcements list on the page.
 
-If no browser is connected, CLIO::SEND-SERVER-MESSAGE silently drops
+If no browser is connected, CLIO:SEND-SERVER-MESSAGE silently drops
 the outbound message; *ANNOUNCEMENTS* is updated either way, so the
 stats endpoint will still see the announcement next time it's
 queried. This matches the behavior the counters example documents."
   (let ((timestamp (get-universal-time)))
     (push (cons timestamp text) *announcements*)
-    (clio::send-server-message
+    (clio:send-server-message
      (cl-json:encode-json-plist-to-string
       `(:type "announcement"
         :text ,text
@@ -172,9 +172,9 @@ through the same channel used by ANNOUNCE.
 Requires that the browser has already connected to the Clio
 WebSocket; if called before the browser is connected, the
 create-button message is silently dropped by
-CLIO::SEND-SERVER-MESSAGE."
-  (clio::send-server-message
-   (clio::encode-create-button
+CLIO:SEND-SERVER-MESSAGE."
+  (clio:send-server-message
+   (clio:encode-create-button
     "Announce my click"
     :onclick (lambda (element payload)
                (declare (ignore element payload))
@@ -214,9 +214,9 @@ in the DOM; reload the page to clear it."
    (if (clio:deployed-p)
        (clio:executable-relative-pathname "public/")
        (asdf:system-relative-pathname :clio-example-howto "public/")))
-  (clio::start-server)
-  (clio::start-browser
-   (format nil "http://localhost:~A/howto" clio::*clio-server-port*)))
+  (clio:start-server)
+  (clio:start-browser
+   (format nil "http://localhost:~A/howto" clio:*clio-server-port*)))
 
 #+repl (start)
 

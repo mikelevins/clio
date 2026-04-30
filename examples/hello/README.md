@@ -50,5 +50,5 @@ If ASDF cannot find either system, see the top-level
 ## Shutting down
 
 ```lisp
-(clio::stop-server)
+(clio:stop-server)
 ```

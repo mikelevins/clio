@@ -14,4 +14,16 @@
    ;; static-folder dispatch
    #:serve-static-folder
    ;; diagnostics
-   #:diagnose-asset-resolution))
+   #:diagnose-asset-resolution
+   ;; server
+   #:*clio-server-port*
+   #:start-server
+   #:stop-server
+   #:start-browser
+   ;; messaging
+   #:send-server-message
+   #:register-message-handler
+   #:register-handler-initializer
+   ;; element creation
+   #:encode-create-button
+   #:encode-create-input))

@@ -76,11 +76,11 @@
 
 (defun initialize-hello-example-message-handlers ()
   "Registers this example's message handlers. Called by
-CLIO::REGISTER-HANDLER-INITIALIZER on load, and again by
+CLIO:REGISTER-HANDLER-INITIALIZER on load, and again by
 CLIO::INITIALIZE-HANDLERS whenever the handler table is rebuilt."
-  (clio::register-message-handler "hello-greeting" 'handle-hello-greeting))
+  (clio:register-message-handler "hello-greeting" 'handle-hello-greeting))
 
-(clio::register-handler-initializer 'initialize-hello-example-message-handlers)
+(clio:register-handler-initializer 'initialize-hello-example-message-handlers)
 
 ;;; ---------------------------------------------------------------------
 ;;; entry point
@@ -88,15 +88,15 @@ CLIO::INITIALIZE-HANDLERS whenever the handler table is rebuilt."
 ;;; (clio-example-hello:start) starts the Clio server (if it is not
 ;;; already running) and opens a browser window on this example's
 ;;; landing page at /hello. If the server is already running, the
-;;; underlying CLIO::START-SERVER signals a harmless warning and
+;;; underlying CLIO:START-SERVER signals a harmless warning and
 ;;; returns; the browser still opens.
 
 (defun start ()
   "Starts the Clio server if not already running, then opens a
 browser window on this example's landing page at /hello."
   (clio:serve-static-folder "/clio/" (clio:asset-directory))
-  (clio::start-server)
-  (clio::start-browser
-   (format nil "http://localhost:~A/hello" clio::*clio-server-port*)))
+  (clio:start-server)
+  (clio:start-browser
+   (format nil "http://localhost:~A/hello" clio:*clio-server-port*)))
 
 #+repl (start)

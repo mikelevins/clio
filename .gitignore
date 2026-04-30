@@ -4,3 +4,4 @@ cliocl
 node_modules/
 /lisp/clio
 /lisp/clio.exe
+/examples/howto/deploy/
