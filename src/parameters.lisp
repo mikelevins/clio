@@ -37,10 +37,6 @@
 
 (defparameter *handler-initializers* '())
 
-(defun http-document-root ()
-  "find the document root for the HTTP server"
-  (asdf:system-relative-pathname :clio "public/"))
-
 ;;; HTMX uses hx-* attributes that aren't part of HTML5; tell Spinneret
 ;;; not to warn about them at compile time.
 

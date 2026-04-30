@@ -33,7 +33,8 @@
     (:html
      (:head
       (:title "Clio hello example")
-      (:script :src "/js/clio-ws.js"))
+      (:script :src "/clio/js/clio-protocol.js")
+      (:script :src "/clio/js/clio-ws.js"))
      (:body
       (:h1 "Clio hello example")
       (:p (:input :id "hello-name" :type "text" :placeholder "Your name"))
@@ -93,6 +94,7 @@ CLIO::INITIALIZE-HANDLERS whenever the handler table is rebuilt."
 (defun start ()
   "Starts the Clio server if not already running, then opens a
 browser window on this example's landing page at /hello."
+  (clio:serve-static-folder "/clio/" (clio:asset-directory))
   (clio::start-server)
   (clio::start-browser
    (format nil "http://localhost:~A/hello" clio::*clio-server-port*)))

@@ -109,13 +109,17 @@ alternating arguments, e.g.
 
 (defun encode-create-button (text &key
                                     (id (make-element-id))
+                                    (into "main-container")
                                     (onclick nil))
   "Encodes a create-button message for the browser.
 
 TEXT is the visible button label. ID is a KSUID string; a fresh one
-is minted if not supplied. ONCLICK selects one of four click-handler
-lanes; see the commentary above ENCODE-EVENT-HANDLER for the
-dispatch rules.
+is minted if not supplied. INTO is the DOM id of the element the
+minted button will be appended to; defaults to \"main-container\".
+If no element with that id exists at handler time, the browser
+warns to the console and skips the append. ONCLICK selects one of
+four click-handler lanes; see the commentary above
+ENCODE-EVENT-HANDLER for the dispatch rules.
 
 Returns the JSON string to ship over the websocket."
   (let* ((element (make-element "button" :id id))
@@ -125,10 +129,12 @@ Returns the JSON string to ship over the websocket."
       `(:type "create-element"
         :element-type "button"
         :id ,id
+        :into ,into
         :text ,text)
       :onclick onclick-value))))
 
 #+repl (encode-create-button "Hello")
+#+repl (encode-create-button "Elsewhere" :into "controls")
 #+repl (encode-create-button "JS" :onclick "function(){alert('hi');}")
 #+repl (encode-create-button "PS" :onclick '(lambda () (alert "hi from parenscript")))
 #+repl (encode-create-button "Lisp" :onclick (lambda (elt payload)
@@ -137,14 +143,18 @@ Returns the JSON string to ship over the websocket."
 
 (defun encode-create-input (&key
                               (id (make-element-id))
+                              (into "main-container")
                               (value "")
                               (onchange nil))
   "Encodes a create-input message for the browser.
 
 Creates a text input element. VALUE is its initial contents. ID is a
-KSUID string; a fresh one is minted if not supplied. ONCHANGE selects
-one of four change-handler lanes; see the commentary above
-ENCODE-EVENT-HANDLER for the dispatch rules.
+KSUID string; a fresh one is minted if not supplied. INTO is the DOM
+id of the element the minted input will be appended to; defaults to
+\"main-container\". If no element with that id exists at handler
+time, the browser warns to the console and skips the append.
+ONCHANGE selects one of four change-handler lanes; see the
+commentary above ENCODE-EVENT-HANDLER for the dispatch rules.
 
 The change event fires when the user commits a new value (typically
 on blur or Enter). The current text reaches the handler via different
@@ -174,6 +184,7 @@ Returns the JSON string to ship over the websocket."
       `(:type "create-element"
         :element-type "input"
         :id ,id
+        :into ,into
         :value ,value)
       :onchange onchange-value))))
 

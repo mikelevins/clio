@@ -195,7 +195,10 @@ INITIALIZE-HANDLERS whenever the handler table is rebuilt."
              (setf *clio-server*
                    (make-instance 'clio-acceptor
                                   :port *clio-server-port*
-                                  :document-root (http-document-root)))
+                                  :document-root (asset-directory)))
+             (unless (deployed-p)
+               (format t "~&Clio: framework assets resolved to ~A~%"
+                       (asset-directory)))
              (hunchentoot:start *clio-server*)
              *clio-server*)))
 

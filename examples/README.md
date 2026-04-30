@@ -29,8 +29,18 @@ Clio app.
    registry — and confirms that Clio's `hx-*` attribute prefix
    registration composes cleanly with Spinneret.
 
+4. **howto** — A synthesis example: a custom Lisp-pushed message
+   type, a FUNCTION-lane Lisp-minted button, and an HTMX fragment,
+   all feeding one Lisp-side `*announcements*` model on a single
+   page. Demonstrates the three core Clio mechanisms cohering on
+   one page, and exercises the recommended drop-in asset layout
+   (one `serve-static-folder` mount at `/`, with Clio's bundled
+   assets copied into the project's own `public/clio/`). The
+   project-root `HOWTO.md` walks through it section by section.
+
 More examples will be added in subsequent rounds; the ordering above
-is intended to introduce one Clio concept per step.
+is intended to introduce one Clio concept per step, with the final
+entry combining all three on one page.
 
 ## Running an example
 

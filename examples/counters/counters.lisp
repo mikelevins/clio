@@ -27,7 +27,8 @@
     (:html
      (:head
       (:title "Clio counters example")
-      (:script :src "/js/clio-ws.js"))
+      (:script :src "/clio/js/clio-protocol.js")
+      (:script :src "/clio/js/clio-ws.js"))
      (:body
       (:h1 "Clio counters example")
       (:p "After this page has loaded and the WebSocket has connected, run "
@@ -49,7 +50,7 @@
 ;;; event "click"; what distinguishes them is element id, and the
 ;;; registry is what turns that id back into the right closure.
 
-(defvar *counters* '()
+(defparameter *counters* '()
   "List of (label . count) cons cells, one per installed counter button,
 in the order they were installed. INSTALL-BUTTONS resets this.")
 
@@ -84,6 +85,7 @@ cell."
 browser window on this example's landing page at /counters. Once the
 page has loaded, call INSTALL-BUTTONS to mint the three counter
 buttons."
+  (clio:serve-static-folder "/clio/" (clio:asset-directory))
   (clio::start-server)
   (clio::start-browser
    (format nil "http://localhost:~A/counters" clio::*clio-server-port*)))

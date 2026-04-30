@@ -36,6 +36,7 @@
                           :components ((:file "package")
                                        (:file "parameters")
                                        (:file "util")
+                                       (:file "deployment")
                                        (:file "registry")
                                        (:file "server")
                                        (:file "browser-api")
